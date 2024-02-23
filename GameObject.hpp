@@ -14,7 +14,7 @@
 
 namespace game {
     class GameObject {
-    protected:
+      protected:
         float x;
         float y;
 
@@ -27,7 +27,7 @@ namespace game {
 
         bool isDeleted;
 
-    public:
+      public:
         void SetPosition(float x, float y) { this->x = x, this->y = y; }
         void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
         void GetPosition(float &x, float &y) {

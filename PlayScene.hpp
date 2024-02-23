@@ -9,7 +9,7 @@
 
 namespace game {
     class PlayScene : public Scene {
-    protected:
+      protected:
         // A play scene has to have player, right?
         LPGAMEOBJECT player;
 
@@ -23,7 +23,7 @@ namespace game {
 
         void LoadAssets(LPCWSTR assetFile);
 
-    public:
+      public:
         PlayScene(int id, LPCWSTR filePath);
 
         virtual void Load();

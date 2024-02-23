@@ -1,8 +1,7 @@
 #pragma once
+#include "Texture.hpp"
 #include <d3dx10.h>
 #include <unordered_map>
-
-#include "Texture.hpp"
 
 namespace game {
     /*
@@ -13,7 +12,7 @@ namespace game {
 
         std::unordered_map<int, LPTEXTURE> textures;
 
-    public:
+      public:
         Textures();
         void add(int id, LPCWSTR filePath);
         LPTEXTURE Get(unsigned int i);

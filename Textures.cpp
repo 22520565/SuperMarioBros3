@@ -1,8 +1,7 @@
-#include <windows.h>
-
+#include "textures.hpp"
 #include "Game.hpp"
 #include "debug.hpp"
-#include "textures.hpp"
+#include <windows.h>
 
 namespace game {
     Textures *Textures::__instance = NULL;

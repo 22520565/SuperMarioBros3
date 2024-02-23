@@ -12,10 +12,10 @@ namespace game {
 #define BRICK_BBOX_HEIGHT 16
 
     class Brick : public GameObject {
-    public:
+      public:
         Brick(float x, float y) : GameObject(x, y) {}
         void render();
         void Update(DWORD dt) {}
-        void GetBoundingBox(float& l, float& t, float& r, float& b);
+        void GetBoundingBox(float &l, float &t, float &r, float &b);
     };
 }

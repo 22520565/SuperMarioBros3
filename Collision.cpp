@@ -1,7 +1,7 @@
 #include "Collision.hpp"
 #include "GameObject.hpp"
-
 #include "debug.hpp"
+#include <cmath>
 
 #define BLOCK_PUSH_FACTOR 0.4f
 
@@ -82,8 +82,8 @@ namespace game {
         if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f)
             return;
 
-        t_entry = max(tx_entry, ty_entry);
-        t_exit = min(tx_exit, ty_exit);
+        t_entry = std::max(tx_entry, ty_entry);
+        t_exit = std::min(tx_exit, ty_exit);
 
         if (t_entry > t_exit)
             return;

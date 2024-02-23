@@ -7,16 +7,19 @@ namespace game {
         Sprite animation
     */
     class AnimationFrame {
-        LPSPRITE sprite;
-        DWORD time;
+       public:
+        explicit constexpr AnimationFrame(const LPSPRITE sprite, const DWORD time) noexcept
+            : sprite(sprite), time(time) {}
 
-    public:
-        AnimationFrame(LPSPRITE sprite, int time) {
-            this->sprite = sprite;
-            this->time = time;
-        }
-        DWORD GetTime() { return time; }
-        LPSPRITE GetSprite() { return sprite; }
+        [[nodiscard("Use the value of this method or remove the redundant statement!")]]
+        constexpr const DWORD &getTime() const noexcept { return this->time; }
+
+        [[nodiscard("Use the value of this method or remove the redundant statement!")]]
+        constexpr const LPSPRITE &getSprite() const noexcept { return this->sprite; }
+
+       private:
+        LPSPRITE sprite = nullptr;
+        DWORD time = DWORD();
     };
 
     typedef AnimationFrame *LPANIMATION_FRAME;

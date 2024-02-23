@@ -8,12 +8,12 @@ namespace game {
      *  Abstract class for a game scene
      */
     class Scene {
-    protected:
+      protected:
         LPKEYEVENTHANDLER key_handler;
         int id;
         LPCWSTR sceneFilePath;
 
-    public:
+      public:
         Scene(int id, LPCWSTR filePath) {
             this->id = id;
             this->sceneFilePath = filePath;
@@ -29,10 +29,10 @@ namespace game {
     typedef Scene *LPSCENE;
 
     class CSceneKeyHandler : public KeyEventHandler {
-    protected:
+      protected:
         Scene *scence;
 
-    public:
+      public:
         virtual void KeyState(BYTE *states) = 0;
         virtual void OnKeyDown(int KeyCode) = 0;
         virtual void OnKeyUp(int KeyCode) = 0;

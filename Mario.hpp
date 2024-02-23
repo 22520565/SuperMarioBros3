@@ -116,7 +116,7 @@ namespace game {
         int GetAniIdBig();
         int GetAniIdSmall();
 
-    public:
+      public:
         Mario(float x, float y) : GameObject(x, y) {
             isSitting = false;
             maxVx = 0.0f;
