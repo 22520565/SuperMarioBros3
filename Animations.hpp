@@ -10,7 +10,7 @@ namespace game {
         std::unordered_map<int, LPANIMATION> animations;
 
     public:
-        void Add(int id, LPANIMATION ani);
+        void add(int id, LPANIMATION ani);
         LPANIMATION Get(int id);
         void Clear();
 

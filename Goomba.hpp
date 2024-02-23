@@ -26,7 +26,7 @@ namespace game {
 
         virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
         virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
-        virtual void Render();
+        virtual void render();
 
         virtual int IsCollidable() { return 1; };
         virtual int IsBlocking() { return 0; }

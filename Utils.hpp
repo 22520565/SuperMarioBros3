@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-
+#include <stdfloat>
 #include <csignal>
 #include <cstdarg>
 #include <cstdio>

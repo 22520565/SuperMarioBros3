@@ -15,7 +15,7 @@ namespace game {
 
     public:
         Textures();
-        void Add(int id, LPCWSTR filePath);
+        void add(int id, LPCWSTR filePath);
         LPTEXTURE Get(unsigned int i);
         void Clear();
 

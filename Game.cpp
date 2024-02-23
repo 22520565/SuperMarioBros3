@@ -523,7 +523,7 @@ namespace game {
         int texID = atoi(tokens[0].c_str());
         std::wstring path = ToWSTR(tokens[1]);
 
-        Textures::GetInstance()->Add(texID, path.c_str());
+        Textures::GetInstance()->add(texID, path.c_str());
     }
 
     Game::~Game() {

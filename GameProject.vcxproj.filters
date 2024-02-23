@@ -146,5 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="stdfloat">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

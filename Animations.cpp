@@ -10,7 +10,7 @@ namespace game {
         return __instance;
     }
 
-    void Animations::Add(int id, LPANIMATION ani) {
+    void Animations::add(int id, LPANIMATION ani) {
         if (animations[id] != NULL)
             DebugOut(L"[WARNING] Animation %d already exists\n", id);
 

@@ -130,7 +130,7 @@ namespace game {
             coin = 0;
         }
         void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
-        void Render();
+        void render();
         void SetState(int state);
 
         int IsCollidable() {

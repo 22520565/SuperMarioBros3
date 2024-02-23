@@ -14,7 +14,7 @@ namespace game {
     class Coin : public GameObject {
     public:
         Coin(float x, float y) : GameObject(x, y) {}
-        void Render();
+        void render();
         void Update(DWORD dt) {}
         void GetBoundingBox(float &l, float &t, float &r, float &b);
         int IsBlocking() { return 0; }

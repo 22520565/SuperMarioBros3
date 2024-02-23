@@ -53,13 +53,13 @@ namespace game {
         CCollision::GetInstance()->Process(this, dt, coObjects);
     }
 
-    void Goomba::Render() {
+    void Goomba::render() {
         int aniId = ID_ANI_GOOMBA_WALKING;
         if (state == GOOMBA_STATE_DIE) {
             aniId = ID_ANI_GOOMBA_DIE;
         }
 
-        Animations::GetInstance()->Get(aniId)->Render(x, y);
+        Animations::GetInstance()->Get(aniId)->render(x, y);
         RenderBoundingBox();
     }
 

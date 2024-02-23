@@ -186,7 +186,7 @@ namespace game {
         return aniId;
     }
 
-    void Mario::Render() {
+    void Mario::render() {
         Animations *animations = Animations::GetInstance();
         int aniId = -1;
 
@@ -197,7 +197,7 @@ namespace game {
         else if (level == MARIO_LEVEL_SMALL)
             aniId = GetAniIdSmall();
 
-        animations->Get(aniId)->Render(x, y);
+        animations->Get(aniId)->render(x, y);
 
         // RenderBoundingBox();
 

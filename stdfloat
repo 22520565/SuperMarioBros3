@@ -1,0 +1,26 @@
+// This file is an alternative for using fixed width floating-point types in MSVC
+// TODO: Always check if MSVC supports these types. If it does or there is an error in this file, delete this file!
+
+#include <stdfloat>
+
+#ifdef _MSC_VER
+// NOTE: If there are errors on these aliases, 
+// maybe MSVC has supported fixed width floating-point types and you should delete this file!
+namespace std {
+    // This is an alternative type of fixed width floating-point type to use in MSVC.
+    // The size may not be corrected as excepted when compiling using MSVC. Use with care!
+    using float16_t = float;
+
+    // This is an alternative type of fixed width floating-point type to use in MSVC.
+    // The size may not be corrected as excepted when compiling using MSVC. Use with care!
+    using float32_t = float;
+
+    // This is an alternative type of fixed width floating-point type to use in MSVC.
+    // The size may not be corrected as excepted when compiling using MSVC. Use with care!
+    using float64_t = double;
+
+    // This is an alternative type of fixed width floating-point type to use in MSVC.
+    // The size may not be corrected as excepted when compiling using MSVC. Use with care!
+    using float128_t = long double;
+}
+#endif

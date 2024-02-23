@@ -75,7 +75,7 @@ void Update(DWORD dt) {
 /*
     Render a frame
 */
-void Render() {
+void render() {
     game::Game *g = game::Game::GetInstance();
 
     ID3D10Device *pD3DDevice = g->GetDirect3DDevice();
@@ -90,7 +90,7 @@ void Render() {
     FLOAT NewBlendFactor[4] = {0, 0, 0, 0};
     pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-    game::Game::GetInstance()->GetCurrentScene()->Render();
+    game::Game::GetInstance()->GetCurrentScene()->render();
 
     spriteHandler->End();
     pSwapChain->Present(0, 0);
@@ -167,7 +167,7 @@ int Run() {
 
             game::Game::GetInstance()->ProcessKeyboard();
             Update(dt);
-            Render();
+            render();
 
             game::Game::GetInstance()->SwitchScene();
         } else

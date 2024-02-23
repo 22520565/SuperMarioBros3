@@ -1,9 +1,9 @@
 #include "Coin.hpp"
 
 namespace game {
-    void Coin::Render() {
+    void Coin::render() {
         Animations *animations = Animations::GetInstance();
-        animations->Get(ID_ANI_COIN)->Render(x, y);
+        animations->Get(ID_ANI_COIN)->render(x, y);
 
         // RenderBoundingBox();
     }

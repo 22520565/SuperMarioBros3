@@ -31,7 +31,7 @@ namespace game {
         Game::GetInstance()->Draw(x - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
     }
 
-    void Portal::Render() {
+    void Portal::render() {
         RenderBoundingBox();
     }
 

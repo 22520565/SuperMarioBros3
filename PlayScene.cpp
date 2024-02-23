@@ -47,7 +47,7 @@ namespace game {
             return;
         }
 
-        Sprites::GetInstance()->Add(ID, l, t, r, b, tex);
+        Sprites::GetInstance()->add(ID, l, t, r, b, tex);
     }
 
     void PlayScene::_ParseSection_ASSETS(std::string line) {
@@ -76,10 +76,10 @@ namespace game {
         {
             int sprite_id = atoi(tokens[i].c_str());
             int frame_time = atoi(tokens[i + 1].c_str());
-            ani->Add(sprite_id, frame_time);
+            ani->add(sprite_id, frame_time);
         }
 
-        Animations::GetInstance()->Add(ani_id, ani);
+        Animations::GetInstance()->add(ani_id, ani);
     }
 
     /*
@@ -273,9 +273,9 @@ namespace game {
         PurgeDeletedObjects();
     }
 
-    void PlayScene::Render() {
+    void PlayScene::render() {
         for (int i = 0; i < objects.size(); i++)
-            objects[i]->Render();
+            objects[i]->render();
     }
 
     /*

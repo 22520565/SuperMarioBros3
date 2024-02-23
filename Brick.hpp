@@ -14,7 +14,7 @@ namespace game {
     class Brick : public GameObject {
     public:
         Brick(float x, float y) : GameObject(x, y) {}
-        void Render();
+        void render();
         void Update(DWORD dt) {}
         void GetBoundingBox(float& l, float& t, float& r, float& b);
     };

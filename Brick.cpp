@@ -1,9 +1,9 @@
 #include "Brick.hpp"
 
 namespace game {
-    void Brick::Render() {
+    void Brick::render() {
         Animations* animations = Animations::GetInstance();
-        animations->Get(ID_ANI_BRICK)->Render(x, y);
+        animations->Get(ID_ANI_BRICK)->render(x, y);
         // RenderBoundingBox();
     }
 

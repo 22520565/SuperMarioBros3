@@ -1,6 +1,8 @@
 #pragma once
 
+#include "stdfloat"
 #include <cstdint>
+#include <math.h>
 #include <unordered_map>
 #include <vector>
 #include <windows.h>
@@ -10,19 +12,20 @@
 
 namespace game {
     class Animation {
-        uint_fast64_t lastFrameTime;
-        int defaultTime;
-        int currentFrame;
+        uint_fast64_t lastFrameTime = 100U;
+        int_fast32_t defaultTime = -1;
+        int_fast32_t currentFrame = -1;
         std::vector<LPANIMATION_FRAME> frames;
 
     public:
-        Animation(int defaultTime = 100) {
-            this->defaultTime = defaultTime;
-            lastFrameTime = -1;
-            currentFrame = -1;
-        }
-        void Add(int spriteId, DWORD time = 0);
-        void Render(float x, float y);
+        constexpr explicit Animation() noexcept = default;
+
+        [[deprecated("'defaultTime' is redundant")]] constexpr explicit Animation(int defaultTime) noexcept
+            : defaultTime(defaultTime) {}
+
+        void add(int_fast32_t spriteId, DWORD time);
+
+        void render(const std::float32_t x, const std::float32_t y);
     };
 
     typedef Animation *LPANIMATION;

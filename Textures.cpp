@@ -16,7 +16,7 @@ namespace game {
         return __instance;
     }
 
-    void Textures::Add(int id, LPCWSTR filePath) {
+    void Textures::add(int id, LPCWSTR filePath) {
         textures[id] = Game::GetInstance()->LoadTexture(filePath);
     }
 

@@ -28,7 +28,7 @@ namespace game {
 
         virtual void Load();
         virtual void Update(DWORD dt);
-        virtual void Render();
+        virtual void render();
         virtual void Unload();
 
         LPGAMEOBJECT GetPlayer() { return player; }
