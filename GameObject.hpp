@@ -1,15 +1,13 @@
 #pragma once
 
-#include <windows.h>
 #include <d3dx10.h>
 #include <vector>
+#include <windows.h>
 
 #include "Animation.hpp"
 #include "Animations.hpp"
 #include "Collision.hpp"
 #include "Sprites.hpp"
-
-using namespace std;
 
 #define ID_TEX_BBOX -100 // special texture to draw object bounding box
 #define BBOX_ALPHA 0.25f // Bounding box transparency
@@ -53,7 +51,7 @@ public:
     }
 
     virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-    virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL){};
+    virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
     virtual void Render() = 0;
     virtual void SetState(int state) { this->state = state; }
 

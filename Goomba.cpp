@@ -39,7 +39,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e) {
     }
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+void CGoomba::Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
     vy += ay * dt;
     vx += ax * dt;
 

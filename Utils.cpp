@@ -3,11 +3,11 @@
 #include <string>
 #include <windows.h>
 
-vector<string> split(string line, string delimeter) {
-    vector<string> tokens;
+std::vector<std::string> split(std::string line, std::string delimeter) {
+   std::vector<std::string> tokens;
     size_t last = 0;
     size_t next = 0;
-    while ((next = line.find(delimeter, last)) != string::npos) {
+    while ((next = line.find(delimeter, last)) != std::string::npos) {
         tokens.push_back(line.substr(last, next - last));
         last = next + 1;
     }
@@ -19,7 +19,7 @@ vector<string> split(string line, string delimeter) {
 /*
 char * string to wchar_t* string.
 */
-wstring ToWSTR(string st) {
+std::wstring ToWSTR(std::string st) {
     const char* str = st.c_str();
 
     size_t newsize = strlen(str) + 1;
@@ -27,7 +27,7 @@ wstring ToWSTR(string st) {
     size_t convertedChars = 0;
     mbstowcs_s(&convertedChars, wcstring, newsize, str, _TRUNCATE);
 
-    wstring wstr(wcstring);
+    std::wstring wstr(wcstring);
 
     // delete wcstring   // << can I ? 
     return wstr;
@@ -36,7 +36,7 @@ wstring ToWSTR(string st) {
 /*
     Convert char* string to wchar_t* string.
 */
-LPCWSTR ToLPCWSTR(string st) {
+LPCWSTR ToLPCWSTR(std::string st) {
     const char *str = st.c_str();
 
     size_t newsize = strlen(str) + 1;
@@ -44,7 +44,7 @@ LPCWSTR ToLPCWSTR(string st) {
     size_t convertedChars = 0;
     mbstowcs_s(&convertedChars, wcstring, newsize, str, _TRUNCATE);
 
-    wstring *w = new wstring(wcstring);
+    std::wstring *w = new std::wstring(wcstring);
 
     // delete wcstring   // << can I ?
     return w->c_str();

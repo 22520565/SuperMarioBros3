@@ -4,15 +4,13 @@
 
 #include "Texture.hpp"
 
-using namespace std;
-
 /*
     Manage texture database
 */
 class CTextures {
     static CTextures *__instance;
 
-    unordered_map<int, LPTEXTURE> textures;
+   std::unordered_map<int, LPTEXTURE> textures;
 
 public:
     CTextures();

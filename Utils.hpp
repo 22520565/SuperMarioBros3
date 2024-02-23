@@ -10,9 +10,7 @@
 #include <stdarg.h>
 #include <vector>
 
-using namespace std;
+std::vector<std::string> split(std::string line, std::string delimeter = "\t");
+std::wstring ToWSTR(std::string st);
 
-vector<string> split(string line, string delimeter = "\t");
-wstring ToWSTR(string st);
-
-LPCWSTR ToLPCWSTR(string st);
+LPCWSTR ToLPCWSTR(std::string st);

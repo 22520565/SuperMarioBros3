@@ -12,8 +12,6 @@
 
 #include "SampleKeyEventHandler.hpp"
 
-using namespace std;
-
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath) {
     player = NULL;
     key_handler = new CSampleKeyHandler(this);
@@ -29,8 +27,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath) {
 
 #define MAX_SCENE_LINE 1024
 
-void CPlayScene::_ParseSection_SPRITES(string line) {
-    vector<string> tokens = split(line);
+void CPlayScene::_ParseSection_SPRITES(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     if (tokens.size() < 6)
         return; // skip invalid lines
@@ -51,19 +49,19 @@ void CPlayScene::_ParseSection_SPRITES(string line) {
     CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
 }
 
-void CPlayScene::_ParseSection_ASSETS(string line) {
-    vector<string> tokens = split(line);
+void CPlayScene::_ParseSection_ASSETS(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     if (tokens.size() < 1)
         return;
 
-    wstring path = ToWSTR(tokens[0]);
+    std::wstring path = ToWSTR(tokens[0]);
 
     LoadAssets(path.c_str());
 }
 
-void CPlayScene::_ParseSection_ANIMATIONS(string line) {
-    vector<string> tokens = split(line);
+void CPlayScene::_ParseSection_ANIMATIONS(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     if (tokens.size() < 3)
         return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
@@ -86,8 +84,8 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line) {
 /*
     Parse a line in section [OBJECTS]
 */
-void CPlayScene::_ParseSection_OBJECTS(string line) {
-    vector<string> tokens = split(line);
+void CPlayScene::_ParseSection_OBJECTS(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     // skip invalid lines - an object set must have at least id, x, y
     if (tokens.size() < 2)
@@ -158,14 +156,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line) {
 void CPlayScene::LoadAssets(LPCWSTR assetFile) {
     DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
 
-    ifstream f;
-    f.open(assetFile);
+    std::ifstream f = std::ifstream(assetFile);
 
     int section = ASSETS_SECTION_UNKNOWN;
 
     char str[MAX_SCENE_LINE];
     while (f.getline(str, MAX_SCENE_LINE)) {
-        string line(str);
+        std::string line(str);
 
         if (line[0] == '#')
             continue; // skip comment lines
@@ -196,23 +193,20 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile) {
         }
     }
 
-    f.close();
-
     DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
 
 void CPlayScene::Load() {
     DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
-    ifstream f;
-    f.open(sceneFilePath);
+    std::ifstream f=std::ifstream(sceneFilePath);
 
     // current resource section flag
     int section = SCENE_SECTION_UNKNOWN;
 
     char str[MAX_SCENE_LINE];
     while (f.getline(str, MAX_SCENE_LINE)) {
-        string line(str);
+       std::string line(str);
 
         if (line[0] == '#')
             continue; // skip comment lines
@@ -242,8 +236,6 @@ void CPlayScene::Load() {
         }
     }
 
-    f.close();
-
     DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
@@ -251,7 +243,7 @@ void CPlayScene::Update(DWORD dt) {
     // We know that Mario is the first object in the list hence we won't add him into the colliable object list
     // TO-DO: This is a "dirty" way, need a more organized way
 
-    vector<LPGAMEOBJECT> coObjects;
+    std::vector<LPGAMEOBJECT> coObjects;
     for (size_t i = 1; i < objects.size(); i++) {
         coObjects.push_back(objects[i]);
     }
@@ -289,8 +281,7 @@ void CPlayScene::Render() {
  *	Clear all objects from this scene
  */
 void CPlayScene::Clear() {
-    vector<LPGAMEOBJECT>::iterator it;
-    for (it = objects.begin(); it != objects.end(); it++) {
+    for (auto it = objects.begin(); it != objects.end(); it++) {
         delete (*it);
     }
     objects.clear();
@@ -315,8 +306,7 @@ void CPlayScene::Unload() {
 bool CPlayScene::IsGameObjectDeleted(const LPGAMEOBJECT &o) { return o == NULL; }
 
 void CPlayScene::PurgeDeletedObjects() {
-    vector<LPGAMEOBJECT>::iterator it;
-    for (it = objects.begin(); it != objects.end(); it++) {
+    for (auto it = objects.begin(); it != objects.end(); it++) {
         LPGAMEOBJECT o = *it;
         if (o->IsDeleted()) {
             delete o;

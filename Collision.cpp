@@ -141,7 +141,7 @@ LPCOLLISIONEVENT CCollision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJE
     coObjects: the list of colliable objects
     coEvents: list of potential collisions
 */
-void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT> *objDests, vector<LPCOLLISIONEVENT> &coEvents) {
+void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *objDests, std::vector<LPCOLLISIONEVENT> &coEvents) {
     for (UINT i = 0; i < objDests->size(); i++) {
         LPCOLLISIONEVENT e = SweptAABB(objSrc, dt, objDests->at(i));
 
@@ -155,7 +155,7 @@ void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT> *objDe
 }
 
 void CCollision::Filter(LPGAMEOBJECT objSrc,
-                        vector<LPCOLLISIONEVENT> &coEvents,
+                        std::vector<LPCOLLISIONEVENT> &coEvents,
                         LPCOLLISIONEVENT &colX,
                         LPCOLLISIONEVENT &colY,
                         int filterBlock = 1, // 1 = only filter block collisions, 0 = filter all collisions
@@ -202,8 +202,8 @@ void CCollision::Filter(LPGAMEOBJECT objSrc,
  *  Simple/Sample collision framework
  *  NOTE: Student might need to improve this based on game logic
  */
-void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-    vector<LPCOLLISIONEVENT> coEvents;
+void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    std::vector<LPCOLLISIONEVENT> coEvents;
     LPCOLLISIONEVENT colX = NULL;
     LPCOLLISIONEVENT colY = NULL;
 

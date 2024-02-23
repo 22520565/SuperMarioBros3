@@ -4,8 +4,6 @@
 #include <vector>
 #include <windows.h>
 
-using namespace std;
-
 class CGameObject;
 typedef CGameObject *LPGAMEOBJECT;
 
@@ -66,19 +64,19 @@ public:
     void Scan(
         LPGAMEOBJECT objSrc,
         DWORD dt,
-        vector<LPGAMEOBJECT> *objDests,
-        vector<LPCOLLISIONEVENT> &coEvents);
+        std::vector<LPGAMEOBJECT> *objDests,
+        std::vector<LPCOLLISIONEVENT> &coEvents);
 
     void Filter(
         LPGAMEOBJECT objSrc,
-        vector<LPCOLLISIONEVENT> &coEvents,
+        std::vector<LPCOLLISIONEVENT> &coEvents,
         LPCOLLISIONEVENT &colX,
         LPCOLLISIONEVENT &colY,
         int filterBlock,
         int filterX,
         int filterY);
 
-    void Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+    void Process(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
 
     static CCollision *GetInstance();
 };

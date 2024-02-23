@@ -4,8 +4,6 @@
 #include <d3dx10.h>
 #include <unordered_map>
 
-using namespace std;
-
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
@@ -49,12 +47,12 @@ class CGame {
 
     ID3D10SamplerState *pPointSamplerState;
 
-    unordered_map<int, LPSCENE> scenes;
+   std::unordered_map<int, LPSCENE> scenes;
     int current_scene;
     int next_scene = -1;
 
-    void _ParseSection_SETTINGS(string line);
-    void _ParseSection_SCENES(string line);
+    void _ParseSection_SETTINGS(std::string line);
+    void _ParseSection_SCENES(std::string line);
 
 public:
     // Init DirectX, Sprite Handler
@@ -112,7 +110,7 @@ public:
     void SwitchScene();
     void InitiateSwitchScene(int scene_id);
 
-    void _ParseSection_TEXTURES(string line);
+    void _ParseSection_TEXTURES(std::string line);
 
     ~CGame();
 };

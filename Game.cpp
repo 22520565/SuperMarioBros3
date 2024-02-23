@@ -412,8 +412,8 @@ void CGame::ProcessKeyboard() {
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
 
-void CGame::_ParseSection_SETTINGS(string line) {
-    vector<string> tokens = split(line);
+void CGame::_ParseSection_SETTINGS(std::string line) {
+   std:: vector<std::string> tokens = split(line);
 
     if (tokens.size() < 2)
         return;
@@ -423,8 +423,8 @@ void CGame::_ParseSection_SETTINGS(string line) {
         DebugOut(L"[ERROR] Unknown game setting: %s\n", ToWSTR(tokens[0]).c_str());
 }
 
-void CGame::_ParseSection_SCENES(string line) {
-    vector<string> tokens = split(line);
+void CGame::_ParseSection_SCENES(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     if (tokens.size() < 2)
         return;
@@ -441,15 +441,14 @@ void CGame::_ParseSection_SCENES(string line) {
 void CGame::Load(LPCWSTR gameFile) {
     DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
-    ifstream f;
-    f.open(gameFile);
+    std::ifstream f=std::ifstream(gameFile);
     char str[MAX_GAME_LINE];
 
     // current resource section flag
     int section = GAME_FILE_SECTION_UNKNOWN;
 
     while (f.getline(str, MAX_GAME_LINE)) {
-        string line(str);
+        std::string line(str);
 
         if (line[0] == '#')
             continue; // skip comment lines
@@ -487,7 +486,6 @@ void CGame::Load(LPCWSTR gameFile) {
             break;
         }
     }
-    f.close();
 
     DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
 
@@ -515,14 +513,14 @@ void CGame::InitiateSwitchScene(int scene_id) {
     next_scene = scene_id;
 }
 
-void CGame::_ParseSection_TEXTURES(string line) {
-    vector<string> tokens = split(line);
+void CGame::_ParseSection_TEXTURES(std::string line) {
+    std::vector<std::string> tokens = split(line);
 
     if (tokens.size() < 2)
         return;
 
     int texID = atoi(tokens[0].c_str());
-    wstring path = ToWSTR(tokens[1]);
+    std::wstring path = ToWSTR(tokens[1]);
 
     CTextures::GetInstance()->Add(texID, path.c_str());
 }

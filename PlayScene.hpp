@@ -12,13 +12,13 @@ protected:
     // A play scene has to have player, right?
     LPGAMEOBJECT player;
 
-    vector<LPGAMEOBJECT> objects;
+   std::vector<LPGAMEOBJECT> objects;
 
-    void _ParseSection_SPRITES(string line);
-    void _ParseSection_ANIMATIONS(string line);
+    void _ParseSection_SPRITES(std::string line);
+    void _ParseSection_ANIMATIONS(std::string line);
 
-    void _ParseSection_ASSETS(string line);
-    void _ParseSection_OBJECTS(string line);
+    void _ParseSection_ASSETS(std::string line);
+    void _ParseSection_OBJECTS(std::string line);
 
     void LoadAssets(LPCWSTR assetFile);
 

@@ -10,7 +10,7 @@
 
 #include "Collision.hpp"
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+void CMario::Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
     vy += ay * dt;
     vx += ax * dt;
 
