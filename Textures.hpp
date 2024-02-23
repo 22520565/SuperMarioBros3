@@ -4,19 +4,21 @@
 
 #include "Texture.hpp"
 
-/*
-    Manage texture database
-*/
-class CTextures {
-    static CTextures *__instance;
+namespace game {
+    /*
+        Manage texture database
+    */
+    class CTextures {
+        static CTextures *__instance;
 
-   std::unordered_map<int, LPTEXTURE> textures;
+        std::unordered_map<int, LPTEXTURE> textures;
 
-public:
-    CTextures();
-    void Add(int id, LPCWSTR filePath);
-    LPTEXTURE Get(unsigned int i);
-    void Clear();
+    public:
+        CTextures();
+        void Add(int id, LPCWSTR filePath);
+        LPTEXTURE Get(unsigned int i);
+        void Clear();
 
-    static CTextures *GetInstance();
-};
+        static CTextures *GetInstance();
+    };
+}

@@ -3,22 +3,24 @@
 #include "Game.hpp"
 #include "Texture.hpp"
 
-class CSprite {
-    int id; // Sprite ID in the sprite database
+namespace game {
+    class CSprite {
+        int id; // Sprite ID in the sprite database
 
-    int left;
-    int top;
-    int right;
-    int bottom;
+        int left;
+        int top;
+        int right;
+        int bottom;
 
-    LPTEXTURE texture;
-    D3DX10_SPRITE sprite;
-    D3DXMATRIX matScaling;
+        LPTEXTURE texture;
+        D3DX10_SPRITE sprite;
+        D3DXMATRIX matScaling;
 
-public:
-    CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
+    public:
+        CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
 
-    void Draw(float x, float y);
-};
+        void Draw(float x, float y);
+    };
 
-typedef CSprite *LPSPRITE;
+    typedef CSprite *LPSPRITE;
+}

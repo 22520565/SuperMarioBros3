@@ -3,14 +3,16 @@
 #include <windows.h>
 
 #include <csignal>
+#include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
-#include <string>
 #include <ctime>
-#include <stdarg.h>
+#include <string>
 #include <vector>
 
-std::vector<std::string> split(std::string line, std::string delimeter = "\t");
-std::wstring ToWSTR(std::string st);
+namespace game {
+    std::vector<std::string> split(std::string line, std::string delimeter = "\t");
+    std::wstring ToWSTR(std::string st);
 
-LPCWSTR ToLPCWSTR(std::string st);
+    LPCWSTR ToLPCWSTR(std::string st);
+}

@@ -69,14 +69,14 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     dt: time period between beginning of last frame and beginning of this frame
 */
 void Update(DWORD dt) {
-    CGame::GetInstance()->GetCurrentScene()->Update(dt);
+    game::CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
 /*
     Render a frame
 */
 void Render() {
-    CGame *g = CGame::GetInstance();
+    game::CGame *g =game::CGame::GetInstance();
 
     ID3D10Device *pD3DDevice = g->GetDirect3DDevice();
     IDXGISwapChain *pSwapChain = g->GetSwapChain();
@@ -90,7 +90,7 @@ void Render() {
     FLOAT NewBlendFactor[4] = {0, 0, 0, 0};
     pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-    CGame::GetInstance()->GetCurrentScene()->Render();
+    game::CGame::GetInstance()->GetCurrentScene()->Render();
 
     spriteHandler->End();
     pSwapChain->Present(0, 0);
@@ -165,11 +165,11 @@ int Run() {
         if (dt >= tickPerFrame) {
             frameStart = now;
 
-            CGame::GetInstance()->ProcessKeyboard();
+            game::CGame::GetInstance()->ProcessKeyboard();
             Update(dt);
             Render();
 
-            CGame::GetInstance()->SwitchScene();
+            game::CGame::GetInstance()->SwitchScene();
         } else
             Sleep(tickPerFrame - dt);
     }
@@ -184,9 +184,9 @@ int WINAPI WinMain(
     _In_ int nCmdShow) {
     HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    SetDebugWindow(hWnd);
+    game::SetDebugWindow(hWnd);
 
-    LPGAME game = CGame::GetInstance();
+    game::LPGAME game = game::CGame::GetInstance();
     game->Init(hWnd, hInstance);
     game->InitKeyboard();
 

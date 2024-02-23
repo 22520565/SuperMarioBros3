@@ -1,33 +1,35 @@
 #include "Animations.hpp"
 #include "debug.hpp"
 
-CAnimations *CAnimations::__instance = NULL;
+namespace game {
+    CAnimations *CAnimations::__instance = NULL;
 
-CAnimations *CAnimations::GetInstance() {
-    if (__instance == NULL)
-        __instance = new CAnimations();
-    return __instance;
-}
-
-void CAnimations::Add(int id, LPANIMATION ani) {
-    if (animations[id] != NULL)
-        DebugOut(L"[WARNING] Animation %d already exists\n", id);
-
-    animations[id] = ani;
-}
-
-LPANIMATION CAnimations::Get(int id) {
-    LPANIMATION ani = animations[id];
-    if (ani == NULL)
-        DebugOut(L"[ERROR] Animation ID %d not found\n", id);
-    return ani;
-}
-
-void CAnimations::Clear() {
-    for (auto x : animations) {
-        LPANIMATION ani = x.second;
-        delete ani;
+    CAnimations *CAnimations::GetInstance() {
+        if (__instance == NULL)
+            __instance = new CAnimations();
+        return __instance;
     }
 
-    animations.clear();
+    void CAnimations::Add(int id, LPANIMATION ani) {
+        if (animations[id] != NULL)
+            DebugOut(L"[WARNING] Animation %d already exists\n", id);
+
+        animations[id] = ani;
+    }
+
+    LPANIMATION CAnimations::Get(int id) {
+        LPANIMATION ani = animations[id];
+        if (ani == NULL)
+            DebugOut(L"[ERROR] Animation ID %d not found\n", id);
+        return ani;
+    }
+
+    void CAnimations::Clear() {
+        for (auto x : animations) {
+            LPANIMATION ani = x.second;
+            delete ani;
+        }
+
+        animations.clear();
+    }
 }

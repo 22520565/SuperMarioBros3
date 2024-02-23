@@ -12,64 +12,66 @@
 #define ID_TEX_BBOX -100 // special texture to draw object bounding box
 #define BBOX_ALPHA 0.25f // Bounding box transparency
 
-class CGameObject {
-protected:
-    float x;
-    float y;
+namespace game {
+    class CGameObject {
+    protected:
+        float x;
+        float y;
 
-    float vx;
-    float vy;
+        float vx;
+        float vy;
 
-    int nx;
+        int nx;
 
-    int state;
+        int state;
 
-    bool isDeleted;
+        bool isDeleted;
 
-public:
-    void SetPosition(float x, float y) { this->x = x, this->y = y; }
-    void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-    void GetPosition(float &x, float &y) {
-        x = this->x;
-        y = this->y;
-    }
-    void GetSpeed(float &vx, float &vy) {
-        vx = this->vx;
-        vy = this->vy;
-    }
+    public:
+        void SetPosition(float x, float y) { this->x = x, this->y = y; }
+        void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+        void GetPosition(float &x, float &y) {
+            x = this->x;
+            y = this->y;
+        }
+        void GetSpeed(float &vx, float &vy) {
+            vx = this->vx;
+            vy = this->vy;
+        }
 
-    int GetState() { return this->state; }
-    virtual void Delete() { isDeleted = true; }
-    bool IsDeleted() { return isDeleted; }
+        int GetState() { return this->state; }
+        virtual void Delete() { isDeleted = true; }
+        bool IsDeleted() { return isDeleted; }
 
-    void RenderBoundingBox();
+        void RenderBoundingBox();
 
-    CGameObject();
-    CGameObject(float x, float y) : CGameObject() {
-        this->x = x;
-        this->y = y;
-    }
+        CGameObject();
+        CGameObject(float x, float y) : CGameObject() {
+            this->x = x;
+            this->y = y;
+        }
 
-    virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-    virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
-    virtual void Render() = 0;
-    virtual void SetState(int state) { this->state = state; }
+        virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+        virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
+        virtual void Render() = 0;
+        virtual void SetState(int state) { this->state = state; }
 
-    //
-    // Collision ON or OFF ? This can change depending on object's state. For example: die
-    //
-    virtual int IsCollidable() { return 0; };
+        //
+        // Collision ON or OFF ? This can change depending on object's state. For example: die
+        //
+        virtual int IsCollidable() { return 0; };
 
-    // When no collision has been detected (triggered by CCollision::Process)
-    virtual void OnNoCollision(DWORD dt){};
+        // When no collision has been detected (triggered by CCollision::Process)
+        virtual void OnNoCollision(DWORD dt){};
 
-    // When collision with an object has been detected (triggered by CCollision::Process)
-    virtual void OnCollisionWith(LPCOLLISIONEVENT e){};
+        // When collision with an object has been detected (triggered by CCollision::Process)
+        virtual void OnCollisionWith(LPCOLLISIONEVENT e){};
 
-    // Is this object blocking other object? If YES, collision framework will automatically push the other object
-    virtual int IsBlocking() { return 1; }
+        // Is this object blocking other object? If YES, collision framework will automatically push the other object
+        virtual int IsBlocking() { return 1; }
 
-    ~CGameObject();
+        ~CGameObject();
 
-    static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
-};
+        static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
+    };
+}

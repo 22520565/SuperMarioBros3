@@ -6,6 +6,7 @@
 
 #include "debug.hpp"
 
+namespace game {
 #define MARIO_WALKING_SPEED 0.1f
 #define MARIO_RUNNING_SPEED 0.2f
 
@@ -96,56 +97,57 @@
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 
-class CMario : public CGameObject {
-    BOOLEAN isSitting;
-    float maxVx;
-    float ax; // acceleration on x
-    float ay; // acceleration on y
+    class CMario : public CGameObject {
+        BOOLEAN isSitting;
+        float maxVx;
+        float ax; // acceleration on x
+        float ay; // acceleration on y
 
-    int level;
-    int untouchable;
-    ULONGLONG untouchable_start;
-    BOOLEAN isOnPlatform;
-    int coin;
+        int level;
+        int untouchable;
+        ULONGLONG untouchable_start;
+        BOOLEAN isOnPlatform;
+        int coin;
 
-    void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
-    void OnCollisionWithCoin(LPCOLLISIONEVENT e);
-    void OnCollisionWithPortal(LPCOLLISIONEVENT e);
+        void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+        void OnCollisionWithCoin(LPCOLLISIONEVENT e);
+        void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 
-    int GetAniIdBig();
-    int GetAniIdSmall();
+        int GetAniIdBig();
+        int GetAniIdSmall();
 
-public:
-    CMario(float x, float y) : CGameObject(x, y) {
-        isSitting = false;
-        maxVx = 0.0f;
-        ax = 0.0f;
-        ay = MARIO_GRAVITY;
+    public:
+        CMario(float x, float y) : CGameObject(x, y) {
+            isSitting = false;
+            maxVx = 0.0f;
+            ax = 0.0f;
+            ay = MARIO_GRAVITY;
 
-        level = MARIO_LEVEL_BIG;
-        untouchable = 0;
-        untouchable_start = -1;
-        isOnPlatform = false;
-        coin = 0;
-    }
-    void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
-    void Render();
-    void SetState(int state);
+            level = MARIO_LEVEL_BIG;
+            untouchable = 0;
+            untouchable_start = -1;
+            isOnPlatform = false;
+            coin = 0;
+        }
+        void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
+        void Render();
+        void SetState(int state);
 
-    int IsCollidable() {
-        return (state != MARIO_STATE_DIE);
-    }
+        int IsCollidable() {
+            return (state != MARIO_STATE_DIE);
+        }
 
-    int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+        int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
 
-    void OnNoCollision(DWORD dt);
-    void OnCollisionWith(LPCOLLISIONEVENT e);
+        void OnNoCollision(DWORD dt);
+        void OnCollisionWith(LPCOLLISIONEVENT e);
 
-    void SetLevel(int l);
-    void StartUntouchable() {
-        untouchable = 1;
-        untouchable_start = GetTickCount64();
-    }
+        void SetLevel(int l);
+        void StartUntouchable() {
+            untouchable = 1;
+            untouchable_start = GetTickCount64();
+        }
 
-    void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-};
+        void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+    };
+}

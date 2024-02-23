@@ -8,6 +8,7 @@
 #include <string>
 #include <windows.h>
 
+namespace game {
 #define _W(x) __W(x)
 #define __W(x) L##x
 
@@ -19,6 +20,7 @@
         va_end(argp);              \
     }
 
-void DebugOut(const wchar_t *fmt, ...);
-void DebugOutTitle(const wchar_t *fmt, ...);
-void SetDebugWindow(HWND hwnd);
+    void DebugOut(const wchar_t* fmt, ...);
+    void DebugOutTitle(const wchar_t* fmt, ...);
+    void SetDebugWindow(HWND hwnd);
+}
