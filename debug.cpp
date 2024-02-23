@@ -4,7 +4,7 @@
 namespace game {
     HWND _hwnd = NULL;
 
-    void DebugOut(const wchar_t* fmt, ...) {
+    void DebugOut(const wchar_t *fmt, ...) {
         va_list argp;
         va_start(argp, fmt);
         wchar_t dbg_out[4096];
@@ -13,7 +13,7 @@ namespace game {
         OutputDebugString(dbg_out);
     }
 
-    void DebugOutTitle(const wchar_t* fmt, ...) {
+    void DebugOutTitle(const wchar_t *fmt, ...) {
         wchar_t s[1024];
         VA_PRINTS(s);
         SetWindowText(_hwnd, s);

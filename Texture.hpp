@@ -9,13 +9,13 @@ namespace game {
     // Warpper class to simplify texture manipulation. See also Game::LoadTexture
     //
     class Texture final {
-    private:
+      private:
         ID3D10Texture2D *texture = nullptr;
         ID3D10ShaderResourceView *shaderResourceView = nullptr;
         uint_fast32_t width = 0U;
         uint_fast32_t height = 0U;
 
-    public:
+      public:
         constexpr Texture() noexcept = default;
 
         Texture(ID3D10Texture2D *const texture, ID3D10ShaderResourceView *const shaderResourceView)
@@ -26,7 +26,8 @@ namespace game {
             this->height = desc.Height;
         }
 
-        [[nodiscard]] ID3D10ShaderResourceView *getShaderResourceView() const noexcept { return this->shaderResourceView; }
+        [[nodiscard]]
+        ID3D10ShaderResourceView *getShaderResourceView() const noexcept { return this->shaderResourceView; }
 
         constexpr uint_fast32_t getWidth() const noexcept { return this->width; }
         constexpr uint_fast32_t getHeight() const noexcept { return this->height; }

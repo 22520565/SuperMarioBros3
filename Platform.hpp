@@ -7,16 +7,16 @@ namespace game {
     // The most popular type of object in Mario!
     //
     class Platform : public GameObject {
-    protected:
+      protected:
         int length; // Unit: cell
         float cellWidth;
         float cellHeight;
         int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
-    public:
+      public:
         Platform(float x, float y,
-                  float cell_width, float cell_height, int length,
-                  int sprite_id_begin, int sprite_id_middle, int sprite_id_end) : GameObject(x, y) {
+                 float cell_width, float cell_height, int length,
+                 int sprite_id_begin, int sprite_id_middle, int sprite_id_end) : GameObject(x, y) {
             this->length = length;
             this->cellWidth = cell_width;
             this->cellHeight = cell_height;

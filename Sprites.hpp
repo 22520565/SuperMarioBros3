@@ -16,7 +16,7 @@ namespace game {
 
         std::unordered_map<int, LPSPRITE> sprites;
 
-    public:
+      public:
         void add(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
         LPSPRITE Get(int id);
         void Clear();

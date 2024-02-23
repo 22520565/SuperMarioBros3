@@ -1,8 +1,8 @@
 #pragma once
-#include <windows.h>
 #include <d3d10.h>
 #include <d3dx10.h>
 #include <unordered_map>
+#include <windows.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -20,16 +20,16 @@ namespace game {
         Our simple game framework
     */
     class Game {
-        static Game* __instance;
+        static Game *__instance;
         HWND hWnd; // Window handle
 
         int backBufferWidth = 0; // Backbuffer width & height, will be set during Direct3D initialization
         int backBufferHeight = 0;
 
-        ID3D10Device* pD3DDevice = NULL;
-        IDXGISwapChain* pSwapChain = NULL;
-        ID3D10RenderTargetView* pRenderTargetView = NULL;
-        ID3D10BlendState* pBlendStateAlpha = NULL; // To store alpha blending state
+        ID3D10Device *pD3DDevice = NULL;
+        IDXGISwapChain *pSwapChain = NULL;
+        ID3D10RenderTargetView *pRenderTargetView = NULL;
+        ID3D10BlendState *pBlendStateAlpha = NULL; // To store alpha blending state
 
         LPD3DX10SPRITE spriteObject; // Sprite handling object, BIG MYSTERY: it has to be in this place OR will lead to access violation in D3D11.dll ????
 
@@ -46,7 +46,7 @@ namespace game {
 
         HINSTANCE hInstance;
 
-        ID3D10SamplerState* pPointSamplerState;
+        ID3D10SamplerState *pPointSamplerState;
 
         std::unordered_map<int, LPSCENE> scenes;
         int current_scene;
@@ -55,7 +55,7 @@ namespace game {
         void _ParseSection_SETTINGS(std::string line);
         void _ParseSection_SCENES(std::string line);
 
-    public:
+      public:
         // Init DirectX, Sprite Handler
         void Init(HWND hWnd, HINSTANCE hInstance);
 
@@ -63,7 +63,7 @@ namespace game {
         // Draw a portion or ALL the texture at position (x,y) on the screen. (x,y) is at the CENTER of the image
         // rect : if NULL, the whole texture will be drawn
         //        if NOT NULL, only draw that portion of the texture
-        void Draw(float x, float y, LPTEXTURE tex, RECT* rect = NULL, float alpha = 1.0f, int sprite_width = 0, int sprite_height = 0);
+        void Draw(float x, float y, LPTEXTURE tex, RECT *rect = NULL, float alpha = 1.0f, int sprite_width = 0, int sprite_height = 0);
 
         void Draw(float x, float y, LPTEXTURE tex, int l, int t, int r, int b, float alpha = 1.0f, int sprite_width = 0, int sprite_height = 0) {
             RECT rect;
@@ -82,18 +82,18 @@ namespace game {
         void ProcessKeyboard();
         void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 
-        ID3D10Device* GetDirect3DDevice() { return this->pD3DDevice; }
-        IDXGISwapChain* GetSwapChain() { return this->pSwapChain; }
-        ID3D10RenderTargetView* GetRenderTargetView() { return this->pRenderTargetView; }
+        ID3D10Device *GetDirect3DDevice() { return this->pD3DDevice; }
+        IDXGISwapChain *GetSwapChain() { return this->pSwapChain; }
+        ID3D10RenderTargetView *GetRenderTargetView() { return this->pRenderTargetView; }
 
-        ID3DX10Sprite* GetSpriteHandler() { return this->spriteObject; }
+        ID3DX10Sprite *GetSpriteHandler() { return this->spriteObject; }
 
-        ID3D10BlendState* GetAlphaBlending() { return pBlendStateAlpha; };
+        ID3D10BlendState *GetAlphaBlending() { return pBlendStateAlpha; };
 
         int GetBackBufferWidth() { return backBufferWidth; }
         int GetBackBufferHeight() { return backBufferHeight; }
 
-        static Game* GetInstance();
+        static Game *GetInstance();
 
         void SetPointSamplerState();
 
@@ -101,7 +101,7 @@ namespace game {
             cam_x = x;
             cam_y = y;
         }
-        void GetCamPos(float& x, float& y) {
+        void GetCamPos(float &x, float &y) {
             x = cam_x;
             y = cam_y;
         }
@@ -115,5 +115,5 @@ namespace game {
 
         ~Game();
     };
-    typedef Game* LPGAME;
+    typedef Game *LPGAME;
 }

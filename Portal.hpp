@@ -12,7 +12,7 @@ namespace game {
         float width;
         float height;
 
-    public:
+      public:
         Portal(float l, float t, float r, float b, int scene_id);
         virtual void render();
         virtual void GetBoundingBox(float &l, float &t, float &r, float &b);

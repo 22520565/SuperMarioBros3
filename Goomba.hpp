@@ -18,7 +18,7 @@
 
 namespace game {
     class Goomba : public GameObject {
-    protected:
+      protected:
         float ax;
         float ay;
 
@@ -34,7 +34,7 @@ namespace game {
 
         virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-    public:
+      public:
         Goomba(float x, float y);
         virtual void SetState(int state);
     };

@@ -12,7 +12,7 @@
 
 namespace game {
     class Coin : public GameObject {
-    public:
+      public:
         Coin(float x, float y) : GameObject(x, y) {}
         void render();
         void Update(DWORD dt) {}

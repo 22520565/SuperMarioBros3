@@ -4,7 +4,7 @@
 
 namespace game {
     class SampleKeyHandler : public CSceneKeyHandler {
-    public:
+      public:
         virtual void KeyState(BYTE *states);
         virtual void OnKeyDown(int KeyCode);
         virtual void OnKeyUp(int KeyCode);

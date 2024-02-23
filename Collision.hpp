@@ -42,7 +42,7 @@ namespace game {
     class CCollision {
         static CCollision *__instance;
 
-    public:
+      public:
         static void SweptAABB(
             float ml, // move left
             float mt, // move top
