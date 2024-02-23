@@ -9,8 +9,8 @@
         2/ Handle multiple scenes in game
 
     Key classes/functions:
-        CScene
-        CPlayScene
+        Scene
+        PlayScene
 
 
 HOW TO INSTALL Microsoft.DXSDK.D3DX
@@ -69,14 +69,14 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     dt: time period between beginning of last frame and beginning of this frame
 */
 void Update(DWORD dt) {
-    game::CGame::GetInstance()->GetCurrentScene()->Update(dt);
+    game::Game::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
 /*
     Render a frame
 */
 void Render() {
-    game::CGame *g =game::CGame::GetInstance();
+    game::Game *g = game::Game::GetInstance();
 
     ID3D10Device *pD3DDevice = g->GetDirect3DDevice();
     IDXGISwapChain *pSwapChain = g->GetSwapChain();
@@ -90,7 +90,7 @@ void Render() {
     FLOAT NewBlendFactor[4] = {0, 0, 0, 0};
     pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-    game::CGame::GetInstance()->GetCurrentScene()->Render();
+    game::Game::GetInstance()->GetCurrentScene()->Render();
 
     spriteHandler->End();
     pSwapChain->Present(0, 0);
@@ -165,11 +165,11 @@ int Run() {
         if (dt >= tickPerFrame) {
             frameStart = now;
 
-            game::CGame::GetInstance()->ProcessKeyboard();
+            game::Game::GetInstance()->ProcessKeyboard();
             Update(dt);
             Render();
 
-            game::CGame::GetInstance()->SwitchScene();
+            game::Game::GetInstance()->SwitchScene();
         } else
             Sleep(tickPerFrame - dt);
     }
@@ -186,7 +186,7 @@ int WINAPI WinMain(
 
     game::SetDebugWindow(hWnd);
 
-    game::LPGAME game = game::CGame::GetInstance();
+    game::LPGAME game = game::Game::GetInstance();
     game->Init(hWnd, hInstance);
     game->InitKeyboard();
 

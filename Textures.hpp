@@ -8,17 +8,17 @@ namespace game {
     /*
         Manage texture database
     */
-    class CTextures {
-        static CTextures *__instance;
+    class Textures {
+        static Textures *__instance;
 
         std::unordered_map<int, LPTEXTURE> textures;
 
     public:
-        CTextures();
+        Textures();
         void Add(int id, LPCWSTR filePath);
         LPTEXTURE Get(unsigned int i);
         void Clear();
 
-        static CTextures *GetInstance();
+        static Textures *GetInstance();
     };
 }

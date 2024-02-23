@@ -4,7 +4,7 @@
 #include "Texture.hpp"
 
 namespace game {
-    class CSprite {
+    class Sprite {
         int id; // Sprite ID in the sprite database
 
         int left;
@@ -17,10 +17,10 @@ namespace game {
         D3DXMATRIX matScaling;
 
     public:
-        CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
+        Sprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
 
         void Draw(float x, float y);
     };
 
-    typedef CSprite *LPSPRITE;
+    typedef Sprite *LPSPRITE;
 }

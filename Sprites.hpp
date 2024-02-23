@@ -11,8 +11,8 @@ namespace game {
     /*
         Manage sprite database
     */
-    class CSprites {
-        static CSprites *__instance;
+    class Sprites {
+        static Sprites *__instance;
 
         std::unordered_map<int, LPSPRITE> sprites;
 
@@ -21,6 +21,6 @@ namespace game {
         LPSPRITE Get(int id);
         void Clear();
 
-        static CSprites *GetInstance();
+        static Sprites *GetInstance();
     };
 }

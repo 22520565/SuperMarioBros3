@@ -19,8 +19,8 @@ namespace game {
     /*
         Our simple game framework
     */
-    class CGame {
-        static CGame* __instance;
+    class Game {
+        static Game* __instance;
         HWND hWnd; // Window handle
 
         int backBufferWidth = 0; // Backbuffer width & height, will be set during Direct3D initialization
@@ -93,7 +93,7 @@ namespace game {
         int GetBackBufferWidth() { return backBufferWidth; }
         int GetBackBufferHeight() { return backBufferHeight; }
 
-        static CGame* GetInstance();
+        static Game* GetInstance();
 
         void SetPointSamplerState();
 
@@ -113,7 +113,7 @@ namespace game {
 
         void _ParseSection_TEXTURES(std::string line);
 
-        ~CGame();
+        ~Game();
     };
-    typedef CGame* LPGAME;
+    typedef Game* LPGAME;
 }

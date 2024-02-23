@@ -6,7 +6,7 @@
 
 namespace game {
     //
-    // Warpper class to simplify texture manipulation. See also CGame::LoadTexture
+    // Warpper class to simplify texture manipulation. See also Game::LoadTexture
     //
     class Texture final {
     private:

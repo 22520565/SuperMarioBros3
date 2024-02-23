@@ -2,29 +2,29 @@
 #include "debug.hpp"
 
 namespace game {
-    CAnimations *CAnimations::__instance = NULL;
+    Animations *Animations::__instance = NULL;
 
-    CAnimations *CAnimations::GetInstance() {
+    Animations *Animations::GetInstance() {
         if (__instance == NULL)
-            __instance = new CAnimations();
+            __instance = new Animations();
         return __instance;
     }
 
-    void CAnimations::Add(int id, LPANIMATION ani) {
+    void Animations::Add(int id, LPANIMATION ani) {
         if (animations[id] != NULL)
             DebugOut(L"[WARNING] Animation %d already exists\n", id);
 
         animations[id] = ani;
     }
 
-    LPANIMATION CAnimations::Get(int id) {
+    LPANIMATION Animations::Get(int id) {
         LPANIMATION ani = animations[id];
         if (ani == NULL)
             DebugOut(L"[ERROR] Animation ID %d not found\n", id);
         return ani;
     }
 
-    void CAnimations::Clear() {
+    void Animations::Clear() {
         for (auto x : animations) {
             LPANIMATION ani = x.second;
             delete ani;

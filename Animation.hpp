@@ -9,14 +9,14 @@
 #include "Sprites.hpp"
 
 namespace game {
-    class CAnimation {
+    class Animation {
         uint_fast64_t lastFrameTime;
         int defaultTime;
         int currentFrame;
         std::vector<LPANIMATION_FRAME> frames;
 
     public:
-        CAnimation(int defaultTime = 100) {
+        Animation(int defaultTime = 100) {
             this->defaultTime = defaultTime;
             lastFrameTime = -1;
             currentFrame = -1;
@@ -25,5 +25,5 @@ namespace game {
         void Render(float x, float y);
     };
 
-    typedef CAnimation *LPANIMATION;
+    typedef Animation *LPANIMATION;
 }

@@ -8,14 +8,14 @@
 #include "debug.hpp"
 
 namespace game {
-    CGame* CGame::__instance = NULL;
+    Game *Game::__instance = NULL;
 
     /*
         Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
         rendering 2D images
         - hWnd: Application window handle
     */
-    void CGame::Init(HWND hWnd, HINSTANCE hInstance) {
+    void Game::Init(HWND hWnd, HINSTANCE hInstance) {
         this->hWnd = hWnd;
         this->hInstance = hInstance;
 
@@ -47,24 +47,24 @@ namespace game {
 
         // Create the D3D device and the swap chain
         HRESULT hr = D3D10CreateDeviceAndSwapChain(NULL,
-            D3D10_DRIVER_TYPE_HARDWARE,
-            NULL,
-            0,
-            D3D10_SDK_VERSION,
-            &swapChainDesc,
-            &pSwapChain,
-            &pD3DDevice);
+                                                   D3D10_DRIVER_TYPE_HARDWARE,
+                                                   NULL,
+                                                   0,
+                                                   D3D10_SDK_VERSION,
+                                                   &swapChainDesc,
+                                                   &pSwapChain,
+                                                   &pD3DDevice);
 
         if (hr != S_OK) {
-            DebugOut((wchar_t*)L"[ERROR] D3D10CreateDeviceAndSwapChain has failed %s %d", _W(__FILE__), __LINE__);
+            DebugOut((wchar_t *)L"[ERROR] D3D10CreateDeviceAndSwapChain has failed %s %d", _W(__FILE__), __LINE__);
             return;
         }
 
         // Get the back buffer from the swapchain
-        ID3D10Texture2D* pBackBuffer;
-        hr = pSwapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), (LPVOID*)&pBackBuffer);
+        ID3D10Texture2D *pBackBuffer;
+        hr = pSwapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), (LPVOID *)&pBackBuffer);
         if (hr != S_OK) {
-            DebugOut((wchar_t*)L"[ERROR] pSwapChain->GetBuffer has failed %s %d", _W(__FILE__), __LINE__);
+            DebugOut((wchar_t *)L"[ERROR] pSwapChain->GetBuffer has failed %s %d", _W(__FILE__), __LINE__);
             return;
         }
 
@@ -73,7 +73,7 @@ namespace game {
 
         pBackBuffer->Release();
         if (hr != S_OK) {
-            DebugOut((wchar_t*)L"[ERROR] CreateRenderTargetView has failed %s %d", _W(__FILE__), __LINE__);
+            DebugOut((wchar_t *)L"[ERROR] CreateRenderTargetView has failed %s %d", _W(__FILE__), __LINE__);
             return;
         }
 
@@ -115,7 +115,7 @@ namespace game {
         hr = D3DX10CreateSprite(pD3DDevice, 0, &spriteObject);
 
         if (hr != S_OK) {
-            DebugOut((wchar_t*)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
+            DebugOut((wchar_t *)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
             return;
         }
 
@@ -123,12 +123,12 @@ namespace game {
 
         // Create the projection matrix using the values in the viewport
         D3DXMatrixOrthoOffCenterLH(&matProjection,
-            (float)viewPort.TopLeftX,
-            (float)viewPort.Width,
-            (float)viewPort.TopLeftY,
-            (float)viewPort.Height,
-            0.1f,
-            10);
+                                   (float)viewPort.TopLeftX,
+                                   (float)viewPort.Width,
+                                   (float)viewPort.TopLeftY,
+                                   (float)viewPort.Height,
+                                   0.1f,
+                                   10);
         hr = spriteObject->SetProjectionTransform(&matProjection);
 
         // Initialize the blend state for alpha drawing
@@ -145,12 +145,12 @@ namespace game {
         StateDesc.RenderTargetWriteMask[0] = D3D10_COLOR_WRITE_ENABLE_ALL;
         pD3DDevice->CreateBlendState(&StateDesc, &this->pBlendStateAlpha);
 
-        DebugOut((wchar_t*)L"[INFO] InitDirectX has been successful\n");
+        DebugOut((wchar_t *)L"[INFO] InitDirectX has been successful\n");
 
         return;
     }
 
-    void CGame::SetPointSamplerState() {
+    void Game::SetPointSamplerState() {
         pD3DDevice->VSSetSamplers(0, 1, &pPointSamplerState);
         pD3DDevice->GSSetSamplers(0, 1, &pPointSamplerState);
         pD3DDevice->PSSetSamplers(0, 1, &pPointSamplerState);
@@ -161,7 +161,7 @@ namespace game {
         NOTE: This function is very inefficient because it has to convert
         from texture to sprite every time we need to draw it
     */
-    void CGame::Draw(float x, float y, LPTEXTURE tex, RECT* rect, float alpha, int sprite_width, int sprite_height) {
+    void Game::Draw(float x, float y, LPTEXTURE tex, RECT *rect, float alpha, int sprite_width, int sprite_height) {
         if (tex == NULL)
             return;
 
@@ -186,8 +186,7 @@ namespace game {
                 spriteWidth = tex->getWidth();
             if (spriteHeight == 0)
                 spriteHeight = tex->getHeight();
-        }
-        else {
+        } else {
             sprite.TexCoord.x = rect->left / (float)tex->getWidth();
             sprite.TexCoord.y = rect->top / (float)tex->getHeight();
 
@@ -230,15 +229,15 @@ namespace game {
     /*
         Utility function to wrap D3DXCreateTextureFromFileEx
     */
-    LPTEXTURE CGame::LoadTexture(LPCWSTR texturePath) {
-        ID3D10Resource* pD3D10Resource = NULL;
-        ID3D10Texture2D* tex = NULL;
+    LPTEXTURE Game::LoadTexture(LPCWSTR texturePath) {
+        ID3D10Resource *pD3D10Resource = NULL;
+        ID3D10Texture2D *tex = NULL;
 
         // Retrieve image information first
         D3DX10_IMAGE_INFO imageInfo;
         HRESULT hr = D3DX10GetImageInfoFromFile(texturePath, NULL, &imageInfo, NULL);
         if (FAILED(hr)) {
-            DebugOut((wchar_t*)L"[ERROR] D3DX10GetImageInfoFromFile failed for  file: %s with error: %d\n", texturePath, hr);
+            DebugOut((wchar_t *)L"[ERROR] D3DX10GetImageInfoFromFile failed for  file: %s with error: %d\n", texturePath, hr);
             return NULL;
         }
 
@@ -260,24 +259,24 @@ namespace game {
 
         // Loads the texture into a temporary ID3D10Resource object
         hr = D3DX10CreateTextureFromFile(pD3DDevice,
-            texturePath,
-            &info,
-            NULL,
-            &pD3D10Resource,
-            NULL);
+                                         texturePath,
+                                         &info,
+                                         NULL,
+                                         &pD3D10Resource,
+                                         NULL);
 
         // Make sure the texture was loaded successfully
         if (FAILED(hr)) {
-            DebugOut((wchar_t*)L"[ERROR] Failed to load texture file: %s with error: %d\n", texturePath, hr);
+            DebugOut((wchar_t *)L"[ERROR] Failed to load texture file: %s with error: %d\n", texturePath, hr);
             return NULL;
         }
 
         // Translates the ID3D10Resource object into a ID3D10Texture2D object
-        pD3D10Resource->QueryInterface(__uuidof(ID3D10Texture2D), (LPVOID*)&tex);
+        pD3D10Resource->QueryInterface(__uuidof(ID3D10Texture2D), (LPVOID *)&tex);
         pD3D10Resource->Release();
 
         if (!tex) {
-            DebugOut((wchar_t*)L"[ERROR] Failed to convert from ID3D10Resource to ID3D10Texture2D \n");
+            DebugOut((wchar_t *)L"[ERROR] Failed to convert from ID3D10Resource to ID3D10Texture2D \n");
             return NULL;
         }
 
@@ -301,7 +300,7 @@ namespace game {
         SRVDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
         SRVDesc.Texture2D.MipLevels = desc.MipLevels;
 
-        ID3D10ShaderResourceView* gSpriteTextureRV = NULL;
+        ID3D10ShaderResourceView *gSpriteTextureRV = NULL;
 
         pD3DDevice->CreateShaderResourceView(tex, &SRVDesc, &gSpriteTextureRV);
 
@@ -310,12 +309,12 @@ namespace game {
         return new Texture(tex, gSpriteTextureRV);
     }
 
-    int CGame::IsKeyDown(int KeyCode) {
+    int Game::IsKeyDown(int KeyCode) {
         return (keyStates[KeyCode] & 0x80) > 0;
     }
 
-    void CGame::InitKeyboard() {
-        HRESULT hr = DirectInput8Create(this->hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&di, NULL);
+    void Game::InitKeyboard() {
+        HRESULT hr = DirectInput8Create(this->hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID **)&di, NULL);
         if (hr != DI_OK) {
             DebugOut(L"[ERROR] DirectInput8Create failed!\n");
             return;
@@ -367,7 +366,7 @@ namespace game {
         DebugOut(L"[INFO] Keyboard has been initialized successfully\n");
     }
 
-    void CGame::ProcessKeyboard() {
+    void Game::ProcessKeyboard() {
         HRESULT hr;
 
         // Collect all key states first
@@ -378,17 +377,15 @@ namespace game {
                 HRESULT h = didv->Acquire();
                 if (h == DI_OK) {
                     DebugOut(L"[INFO] Keyboard re-acquired!\n");
-                }
-                else
+                } else
                     return;
-            }
-            else {
+            } else {
                 // DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
                 return;
             }
         }
 
-        keyHandler->KeyState((BYTE*)&keyStates);
+        keyHandler->KeyState((BYTE *)&keyStates);
 
         // Collect all buffered events
         DWORD dwElements = KEYBOARD_BUFFER_SIZE;
@@ -416,7 +413,7 @@ namespace game {
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
 
-    void CGame::_ParseSection_SETTINGS(std::string line) {
+    void Game::_ParseSection_SETTINGS(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 2)
@@ -427,7 +424,7 @@ namespace game {
             DebugOut(L"[ERROR] Unknown game setting: %s\n", ToWSTR(tokens[0]).c_str());
     }
 
-    void CGame::_ParseSection_SCENES(std::string line) {
+    void Game::_ParseSection_SCENES(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 2)
@@ -435,14 +432,14 @@ namespace game {
         int id = atoi(tokens[0].c_str());
         LPCWSTR path = ToLPCWSTR(tokens[1]); // file: ASCII format (single-byte char) => Wide Char
 
-        LPSCENE scene = new CPlayScene(id, path);
+        LPSCENE scene = new PlayScene(id, path);
         scenes[id] = scene;
     }
 
     /*
         Load game campaign file and load/initiate first scene
     */
-    void CGame::Load(LPCWSTR gameFile) {
+    void Game::Load(LPCWSTR gameFile) {
         DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
         std::ifstream f = std::ifstream(gameFile);
@@ -496,7 +493,7 @@ namespace game {
         SwitchScene();
     }
 
-    void CGame::SwitchScene() {
+    void Game::SwitchScene() {
         if (next_scene < 0 || next_scene == current_scene)
             return;
 
@@ -504,8 +501,8 @@ namespace game {
 
         scenes[current_scene]->Unload();
 
-        CSprites::GetInstance()->Clear();
-        CAnimations::GetInstance()->Clear();
+        Sprites::GetInstance()->Clear();
+        Animations::GetInstance()->Clear();
 
         current_scene = next_scene;
         LPSCENE s = scenes[next_scene];
@@ -513,11 +510,11 @@ namespace game {
         s->Load();
     }
 
-    void CGame::InitiateSwitchScene(int scene_id) {
+    void Game::InitiateSwitchScene(int scene_id) {
         next_scene = scene_id;
     }
 
-    void CGame::_ParseSection_TEXTURES(std::string line) {
+    void Game::_ParseSection_TEXTURES(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 2)
@@ -526,10 +523,10 @@ namespace game {
         int texID = atoi(tokens[0].c_str());
         std::wstring path = ToWSTR(tokens[1]);
 
-        CTextures::GetInstance()->Add(texID, path.c_str());
+        Textures::GetInstance()->Add(texID, path.c_str());
     }
 
-    CGame::~CGame() {
+    Game::~Game() {
         pBlendStateAlpha->Release();
         spriteObject->Release();
         pRenderTargetView->Release();
@@ -537,9 +534,9 @@ namespace game {
         pD3DDevice->Release();
     }
 
-    CGame* CGame::GetInstance() {
+    Game *Game::GetInstance() {
         if (__instance == NULL)
-            __instance = new CGame();
+            __instance = new Game();
         return __instance;
     }
 }

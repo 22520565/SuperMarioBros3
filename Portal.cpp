@@ -3,7 +3,7 @@
 #include "Textures.hpp"
 
 namespace game {
-    CPortal::CPortal(float l, float t, float r, float b, int scene_id) {
+    Portal::Portal(float l, float t, float r, float b, int scene_id) {
         this->scene_id = scene_id;
         x = l;
         y = t;
@@ -11,11 +11,11 @@ namespace game {
         height = b - t;
     }
 
-    void CPortal::RenderBoundingBox() {
+    void Portal::RenderBoundingBox() {
         D3DXVECTOR3 p(x, y, 0);
         RECT rect;
 
-        LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+        LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
 
         float l, t, r, b;
 
@@ -26,16 +26,16 @@ namespace game {
         rect.bottom = (int)b - (int)t;
 
         float cx, cy;
-        CGame::GetInstance()->GetCamPos(cx, cy);
+        Game::GetInstance()->GetCamPos(cx, cy);
 
-        CGame::GetInstance()->Draw(x - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
+        Game::GetInstance()->Draw(x - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
     }
 
-    void CPortal::Render() {
+    void Portal::Render() {
         RenderBoundingBox();
     }
 
-    void CPortal::GetBoundingBox(float &l, float &t, float &r, float &b) {
+    void Portal::GetBoundingBox(float &l, float &t, float &r, float &b) {
         l = x - width / 2;
         t = y - height / 2;
         r = x + width / 2;

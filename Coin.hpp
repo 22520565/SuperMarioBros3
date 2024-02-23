@@ -11,9 +11,9 @@
 #define COIN_BBOX_HEIGHT 16
 
 namespace game {
-    class CCoin : public CGameObject {
+    class Coin : public GameObject {
     public:
-        CCoin(float x, float y) : CGameObject(x, y) {}
+        Coin(float x, float y) : GameObject(x, y) {}
         void Render();
         void Update(DWORD dt) {}
         void GetBoundingBox(float &l, float &t, float &r, float &b);

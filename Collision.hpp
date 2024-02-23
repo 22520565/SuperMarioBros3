@@ -5,8 +5,8 @@
 #include <windows.h>
 
 namespace game {
-    class CGameObject;
-    using LPGAMEOBJECT = CGameObject *;
+    class GameObject;
+    using LPGAMEOBJECT = GameObject *;
 
     struct CCollisionEvent;
     typedef CCollisionEvent *LPCOLLISIONEVENT;

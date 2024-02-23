@@ -13,9 +13,9 @@
 #include "SampleKeyEventHandler.hpp"
 
 namespace game {
-    CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath) {
+    PlayScene::PlayScene(int id, LPCWSTR filePath) : Scene(id, filePath) {
         player = NULL;
-        key_handler = new CSampleKeyHandler(this);
+        key_handler = new SampleKeyHandler(this);
     }
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -28,7 +28,7 @@ namespace game {
 
 #define MAX_SCENE_LINE 1024
 
-    void CPlayScene::_ParseSection_SPRITES(std::string line) {
+    void PlayScene::_ParseSection_SPRITES(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 6)
@@ -41,16 +41,16 @@ namespace game {
         int b = atoi(tokens[4].c_str());
         int texID = atoi(tokens[5].c_str());
 
-        LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
+        LPTEXTURE tex = Textures::GetInstance()->Get(texID);
         if (tex == NULL) {
             DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
             return;
         }
 
-        CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
+        Sprites::GetInstance()->Add(ID, l, t, r, b, tex);
     }
 
-    void CPlayScene::_ParseSection_ASSETS(std::string line) {
+    void PlayScene::_ParseSection_ASSETS(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 1)
@@ -61,7 +61,7 @@ namespace game {
         LoadAssets(path.c_str());
     }
 
-    void CPlayScene::_ParseSection_ANIMATIONS(std::string line) {
+    void PlayScene::_ParseSection_ANIMATIONS(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         if (tokens.size() < 3)
@@ -69,7 +69,7 @@ namespace game {
 
         // DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
-        LPANIMATION ani = new CAnimation();
+        LPANIMATION ani = new Animation();
 
         int ani_id = atoi(tokens[0].c_str());
         for (int i = 1; i < tokens.size(); i += 2) // why i+=2 ?  sprite_id | frame_time
@@ -79,13 +79,13 @@ namespace game {
             ani->Add(sprite_id, frame_time);
         }
 
-        CAnimations::GetInstance()->Add(ani_id, ani);
+        Animations::GetInstance()->Add(ani_id, ani);
     }
 
     /*
         Parse a line in section [OBJECTS]
     */
-    void CPlayScene::_ParseSection_OBJECTS(std::string line) {
+    void PlayScene::_ParseSection_OBJECTS(std::string line) {
         std::vector<std::string> tokens = split(line);
 
         // skip invalid lines - an object set must have at least id, x, y
@@ -96,7 +96,7 @@ namespace game {
         float x = (float)atof(tokens[1].c_str());
         float y = (float)atof(tokens[2].c_str());
 
-        CGameObject *obj = NULL;
+        GameObject *obj = NULL;
 
         switch (object_type) {
         case OBJECT_TYPE_MARIO:
@@ -104,19 +104,19 @@ namespace game {
                 DebugOut(L"[ERROR] MARIO object was created before!\n");
                 return;
             }
-            obj = new CMario(x, y);
-            player = (CMario *)obj;
+            obj = new Mario(x, y);
+            player = (Mario *)obj;
 
             DebugOut(L"[INFO] Player object has been created!\n");
             break;
         case OBJECT_TYPE_GOOMBA:
-            obj = new CGoomba(x, y);
+            obj = new Goomba(x, y);
             break;
         case OBJECT_TYPE_BRICK:
-            obj = new CBrick(x, y);
+            obj = new Brick(x, y);
             break;
         case OBJECT_TYPE_COIN:
-            obj = new CCoin(x, y);
+            obj = new Coin(x, y);
             break;
 
         case OBJECT_TYPE_PLATFORM: {
@@ -128,7 +128,7 @@ namespace game {
             int sprite_middle = atoi(tokens[7].c_str());
             int sprite_end = atoi(tokens[8].c_str());
 
-            obj = new CPlatform(
+            obj = new Platform(
                 x, y,
                 cell_width, cell_height, length,
                 sprite_begin, sprite_middle, sprite_end);
@@ -140,7 +140,7 @@ namespace game {
             float r = (float)atof(tokens[3].c_str());
             float b = (float)atof(tokens[4].c_str());
             int scene_id = atoi(tokens[5].c_str());
-            obj = new CPortal(x, y, r, b, scene_id);
+            obj = new Portal(x, y, r, b, scene_id);
         } break;
 
         default:
@@ -154,7 +154,7 @@ namespace game {
         objects.push_back(obj);
     }
 
-    void CPlayScene::LoadAssets(LPCWSTR assetFile) {
+    void PlayScene::LoadAssets(LPCWSTR assetFile) {
         DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
 
         std::ifstream f = std::ifstream(assetFile);
@@ -197,7 +197,7 @@ namespace game {
         DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
     }
 
-    void CPlayScene::Load() {
+    void PlayScene::Load() {
         DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
         std::ifstream f = std::ifstream(sceneFilePath);
@@ -240,7 +240,7 @@ namespace game {
         DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
     }
 
-    void CPlayScene::Update(DWORD dt) {
+    void PlayScene::Update(DWORD dt) {
         // We know that Mario is the first object in the list hence we won't add him into the colliable object list
         // TO-DO: This is a "dirty" way, need a more organized way
 
@@ -261,19 +261,19 @@ namespace game {
         float cx, cy;
         player->GetPosition(cx, cy);
 
-        CGame *game = CGame::GetInstance();
+        Game *game = Game::GetInstance();
         cx -= game->GetBackBufferWidth() / 2;
         cy -= game->GetBackBufferHeight() / 2;
 
         if (cx < 0)
             cx = 0;
 
-        CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+        Game::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 
         PurgeDeletedObjects();
     }
 
-    void CPlayScene::Render() {
+    void PlayScene::Render() {
         for (int i = 0; i < objects.size(); i++)
             objects[i]->Render();
     }
@@ -281,7 +281,7 @@ namespace game {
     /*
      *	Clear all objects from this scene
      */
-    void CPlayScene::Clear() {
+    void PlayScene::Clear() {
         for (auto it = objects.begin(); it != objects.end(); it++) {
             delete (*it);
         }
@@ -294,7 +294,7 @@ namespace game {
         TODO: Beside objects, we need to clean up sprites, animations and textures as well
 
     */
-    void CPlayScene::Unload() {
+    void PlayScene::Unload() {
         for (int i = 0; i < objects.size(); i++)
             delete objects[i];
 
@@ -304,9 +304,9 @@ namespace game {
         DebugOut(L"[INFO] Scene %d unloaded! \n", id);
     }
 
-    bool CPlayScene::IsGameObjectDeleted(const LPGAMEOBJECT &o) { return o == NULL; }
+    bool PlayScene::IsGameObjectDeleted(const LPGAMEOBJECT &o) { return o == NULL; }
 
-    void CPlayScene::PurgeDeletedObjects() {
+    void PlayScene::PurgeDeletedObjects() {
         for (auto it = objects.begin(); it != objects.end(); it++) {
             LPGAMEOBJECT o = *it;
             if (o->IsDeleted()) {
@@ -318,7 +318,7 @@ namespace game {
         // NOTE: remove_if will swap all deleted items to the end of the vector
         // then simply trim the vector, this is much more efficient than deleting individual items
         objects.erase(
-            std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
+            std::remove_if(objects.begin(), objects.end(), PlayScene::IsGameObjectDeleted),
             objects.end());
     }
 }

@@ -5,22 +5,22 @@
 #include "textures.hpp"
 
 namespace game {
-    CTextures *CTextures::__instance = NULL;
+    Textures *Textures::__instance = NULL;
 
-    CTextures::CTextures() {
+    Textures::Textures() {
     }
 
-    CTextures *CTextures::GetInstance() {
+    Textures *Textures::GetInstance() {
         if (__instance == NULL)
-            __instance = new CTextures();
+            __instance = new Textures();
         return __instance;
     }
 
-    void CTextures::Add(int id, LPCWSTR filePath) {
-        textures[id] = CGame::GetInstance()->LoadTexture(filePath);
+    void Textures::Add(int id, LPCWSTR filePath) {
+        textures[id] = Game::GetInstance()->LoadTexture(filePath);
     }
 
-    LPTEXTURE CTextures::Get(unsigned int i) {
+    LPTEXTURE Textures::Get(unsigned int i) {
         LPTEXTURE t = textures[i];
         if (t == NULL)
             DebugOut(L"[ERROR] Texture Id %d not found !\n", i);
@@ -31,7 +31,7 @@ namespace game {
     /*
         Clear all loaded textures
     */
-    void CTextures::Clear() {
+    void Textures::Clear() {
         for (auto x : textures) {
             LPTEXTURE tex = x.second;
             if (tex != NULL)

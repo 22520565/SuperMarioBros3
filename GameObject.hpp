@@ -13,7 +13,7 @@
 #define BBOX_ALPHA 0.25f // Bounding box transparency
 
 namespace game {
-    class CGameObject {
+    class GameObject {
     protected:
         float x;
         float y;
@@ -45,8 +45,8 @@ namespace game {
 
         void RenderBoundingBox();
 
-        CGameObject();
-        CGameObject(float x, float y) : CGameObject() {
+        GameObject();
+        GameObject(float x, float y) : GameObject() {
             this->x = x;
             this->y = y;
         }
@@ -70,7 +70,7 @@ namespace game {
         // Is this object blocking other object? If YES, collision framework will automatically push the other object
         virtual int IsBlocking() { return 1; }
 
-        ~CGameObject();
+        ~GameObject();
 
         static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
     };

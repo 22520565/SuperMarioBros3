@@ -4,8 +4,8 @@
 #include "Sprite.hpp"
 
 namespace game {
-    class CAnimations {
-        static CAnimations *__instance;
+    class Animations {
+        static Animations *__instance;
 
         std::unordered_map<int, LPANIMATION> animations;
 
@@ -14,6 +14,6 @@ namespace game {
         LPANIMATION Get(int id);
         void Clear();
 
-        static CAnimations *GetInstance();
+        static Animations *GetInstance();
     };
 }

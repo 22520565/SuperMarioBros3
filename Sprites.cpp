@@ -3,27 +3,27 @@
 #include "debug.hpp"
 
 namespace game {
-    CSprites *CSprites::__instance = NULL;
+    Sprites *Sprites::__instance = NULL;
 
-    CSprites *CSprites::GetInstance() {
+    Sprites *Sprites::GetInstance() {
         if (__instance == NULL)
-            __instance = new CSprites();
+            __instance = new Sprites();
         return __instance;
     }
 
-    void CSprites::Add(int id, int left, int top, int right, int bottom, LPTEXTURE tex) {
-        LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+    void Sprites::Add(int id, int left, int top, int right, int bottom, LPTEXTURE tex) {
+        LPSPRITE s = new Sprite(id, left, top, right, bottom, tex);
         sprites[id] = s;
     }
 
-    LPSPRITE CSprites::Get(int id) {
+    LPSPRITE Sprites::Get(int id) {
         return sprites[id];
     }
 
     /*
         Clear all loaded sprites
     */
-    void CSprites::Clear() {
+    void Sprites::Clear() {
         for (auto x : sprites) {
             LPSPRITE s = x.second;
             delete s;

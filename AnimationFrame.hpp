@@ -6,12 +6,12 @@ namespace game {
     /*
         Sprite animation
     */
-    class CAnimationFrame {
+    class AnimationFrame {
         LPSPRITE sprite;
         DWORD time;
 
     public:
-        CAnimationFrame(LPSPRITE sprite, int time) {
+        AnimationFrame(LPSPRITE sprite, int time) {
             this->sprite = sprite;
             this->time = time;
         }
@@ -19,5 +19,5 @@ namespace game {
         LPSPRITE GetSprite() { return sprite; }
     };
 
-    typedef CAnimationFrame *LPANIMATION_FRAME;
+    typedef AnimationFrame *LPANIMATION_FRAME;
 }
