@@ -192,6 +192,7 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Vector3.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

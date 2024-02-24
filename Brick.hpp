@@ -3,6 +3,7 @@
 #include "Animation.hpp"
 #include "Animations.hpp"
 #include "GameObject.hpp"
+#include "Vector3.hpp"
 
 namespace game {
 

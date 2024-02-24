@@ -21,23 +21,24 @@
 namespace game {
     template <class T>
     struct Vector2 {
+      public:
         // X coordinate of the vector
         T x = T();
         // Y coordinate of the vector
         T y = T();
 
         /// \brief Default constructor
-        constexpr Vector2() noexcept = default;
+        constexpr Vector2<T>() noexcept(noexcept(T())) = default;
 
-        /// \brief Construct the vector from its coordinates
-        constexpr explicit Vector2(const T x, const T y) noexcept
+        /// \brief Construct the vector2 from its coordinates
+        constexpr explicit Vector2<T>(const T x, const T y) noexcept
             : x(x), y(y) {}
 
         /// \brief Default copy constructor
-        constexpr explicit Vector2(const Vector2<T> &other) noexcept = default;
+        constexpr explicit Vector2<T>(const Vector2<T> &vector2) noexcept = default;
 
         /// \brief Default move constructor
-        constexpr explicit Vector2(Vector2<T> &&other) noexcept = default;
+        constexpr explicit Vector2<T>(Vector2<T> &&vector2) noexcept = default;
 
         ///\brief Construct the vector from another type of vector.
         ///
@@ -46,10 +47,11 @@ namespace game {
         /// A call to this constructor will fail to compile if U
         /// is not convertible to T.
         ///
-        /// \param vector Vector to convert
+        /// \param vector2: Vector2 to convert
         template <typename U>
-        constexpr explicit Vector2(const Vector2<U> &vector) noexcept
-            : x(static_cast<T>(vector.x)), y(static_cast<T>(vector.y)) {}
+        constexpr explicit Vector2<T>(const Vector2<U> &vector2) noexcept(
+            noexcept(operator T(vector2.x)) && noexcept(operator T(vector2.y)))
+            : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
 
         ///\brief Construct the vector from another type of vector.
         ///
@@ -58,31 +60,35 @@ namespace game {
         /// A call to this constructor will fail to compile if U
         /// is not convertible to T.
         ///
-        /// \param vector Vector to convert
+        /// \param vector2: Vector2 to convert
         template <typename U>
-        constexpr explicit Vector2(Vector2<U> &&vector) noexcept
-            : x(static_cast<T>(vector.x)), y(static_cast<T>(vector.y)) {}
+        constexpr explicit Vector2(Vector2<U> &&vector2) noexcept(
+            noexcept(operator T(vector2.x)) && noexcept(operator T(vector2.y)))
+            : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
 
         /// \brief Overload of binary operator ==
         ///
         /// This operator compares strict equality between two vectors.
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a vector)
+        /// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
+        /// Hence, it's not necessary to define operator != and you can still use operator != normally.
+        ///
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a vector)
         ///
         /// \return True if \a left is equal to \a right
-        friend constexpr bool operator==(const Vector2 &left, const Vector2 &right) noexcept(
+        friend constexpr bool operator==(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x == right.x) && noexcept(left.y == right.y)) = default;
 
         /// \brief Overload of binary operator +
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a vector)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise addition of both vectors
-        friend constexpr Vector2 operator+(const Vector2 &left, const Vector2 &right) noexcept(
+        friend constexpr Vector2<T> operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x + right.x) && noexcept(left.y + right.y)) {
-            return Vector2(left.x + right.x, left.y + right.y);
+            return Vector2<T>(left.x + right.x, left.y + right.y);
         }
 
         /// \brief Overload of binary operator +=
@@ -90,11 +96,11 @@ namespace game {
         /// This operator performs a memberwise addition of both vectors,
         /// and assigns the result to \a left.
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a vector)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a vector)
         ///
         /// \return Const-reference to \a left
-        friend constexpr const Vector2 &operator+=(Vector2 &left, const Vector2 &right) noexcept(
+        friend constexpr const Vector2<T> &operator+=(Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x += right.x) && noexcept(left.y += right.y)) {
             left.x += right.x;
             left.y += right.y;
@@ -103,23 +109,23 @@ namespace game {
 
         /// \brief Overload of unary operator -
         ///
-        /// \param right Vector to negate
+        /// \param right: Vector to negate
         ///
         /// \return Memberwise opposite of the vector
-        friend constexpr Vector2 operator-(const Vector2 &right) noexcept(
+        friend constexpr Vector2<T> operator-(const Vector2<T> &right) noexcept(
             noexcept(-right.x) && noexcept(-right.y)) {
-            return Vector2(-right.x, -right.y);
+            return Vector2<T>(-right.x, -right.y);
         }
 
         /// \brief Overload of binary operator -
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a vector)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise subtraction of both vectors
-        friend constexpr Vector2 operator-(const Vector2 &left, const Vector2 &right) noexcept(
+        friend constexpr Vector2<T> operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x - right.x) && noexcept(left.y - right.y)) {
-            return Vector2(left.x - right.x, left.y - right.y);
+            return Vector2<T>(left.x - right.x, left.y - right.y);
         }
 
         /// \brief Overload of binary operator -=
@@ -127,11 +133,11 @@ namespace game {
         /// This operator performs a memberwise subtraction of both vectors,
         /// and assigns the result to \a left.
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a vector)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a vector)
         ///
         /// \return Reference to \a left
-        friend constexpr const Vector2 &operator-=(Vector2 &left, const Vector2 &right) noexcept(
+        friend constexpr const Vector2<T> &operator-=(Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x -= right.x) && noexcept(left.y -= right.y)) {
             left.x -= right.x;
             left.y -= right.y;
@@ -140,26 +146,24 @@ namespace game {
 
         /// \brief Overload of binary operator *
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a scalar value)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise multiplication by \a right
-        ///
-        ////////////////////////////////////////////////////////////
-        friend constexpr Vector2 operator*(const Vector2 &left, const T right) noexcept(
+        friend constexpr Vector2<T> operator*(const Vector2<T> &left, const T right) noexcept(
             noexcept(left.x * right) && noexcept(left.y * right)) {
-            return Vector2(left.x * right, left.y * right);
+            return Vector2<T>(left.x * right, left.y * right);
         }
 
         /// \brief Overload of binary operator *
         ///
-        /// \param left  Left operand (a scalar value)
-        /// \param right Right operand (a vector)
+        /// \param left:  Left operand (a scalar value)
+        /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise multiplication by \a left
-        friend constexpr Vector2 operator*(const T left, const Vector2 &right) noexcept(
+        friend constexpr Vector2<T> operator*(const T left, const Vector2<T> &right) noexcept(
             noexcept(left * right.x) && noexcept(left * right.y)) {
-            return Vector2(left * right.x, left * right.y);
+            return Vector2<T>(left * right.x, left * right.y);
         }
 
         /// \brief Overload of binary operator *=
@@ -167,11 +171,11 @@ namespace game {
         /// This operator performs a memberwise multiplication by \a right,
         /// and assigns the result to \a left.
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a scalar value)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a scalar value)
         ///
         /// \return Reference to \a left
-        friend constexpr const Vector2 &operator*=(Vector2 &left, const T right) noexcept(
+        friend constexpr const Vector2<T> &operator*=(Vector2<T> &left, const T right) noexcept(
             noexcept(left.x *= right) && noexcept(left.y *= right)) {
             left.x *= right;
             left.y *= right;
@@ -180,13 +184,13 @@ namespace game {
 
         /// \brief Overload of binary operator /
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a scalar value)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise division by \a right
-        friend constexpr Vector2 operator/(const Vector2 &left, const T right) noexcept(
+        friend constexpr Vector2<T> operator/(const Vector2<T> &left, const T right) noexcept(
             noexcept(left.x / right) && noexcept(left.y / right)) {
-            return Vector2(left.x / right, left.y / right);
+            return Vector2<T>(left.x / right, left.y / right);
         }
 
         /// \brief Overload of binary operator /=
@@ -194,11 +198,11 @@ namespace game {
         /// This operator performs a memberwise division by \a right,
         /// and assigns the result to \a left.
         ///
-        /// \param left  Left operand (a vector)
-        /// \param right Right operand (a scalar value)
+        /// \param left:  Left operand (a vector)
+        /// \param right: Right operand (a scalar value)
         ///
         /// \return Reference to \a left
-        friend constexpr const Vector2 &operator/=(Vector2 &left, const T right) noexcept(
+        friend constexpr const Vector2<T> &operator/=(Vector2<T> &left, const T right) noexcept(
             noexcept(left.x /= right) && noexcept(left.y /= right)) {
             left.x /= right;
             left.y /= right;

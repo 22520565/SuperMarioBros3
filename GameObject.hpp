@@ -1,33 +1,22 @@
 #pragma once
 
-#include <d3dx10.h>
-#include <vector>
-#include <windows.h>
-
 #include "Animation.hpp"
 #include "Animations.hpp"
 #include "Collision.hpp"
 #include "Sprites.hpp"
+#include "stdfloat"
+#include <d3dx10.h>
+#include <vector>
+#include <windows.h>
 
 #define ID_TEX_BBOX -100 // special texture to draw object bounding box
 #define BBOX_ALPHA 0.25f // Bounding box transparency
 
 namespace game {
     class GameObject {
-      protected:
-        std::float32_t x;
-        std::float32_t y;
-
-        std::float32_t vx;
-        std::float32_t vy;
-
-        int_fast32_t nx;
-
-        int_fast32_t state;
-
-        bool isDeleted;
-
       public:
+        constexpr GameObject() noexcept = default;
+        constexpr GameObject(std::float32_t x, std::float32_t y) noexcept : x(x), y(y) {}
         void SetPosition(float x, float y) { this->x = x, this->y = y; }
         void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
         void GetPosition(float &x, float &y) {
@@ -44,12 +33,6 @@ namespace game {
         bool IsDeleted() { return isDeleted; }
 
         void RenderBoundingBox();
-
-        GameObject();
-        GameObject(float x, float y) : GameObject() {
-            this->x = x;
-            this->y = y;
-        }
 
         virtual void getBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
         virtual void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
@@ -73,5 +56,18 @@ namespace game {
         ~GameObject();
 
         static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
+
+      protected:
+        std::float32_t x = 0.0F;
+        std::float32_t y = 0.0F;
+
+        std::float32_t vx = 0.0F;
+        std::float32_t vy = 0.0F;
+
+        int_fast32_t nx = 1;
+
+        int_fast32_t state = -1;
+
+        bool isDeleted = false;
     };
 }

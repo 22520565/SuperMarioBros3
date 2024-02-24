@@ -8,14 +8,6 @@
 #include "debug.hpp"
 
 namespace game {
-    GameObject::GameObject() {
-        x = y = 0;
-        vx = vy = 0;
-        nx = 1;
-        state = -1;
-        isDeleted = false;
-    }
-
     void GameObject::RenderBoundingBox() {
         D3DXVECTOR3 p(x, y, 0);
         RECT rect;
