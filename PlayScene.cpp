@@ -240,7 +240,7 @@ namespace game {
         DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
     }
 
-    void PlayScene::Update(DWORD dt) {
+    void PlayScene::update(DWORD dt) {
         // We know that Mario is the first object in the list hence we won't add him into the colliable object list
         // TO-DO: This is a "dirty" way, need a more organized way
 
@@ -250,7 +250,7 @@ namespace game {
         }
 
         for (size_t i = 0; i < objects.size(); i++) {
-            objects[i]->Update(dt, &coObjects);
+            objects[i]->update(dt, &coObjects);
         }
 
         // skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -281,7 +281,7 @@ namespace game {
     /*
      *	Clear all objects from this scene
      */
-    void PlayScene::Clear() {
+    void PlayScene::clear() {
         for (auto it = objects.begin(); it != objects.end(); it++) {
             delete (*it);
         }

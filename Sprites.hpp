@@ -19,7 +19,7 @@ namespace game {
       public:
         void add(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
         LPSPRITE Get(int id);
-        void Clear();
+        void clear();
 
         static Sprites *GetInstance();
     };

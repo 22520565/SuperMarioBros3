@@ -23,7 +23,7 @@ namespace game {
     /*
         Clear all loaded sprites
     */
-    void Sprites::Clear() {
+    void Sprites::clear() {
         for (auto x : sprites) {
             LPSPRITE s = x.second;
             delete s;

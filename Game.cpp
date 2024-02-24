@@ -501,8 +501,8 @@ namespace game {
 
         scenes[current_scene]->Unload();
 
-        Sprites::GetInstance()->Clear();
-        Animations::GetInstance()->Clear();
+        Sprites::GetInstance()->clear();
+        Animations::GetInstance()->clear();
 
         current_scene = next_scene;
         LPSCENE s = scenes[next_scene];

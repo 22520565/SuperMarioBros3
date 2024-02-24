@@ -123,8 +123,8 @@ namespace game {
         float dx = mdx - sdx;
         float dy = mdy - sdy;
 
-        objSrc->GetBoundingBox(ml, mt, mr, mb);
-        objDest->GetBoundingBox(sl, st, sr, sb);
+        objSrc->getBoundingBox(ml, mt, mr, mb);
+        objDest->getBoundingBox(sl, st, sr, sb);
 
         SweptAABB(
             ml, mt, mr, mb,

@@ -15,15 +15,15 @@
 namespace game {
     class GameObject {
       protected:
-        float x;
-        float y;
+        std::float32_t x;
+        std::float32_t y;
 
-        float vx;
-        float vy;
+        std::float32_t vx;
+        std::float32_t vy;
 
-        int nx;
+        int_fast32_t nx;
 
-        int state;
+        int_fast32_t state;
 
         bool isDeleted;
 
@@ -51,8 +51,8 @@ namespace game {
             this->y = y;
         }
 
-        virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-        virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
+        virtual void getBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+        virtual void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects = NULL){};
         virtual void render() = 0;
         virtual void SetState(int state) { this->state = state; }
 

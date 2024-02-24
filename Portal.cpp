@@ -19,7 +19,7 @@ namespace game {
 
         float l, t, r, b;
 
-        GetBoundingBox(l, t, r, b);
+        getBoundingBox(l, t, r, b);
         rect.left = 0;
         rect.top = 0;
         rect.right = (int)r - (int)l;
@@ -35,7 +35,7 @@ namespace game {
         RenderBoundingBox();
     }
 
-    void Portal::GetBoundingBox(float &l, float &t, float &r, float &b) {
+    void Portal::getBoundingBox(float &l, float &t, float &r, float &b) {
         l = x - width / 2;
         t = y - height / 2;
         r = x + width / 2;

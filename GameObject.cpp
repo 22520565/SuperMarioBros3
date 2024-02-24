@@ -24,7 +24,7 @@ namespace game {
 
         float l, t, r, b;
 
-        GetBoundingBox(l, t, r, b);
+        getBoundingBox(l, t, r, b);
         rect.left = 0;
         rect.top = 0;
         rect.right = (int)r - (int)l;

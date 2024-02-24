@@ -129,7 +129,7 @@ namespace game {
             isOnPlatform = false;
             coin = 0;
         }
-        void Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
+        void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
         void render();
         void SetState(int state);
 
@@ -148,6 +148,6 @@ namespace game {
             untouchable_start = GetTickCount64();
         }
 
-        void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+        void getBoundingBox(float &left, float &top, float &right, float &bottom);
     };
 }

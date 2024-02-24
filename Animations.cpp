@@ -17,14 +17,14 @@ namespace game {
         animations[id] = ani;
     }
 
-    LPANIMATION Animations::Get(int id) {
+    LPANIMATION Animations::getAnimation(int id) {
         LPANIMATION ani = animations[id];
         if (ani == NULL)
             DebugOut(L"[ERROR] Animation ID %d not found\n", id);
         return ani;
     }
 
-    void Animations::Clear() {
+    void Animations::clear() {
         for (auto x : animations) {
             LPANIMATION ani = x.second;
             delete ani;

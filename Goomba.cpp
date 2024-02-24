@@ -8,7 +8,7 @@ namespace game {
         SetState(GOOMBA_STATE_WALKING);
     }
 
-    void Goomba::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
+    void Goomba::getBoundingBox(float &left, float &top, float &right, float &bottom) {
         if (state == GOOMBA_STATE_DIE) {
             left = x - GOOMBA_BBOX_WIDTH / 2;
             top = y - GOOMBA_BBOX_HEIGHT_DIE / 2;
@@ -40,7 +40,7 @@ namespace game {
         }
     }
 
-    void Goomba::Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    void Goomba::update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
         vy += ay * dt;
         vx += ax * dt;
 
@@ -49,7 +49,7 @@ namespace game {
             return;
         }
 
-        GameObject::Update(dt, coObjects);
+        GameObject::update(dt, coObjects);
         CCollision::GetInstance()->Process(this, dt, coObjects);
     }
 
@@ -59,7 +59,7 @@ namespace game {
             aniId = ID_ANI_GOOMBA_DIE;
         }
 
-        Animations::GetInstance()->Get(aniId)->render(x, y);
+        Animations::GetInstance()->getAnimation(aniId)->render(x, y);
         RenderBoundingBox();
     }
 

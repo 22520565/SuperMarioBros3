@@ -68,8 +68,8 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     Update world status for this frame
     dt: time period between beginning of last frame and beginning of this frame
 */
-void Update(DWORD dt) {
-    game::Game::GetInstance()->GetCurrentScene()->Update(dt);
+void update(DWORD dt) {
+    game::Game::GetInstance()->GetCurrentScene()->update(dt);
 }
 
 /*
@@ -166,7 +166,7 @@ int Run() {
             frameStart = now;
 
             game::Game::GetInstance()->ProcessKeyboard();
-            Update(dt);
+            update(dt);
             render();
 
             game::Game::GetInstance()->SwitchScene();

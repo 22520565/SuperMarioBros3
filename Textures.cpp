@@ -30,7 +30,7 @@ namespace game {
     /*
         Clear all loaded textures
     */
-    void Textures::Clear() {
+    void Textures::clear() {
         for (auto x : textures) {
             LPTEXTURE tex = x.second;
             if (tex != NULL)

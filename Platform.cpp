@@ -14,7 +14,7 @@ namespace game {
 
         float l, t, r, b;
 
-        GetBoundingBox(l, t, r, b);
+        getBoundingBox(l, t, r, b);
         rect.left = 0;
         rect.top = 0;
         rect.right = (int)r - (int)l;
@@ -46,7 +46,7 @@ namespace game {
         RenderBoundingBox();
     }
 
-    void Platform::GetBoundingBox(float &l, float &t, float &r, float &b) {
+    void Platform::getBoundingBox(float &l, float &t, float &r, float &b) {
         float cellWidth_div_2 = this->cellWidth / 2;
         l = x - cellWidth_div_2;
         t = y - this->cellHeight / 2;

@@ -11,7 +11,7 @@
 #include "Collision.hpp"
 
 namespace game {
-    void Mario::Update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    void Mario::update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
         vy += ay * dt;
         vx += ax * dt;
 
@@ -197,7 +197,7 @@ namespace game {
         else if (level == MARIO_LEVEL_SMALL)
             aniId = GetAniIdSmall();
 
-        animations->Get(aniId)->render(x, y);
+        animations->getAnimation(aniId)->render(x, y);
 
         // RenderBoundingBox();
 
@@ -287,7 +287,7 @@ namespace game {
         GameObject::SetState(state);
     }
 
-    void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
+    void Mario::getBoundingBox(float &left, float &top, float &right, float &bottom) {
         if (level == MARIO_LEVEL_BIG) {
             if (isSitting) {
                 left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;

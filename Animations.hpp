@@ -11,8 +11,8 @@ namespace game {
 
       public:
         void add(int id, LPANIMATION ani);
-        LPANIMATION Get(int id);
-        void Clear();
+        LPANIMATION getAnimation(int id);
+        void clear();
 
         static Animations *GetInstance();
     };
