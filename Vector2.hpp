@@ -62,7 +62,7 @@ namespace game {
         ///
         /// \param vector2: Vector2 to convert
         template <typename U>
-        constexpr explicit Vector2(Vector2<U> &&vector2) noexcept(
+        constexpr explicit Vector2<T>(Vector2<U> &&vector2) noexcept(
             noexcept(operator T(vector2.x)) && noexcept(operator T(vector2.y)))
             : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
 
@@ -77,6 +77,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return True if \a left is equal to \a right
+        [[nodiscard("Use the result of this comparison or remove this redundant comparison!")]]
         friend constexpr bool operator==(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x == right.x) && noexcept(left.y == right.y)) = default;
 
@@ -86,6 +87,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise addition of both vectors
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x + right.x) && noexcept(left.y + right.y)) {
             return Vector2<T>(left.x + right.x, left.y + right.y);
@@ -112,6 +114,7 @@ namespace game {
         /// \param right: Vector to negate
         ///
         /// \return Memberwise opposite of the vector
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator-(const Vector2<T> &right) noexcept(
             noexcept(-right.x) && noexcept(-right.y)) {
             return Vector2<T>(-right.x, -right.y);
@@ -123,6 +126,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise subtraction of both vectors
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
             noexcept(left.x - right.x) && noexcept(left.y - right.y)) {
             return Vector2<T>(left.x - right.x, left.y - right.y);
@@ -150,6 +154,7 @@ namespace game {
         /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise multiplication by \a right
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator*(const Vector2<T> &left, const T right) noexcept(
             noexcept(left.x * right) && noexcept(left.y * right)) {
             return Vector2<T>(left.x * right, left.y * right);
@@ -161,6 +166,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise multiplication by \a left
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator*(const T left, const Vector2<T> &right) noexcept(
             noexcept(left * right.x) && noexcept(left * right.y)) {
             return Vector2<T>(left * right.x, left * right.y);
@@ -188,6 +194,7 @@ namespace game {
         /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise division by \a right
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector2<T> operator/(const Vector2<T> &left, const T right) noexcept(
             noexcept(left.x / right) && noexcept(left.y / right)) {
             return Vector2<T>(left.x / right, left.y / right);

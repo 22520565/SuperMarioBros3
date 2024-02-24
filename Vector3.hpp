@@ -74,6 +74,7 @@ namespace game {
             : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
 
         /// \brief Convert a vector3 into a vector2
+        [[nodiscard("Use the result of this conversion or remove this redundant conversion!")]]
         constexpr explicit operator Vector2<T>() const noexcept(noexcept(Vector2<T>(this->x, this->y))) {
             return Vector2<T>(this->x, this->y);
         }
@@ -89,6 +90,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return True if \a left is equal to \a right
+        [[nodiscard("Use the result of this comparison or remove this redundant comparison!")]]
         friend constexpr bool operator==(const Vector3<T> &left, const Vector3<T> &right) noexcept(
             noexcept(static_cast<const Vector2<T> &>(left) == static_cast<const Vector2<T> &>(right))
                 && noexcept(left.z == right.z)) = default;
@@ -99,6 +101,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise addition of both vectors
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator+(const Vector3<T> &left, const Vector3<T> &right) noexcept(
             noexcept(static_cast<const Vector2<T> &>(left) + static_cast<const Vector2<T> &>(right))
                 && noexcept(left.z + right.z)) {
@@ -128,6 +131,7 @@ namespace game {
         /// \param right: Vector to negate
         ///
         /// \return Memberwise opposite of the vector
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator-(const Vector3<T> &right) noexcept(
             noexcept(-static_cast<const Vector2<T> &>(right)) && noexcept(-right.z)) {
             return Vector3<T>(-static_cast<const Vector2<T> &>(right), -right.z);
@@ -139,6 +143,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise subtraction of both vectors
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator-(const Vector3<T> &left, const Vector3<T> &right) noexcept(
             noexcept(static_cast<const Vector2<T> &>(left) - static_cast<const Vector2<T> &>(right))
                 && noexcept(left.z - right.z)) {
@@ -169,6 +174,7 @@ namespace game {
         /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise multiplication by \a right
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator*(const Vector3<T> &left, const T right) noexcept(
             noexcept(static_cast<const Vector2<T> &>(left) * right) && noexcept(left.z * right)) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) * right, left.z * right);
@@ -180,6 +186,7 @@ namespace game {
         /// \param right: Right operand (a vector)
         ///
         /// \return Memberwise multiplication by \a left
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator*(const T left, const Vector3<T> &right) noexcept(
             noexcept(left * static_cast<const Vector2<T> &>(right)) && noexcept(left * right.z)) {
             return Vector3<T>(left * static_cast<const Vector2<T> &>(right), left * right.z);
@@ -207,6 +214,7 @@ namespace game {
         /// \param right: Right operand (a scalar value)
         ///
         /// \return Memberwise division by \a right
+        [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
         friend constexpr Vector3<T> operator/(const Vector3<T> &left, const T right) noexcept(
             noexcept(static_cast<const Vector2<T> &>(left) / right) && noexcept(left.z / right)) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) / right, left.z / right);
