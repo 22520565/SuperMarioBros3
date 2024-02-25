@@ -1,4 +1,5 @@
 #include "Goomba.hpp"
+#include "Animations.hpp"
 
 namespace game {
     void Goomba::getBoundingBox(float &left, float &top, float &right, float &bottom) {
@@ -33,7 +34,7 @@ namespace game {
         }
     }
 
-    void Goomba::update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    void Goomba::update(DWORD dt, std::vector< GameObject *> *coObjects) {
         this->speed.y += ay * dt;
         this->speed.x += ax * dt;
 

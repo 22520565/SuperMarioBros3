@@ -103,7 +103,7 @@ namespace game {
     /*
         Extension of original SweptAABB to deal with two moving objects
     */
-    LPCOLLISIONEVENT CCollision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJECT objDest) {
+    LPCOLLISIONEVENT CCollision::SweptAABB( GameObject * objSrc, DWORD dt,  GameObject * objDest) {
         float sl, st, sr, sb; // static object bbox
         float ml, mt, mr, mb; // moving object bbox
         float t, nx, ny;
@@ -141,7 +141,7 @@ namespace game {
         coObjects: the list of colliable objects
         coEvents: list of potential collisions
     */
-    void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *objDests, std::vector<LPCOLLISIONEVENT> &coEvents) {
+    void CCollision::Scan( GameObject * objSrc, DWORD dt, std::vector< GameObject *> *objDests, std::vector<LPCOLLISIONEVENT> &coEvents) {
         for (UINT i = 0; i < objDests->size(); i++) {
             LPCOLLISIONEVENT e = SweptAABB(objSrc, dt, objDests->at(i));
 
@@ -154,7 +154,7 @@ namespace game {
         // std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
     }
 
-    void CCollision::Filter(LPGAMEOBJECT objSrc,
+    void CCollision::Filter( GameObject * objSrc,
                             std::vector<LPCOLLISIONEVENT> &coEvents,
                             LPCOLLISIONEVENT &colX,
                             LPCOLLISIONEVENT &colY,
@@ -202,7 +202,7 @@ namespace game {
      *  Simple/Sample collision framework
      *  NOTE: Student might need to improve this based on game logic
      */
-    void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    void CCollision::Process( GameObject * objSrc, DWORD dt, std::vector< GameObject *> *coObjects) {
         std::vector<LPCOLLISIONEVENT> coEvents;
         LPCOLLISIONEVENT colX = NULL;
         LPCOLLISIONEVENT colY = NULL;

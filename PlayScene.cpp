@@ -11,6 +11,7 @@
 #include "Utils.hpp"
 
 #include "SampleKeyEventHandler.hpp"
+#include <memory>
 
 namespace game {
     PlayScene::PlayScene(int id, LPCWSTR filePath) : Scene(id, filePath) {
@@ -244,7 +245,7 @@ namespace game {
         // We know that Mario is the first object in the list hence we won't add him into the colliable object list
         // TO-DO: This is a "dirty" way, need a more organized way
 
-        std::vector<LPGAMEOBJECT> coObjects;
+        std::vector< GameObject *> coObjects;
         for (size_t i = 1; i < objects.size(); i++) {
             coObjects.push_back(objects[i]);
         }
@@ -301,11 +302,11 @@ namespace game {
         DebugOut(L"[INFO] Scene %d unloaded! \n", id);
     }
 
-    bool PlayScene::IsGameObjectDeleted(const LPGAMEOBJECT &o) { return o == NULL; }
+    bool PlayScene::IsGameObjectDeleted(const GameObject *const& o) { return o == NULL; }
 
     void PlayScene::PurgeDeletedObjects() {
         for (auto it = objects.begin(); it != objects.end(); it++) {
-            LPGAMEOBJECT o = *it;
+             GameObject * o = *it;
             if (o->IsDeleted()) {
                 delete o;
                 *it = NULL;

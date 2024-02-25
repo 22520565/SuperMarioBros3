@@ -6,14 +6,13 @@
 
 namespace game {
     class GameObject;
-    using LPGAMEOBJECT = GameObject *;
 
     struct CCollisionEvent;
     typedef CCollisionEvent *LPCOLLISIONEVENT;
 
     struct CCollisionEvent {
-        LPGAMEOBJECT src_obj; // source object : the object from which to calculate collision
-        LPGAMEOBJECT obj;     // the target object
+         GameObject * src_obj; // source object : the object from which to calculate collision
+         GameObject * obj;     // the target object
 
         float t, nx, ny;
 
@@ -21,7 +20,7 @@ namespace game {
         bool isDeleted;
 
         CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0,
-                        LPGAMEOBJECT obj = NULL, LPGAMEOBJECT src_obj = NULL) {
+                         GameObject * obj = NULL,  GameObject * src_obj = NULL) {
             this->t = t;
             this->nx = nx;
             this->ny = ny;
@@ -59,17 +58,17 @@ namespace game {
             float &ny);
 
         LPCOLLISIONEVENT SweptAABB(
-            LPGAMEOBJECT objSrc,
+             GameObject * objSrc,
             DWORD dt,
-            LPGAMEOBJECT objDest);
+             GameObject * objDest);
         void Scan(
-            LPGAMEOBJECT objSrc,
+             GameObject * objSrc,
             DWORD dt,
-            std::vector<LPGAMEOBJECT> *objDests,
+            std::vector< GameObject *> *objDests,
             std::vector<LPCOLLISIONEVENT> &coEvents);
 
         void Filter(
-            LPGAMEOBJECT objSrc,
+             GameObject * objSrc,
             std::vector<LPCOLLISIONEVENT> &coEvents,
             LPCOLLISIONEVENT &colX,
             LPCOLLISIONEVENT &colY,
@@ -77,7 +76,7 @@ namespace game {
             int filterX,
             int filterY);
 
-        void Process(LPGAMEOBJECT objSrc, DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
+        void Process( GameObject * objSrc, DWORD dt, std::vector< GameObject *> *coObjects);
 
         static CCollision *GetInstance();
     };

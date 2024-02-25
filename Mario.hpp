@@ -118,7 +118,7 @@ namespace game {
 
       public:
         using GameObject::GameObject;
-        void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
+        void update(DWORD dt, std::vector< GameObject *> *coObjects);
         void render();
         void SetState(int state);
 

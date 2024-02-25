@@ -25,7 +25,7 @@ namespace game {
         ULONGLONG die_start = -1;
 
         virtual void getBoundingBox(float &left, float &top, float &right, float &bottom);
-        virtual void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
+        virtual void update(DWORD dt, std::vector< GameObject *> *coObjects);
         virtual void render();
 
         virtual int IsCollidable() { return 1; };

@@ -11,7 +11,7 @@
 #include "Collision.hpp"
 
 namespace game {
-    void Mario::update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
+    void Mario::update(DWORD dt, std::vector< GameObject *> *coObjects) {
         speed.y += ay * dt;
         speed.x += ax * dt;
 

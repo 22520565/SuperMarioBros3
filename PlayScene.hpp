@@ -11,9 +11,9 @@ namespace game {
     class PlayScene : public Scene {
       protected:
         // A play scene has to have player, right?
-        LPGAMEOBJECT player;
+         GameObject * player;
 
-        std::vector<LPGAMEOBJECT> objects;
+        std::vector< GameObject *> objects;
 
         void _ParseSection_SPRITES(std::string line);
         void _ParseSection_ANIMATIONS(std::string line);
@@ -31,12 +31,12 @@ namespace game {
         virtual void render();
         virtual void Unload();
 
-        LPGAMEOBJECT GetPlayer() { return player; }
+         GameObject * GetPlayer() { return player; }
 
         void clear();
         void PurgeDeletedObjects();
 
-        static bool IsGameObjectDeleted(const LPGAMEOBJECT &o);
+        static bool IsGameObjectDeleted(const GameObject *const &o);
     };
 
     typedef PlayScene *LPPLAYSCENE;
