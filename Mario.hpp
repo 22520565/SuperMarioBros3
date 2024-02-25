@@ -98,16 +98,16 @@ namespace game {
 #define MARIO_UNTOUCHABLE_TIME 2500
 
     class Mario : public GameObject {
-        BOOLEAN isSitting;
-        float maxVx;
-        float ax; // acceleration on x
-        float ay; // acceleration on y
+        bool isSitting = false;
+        float maxVx=0.0F;
+        float ax=0.0F; // acceleration on x
+        float ay=MARIO_GRAVITY; // acceleration on y
 
-        int level;
-        int untouchable;
-        ULONGLONG untouchable_start;
-        BOOLEAN isOnPlatform;
-        int coin;
+        int level=MARIO_LEVEL_BIG;
+        int untouchable=0;
+        ULONGLONG untouchable_start=-1;
+        BOOLEAN isOnPlatform=false;
+        int coin=0;
 
         void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
         void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -117,18 +117,7 @@ namespace game {
         int GetAniIdSmall();
 
       public:
-        Mario(float x, float y) : GameObject(x, y) {
-            isSitting = false;
-            maxVx = 0.0f;
-            ax = 0.0f;
-            ay = MARIO_GRAVITY;
-
-            level = MARIO_LEVEL_BIG;
-            untouchable = 0;
-            untouchable_start = -1;
-            isOnPlatform = false;
-            coin = 0;
-        }
+        using GameObject::GameObject;
         void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
         void render();
         void SetState(int state);

@@ -19,10 +19,10 @@
 namespace game {
     class Goomba : public GameObject {
       protected:
-        float ax;
-        float ay;
+        float ax = 0;
+        float ay = GOOMBA_GRAVITY;
 
-        ULONGLONG die_start;
+        ULONGLONG die_start = -1;
 
         virtual void getBoundingBox(float &left, float &top, float &right, float &bottom);
         virtual void update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects);
@@ -35,7 +35,10 @@ namespace game {
         virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
       public:
-        Goomba(float x, float y);
+        using GameObject::GameObject;
+        explicit Goomba(const Vector2<std::float32_t> &position) : GameObject(position) {
+            SetState(GOOMBA_STATE_WALKING);
+        }
         virtual void SetState(int state);
     };
 }

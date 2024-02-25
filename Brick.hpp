@@ -3,7 +3,6 @@
 #include "Animation.hpp"
 #include "Animations.hpp"
 #include "GameObject.hpp"
-#include <Windows.h>
 #include <windows.h>
 
 namespace game {
@@ -15,7 +14,7 @@ namespace game {
 
     class Brick final : public GameObject {
       public:
-        Brick(float x, float y) : GameObject(x, y) {}
+        using GameObject::GameObject;
         void render();
         void update(DWORD dt) {}
         void getBoundingBox(float &l, float &t, float &r, float &b);

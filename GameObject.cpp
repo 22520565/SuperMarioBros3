@@ -9,7 +9,7 @@
 
 namespace game {
 	void GameObject::RenderBoundingBox() {
-		D3DXVECTOR3 p(x, y, 0);
+		D3DXVECTOR3 p(this->position.x, this->position.y, 0);
 		RECT rect;
 
 		LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
@@ -25,6 +25,6 @@ namespace game {
 		float cx, cy;
 		Game::GetInstance()->GetCamPos(cx, cy);
 
-		Game::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
+		Game::GetInstance()->Draw(this->position.x - cx, this->position.y - cy, bbox, &rect, BBOX_ALPHA);
 	}
 }

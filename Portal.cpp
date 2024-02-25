@@ -3,16 +3,15 @@
 #include "Textures.hpp"
 
 namespace game {
-    Portal::Portal(float l, float t, float r, float b, int scene_id) {
+    Portal::Portal(const Vector2<std::float32_t>& position, float r, float b, int scene_id) {
         this->scene_id = scene_id;
-        x = l;
-        y = t;
-        width = r - l;
-        height = b - t;
+        this->position=position;
+        width = r - position.x;
+        height = b - position.y;
     }
 
     void Portal::RenderBoundingBox() {
-        D3DXVECTOR3 p(x, y, 0);
+        D3DXVECTOR3 p(position.x, position.y, 0);
         RECT rect;
 
         LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
@@ -28,7 +27,7 @@ namespace game {
         float cx, cy;
         Game::GetInstance()->GetCamPos(cx, cy);
 
-        Game::GetInstance()->Draw(x - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
+        Game::GetInstance()->Draw(position.x - cx, position.y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
     }
 
     void Portal::render() {
@@ -36,9 +35,9 @@ namespace game {
     }
 
     void Portal::getBoundingBox(float &l, float &t, float &r, float &b) {
-        l = x - width / 2;
-        t = y - height / 2;
-        r = x + width / 2;
-        b = y + height / 2;
+        l = position.x - width / 2;
+        t = position.y - height / 2;
+        r = position.x + width / 2;
+        b = position.y + height / 2;
     }
 }

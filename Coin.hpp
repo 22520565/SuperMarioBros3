@@ -13,7 +13,7 @@
 namespace game {
     class Coin : public GameObject {
       public:
-        Coin(float x, float y) : GameObject(x, y) {}
+          using GameObject::GameObject;
         void render();
         void update(DWORD dt) {}
         void getBoundingBox(float &l, float &t, float &r, float &b);

@@ -7,7 +7,7 @@
 
 namespace game {
     void Platform::RenderBoundingBox() {
-        D3DXVECTOR3 p(x, y, 0);
+        D3DXVECTOR3 p(position.x, position.y, 0);
         RECT rect;
 
         LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
@@ -23,33 +23,33 @@ namespace game {
         float cx, cy;
         Game::GetInstance()->GetCamPos(cx, cy);
 
-        float xx = x - this->cellWidth / 2 + rect.right / 2;
+        float xx = position.x - this->cellWidth / 2 + rect.right / 2;
 
-        Game::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
+        Game::GetInstance()->Draw(xx - cx, position.y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
     }
 
     void Platform::render() {
         if (this->length <= 0)
             return;
-        float xx = x;
+        float xx = position.x;
         Sprites *s = Sprites::GetInstance();
 
-        s->Get(this->spriteIdBegin)->Draw(xx, y);
+        s->Get(this->spriteIdBegin)->Draw(xx, position.y);
         xx += this->cellWidth;
         for (int i = 1; i < this->length - 1; i++) {
-            s->Get(this->spriteIdMiddle)->Draw(xx, y);
+            s->Get(this->spriteIdMiddle)->Draw(xx, position.y);
             xx += this->cellWidth;
         }
         if (length > 1)
-            s->Get(this->spriteIdEnd)->Draw(xx, y);
+            s->Get(this->spriteIdEnd)->Draw(xx, position.y);
 
         RenderBoundingBox();
     }
 
     void Platform::getBoundingBox(float &l, float &t, float &r, float &b) {
         float cellWidth_div_2 = this->cellWidth / 2;
-        l = x - cellWidth_div_2;
-        t = y - this->cellHeight / 2;
+        l = position.x - cellWidth_div_2;
+        t = position.y - this->cellHeight / 2;
         r = l + this->cellWidth * this->length;
         b = t + this->cellHeight;
     }

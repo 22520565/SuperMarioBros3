@@ -31,7 +31,7 @@ namespace game {
         /// \brief Default constructor
         constexpr Vector2<T>() = default;
 
-        /// \brief Construct the vector2 from its coordinates
+        /// \brief Construct a vector2 from its coordinates
         constexpr explicit Vector2<T>(const T x, const T y) noexcept(
             noexcept(T(x)) && noexcept(T(y))) : x(x), y(y) {}
 

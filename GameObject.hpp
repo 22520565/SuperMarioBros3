@@ -17,24 +17,27 @@ namespace game {
     class GameObject {
       public:
         constexpr GameObject() = default;
-        constexpr GameObject(std::float32_t x, std::float32_t y) noexcept : x(x), y(y) {}
+        constexpr explicit GameObject(const Vector2<std::float32_t>& position) noexcept(
+            noexcept(Vector2(position))) : position(position) {}
+
+        constexpr const Vector2<std::float32_t> &getPosition() const noexcept { return this->position; }
 
         constexpr void setPosition(const std::float32_t x, const std::float32_t y) noexcept(
-            noexcept(this->position = Vector2(x, y))) {
-            this->position = Vector2(x, y);
-        }
+            noexcept(this->position = Vector2(position.x, position.y))) { this->position = Vector2(x, y); }
 
-        void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-        void GetPosition(float &x, float &y) {
-            x = this->x;
-            y = this->y;
-        }
-        void GetSpeed(float &vx, float &vy) {
-            vx = this->vx;
-            vy = this->vy;
-        }
+        constexpr void setPosition(const Vector2<std::float32_t> &position) noexcept(
+            noexcept(this->position = position)) { this->position = position; }
+
+        constexpr const Vector2<std::float32_t> &getSpeed() const noexcept { return this->speed; }
+
+        constexpr void setSpeed(const std::float32_t x, const std::float32_t y) noexcept(
+            noexcept(this->speed = Vector2(position.x, position.y))) { this->speed = Vector2(x, y); }
+
+        constexpr void setSpeed(const Vector2<std::float32_t> &speed) noexcept(
+            noexcept(this->speed = speed)) { this->speed = speed; }
 
         constexpr const int_fast32_t &getState() const noexcept { return this->state; }
+
         virtual void Delete() { isDeleted = true; }
         bool IsDeleted() { return isDeleted; }
 
@@ -64,14 +67,6 @@ namespace game {
       protected:
         Vector2<std::float32_t> position = Vector2<std::float32_t>();
         Vector2<std::float32_t> speed = Vector2<std::float32_t>();
-
-        // position
-        std::float32_t x = 0.0F;
-        std::float32_t y = 0.0F;
-
-        // speed, about to replace
-        std::float32_t vx = 0.0F;
-        std::float32_t vy = 0.0F;
 
         int_fast32_t nx = 1;
 

@@ -108,15 +108,13 @@ namespace game {
         float ml, mt, mr, mb; // moving object bbox
         float t, nx, ny;
 
-        float mvx, mvy;
-        objSrc->GetSpeed(mvx, mvy);
-        float mdx = mvx * dt;
-        float mdy = mvy * dt;
+      const Vector2 movingSpeed = objSrc->getSpeed();
+        float mdx = movingSpeed.x * dt;
+        float mdy = movingSpeed.y * dt;
 
-        float svx, svy;
-        objDest->GetSpeed(svx, svy);
-        float sdx = svx * dt;
-        float sdy = svy * dt;
+        const Vector2 staticSpeed = objDest->getSpeed();
+        float sdx = staticSpeed.x * dt;
+        float sdy = staticSpeed.y * dt;
 
         //
         // NOTE: new m speed = original m speed - collide object speed
@@ -221,17 +219,16 @@ namespace game {
         } else {
             Filter(objSrc, coEvents, colX, colY);
 
-            float x, y, vx, vy, dx, dy;
-            objSrc->GetPosition(x, y);
-            objSrc->GetSpeed(vx, vy);
-            dx = vx * dt;
-            dy = vy * dt;
+            Vector2 position = objSrc->getPosition();
+            Vector2 speed = objSrc->getSpeed();
+           float dx = speed.x * dt;
+           float dy = speed.y * dt;
 
             if (colX != NULL && colY != NULL) {
                 if (colY->t < colX->t) // was collision on Y first ?
                 {
-                    y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
-                    objSrc->setPosition(x, y);
+                    position.y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
+                    objSrc->setPosition(position.x, position.y);
 
                     objSrc->OnCollisionWith(colY);
 
@@ -252,15 +249,15 @@ namespace game {
                     Filter(objSrc, coEvents, colX_other, colY, /*filterBlock = */ 1, 1, /*filterY=*/0);
 
                     if (colX_other != NULL) {
-                        x += colX_other->t * dx + colX_other->nx * BLOCK_PUSH_FACTOR;
+                        position.x += colX_other->t * dx + colX_other->nx * BLOCK_PUSH_FACTOR;
                         objSrc->OnCollisionWith(colX_other);
                     } else {
-                        x += dx;
+                        position.x += dx;
                     }
                 } else // collision on X first
                 {
-                    x += colX->t * dx + colX->nx * BLOCK_PUSH_FACTOR;
-                    objSrc->setPosition(x, y);
+                    position.x += colX->t * dx + colX->nx * BLOCK_PUSH_FACTOR;
+                    objSrc->setPosition(position.x, position.y);
 
                     objSrc->OnCollisionWith(colX);
 
@@ -281,27 +278,27 @@ namespace game {
                     Filter(objSrc, coEvents, colX, colY_other, /*filterBlock = */ 1, /*filterX=*/0, /*filterY=*/1);
 
                     if (colY_other != NULL) {
-                        y += colY_other->t * dy + colY_other->ny * BLOCK_PUSH_FACTOR;
+                        position.y += colY_other->t * dy + colY_other->ny * BLOCK_PUSH_FACTOR;
                         objSrc->OnCollisionWith(colY_other);
                     } else {
-                        y += dy;
+                        position.y += dy;
                     }
                 }
             } else if (colX != NULL) {
-                x += colX->t * dx + colX->nx * BLOCK_PUSH_FACTOR;
-                y += dy;
+                position.x += colX->t * dx + colX->nx * BLOCK_PUSH_FACTOR;
+                position.y += dy;
                 objSrc->OnCollisionWith(colX);
             } else if (colY != NULL) {
-                x += dx;
-                y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
+                position.x += dx;
+                position.y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
                 objSrc->OnCollisionWith(colY);
             } else // both colX & colY are NULL
             {
-                x += dx;
-                y += dy;
+                position.x += dx;
+                position.y += dy;
             }
 
-            objSrc->setPosition(x, y);
+            objSrc->setPosition(position.x, position.y);
         }
 
         //

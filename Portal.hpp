@@ -13,7 +13,7 @@ namespace game {
         float height;
 
       public:
-        Portal(float l, float t, float r, float b, int scene_id);
+        Portal(const Vector2<std::float32_t>& position, float r, float b, int scene_id);
         virtual void render();
         virtual void getBoundingBox(float &l, float &t, float &r, float &b);
 

@@ -12,11 +12,11 @@
 
 namespace game {
     void Mario::update(DWORD dt, std::vector<LPGAMEOBJECT> *coObjects) {
-        vy += ay * dt;
-        vx += ax * dt;
+        speed.y += ay * dt;
+        speed.x += ax * dt;
 
-        if (abs(vx) > abs(maxVx))
-            vx = maxVx;
+        if (abs(speed.x) > abs(maxVx))
+            speed.x = maxVx;
 
         // reset untouchable timer if untouchable time has passed
         if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) {
@@ -30,17 +30,17 @@ namespace game {
     }
 
     void Mario::OnNoCollision(DWORD dt) {
-        x += vx * dt;
-        y += vy * dt;
+        position.x += speed.x * dt;
+        position.y += speed.y * dt;
     }
 
     void Mario::OnCollisionWith(LPCOLLISIONEVENT e) {
         if (e->ny != 0 && e->obj->IsBlocking()) {
-            vy = 0;
+            speed.y = 0;
             if (e->ny < 0)
                 isOnPlatform = true;
         } else if (e->nx != 0 && e->obj->IsBlocking()) {
-            vx = 0;
+            speed.x = 0;
         }
 
         if (dynamic_cast<Goomba *>(e->obj))
@@ -58,7 +58,7 @@ namespace game {
         if (e->ny < 0) {
             if (goomba->getState() != GOOMBA_STATE_DIE) {
                 goomba->SetState(GOOMBA_STATE_DIE);
-                vy = -MARIO_JUMP_DEFLECT_SPEED;
+                speed.y = -MARIO_JUMP_DEFLECT_SPEED;
             }
         } else // hit by Goomba
         {
@@ -108,19 +108,19 @@ namespace game {
                 aniId = ID_ANI_MARIO_SIT_RIGHT;
             else
                 aniId = ID_ANI_MARIO_SIT_LEFT;
-        } else if (vx == 0) {
+        } else if (speed.x == 0) {
             if (nx > 0)
                 aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
             else
                 aniId = ID_ANI_MARIO_SMALL_IDLE_LEFT;
-        } else if (vx > 0) {
+        } else if (speed.x > 0) {
             if (ax < 0)
                 aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
             else if (ax == MARIO_ACCEL_RUN_X)
                 aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
             else if (ax == MARIO_ACCEL_WALK_X)
                 aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
-        } else // vx < 0
+        } else // speed.x < 0
         {
             if (ax > 0)
                 aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
@@ -158,19 +158,19 @@ namespace game {
                 aniId = ID_ANI_MARIO_SIT_RIGHT;
             else
                 aniId = ID_ANI_MARIO_SIT_LEFT;
-        } else if (vx == 0) {
+        } else if (speed.x == 0) {
             if (nx > 0)
                 aniId = ID_ANI_MARIO_IDLE_RIGHT;
             else
                 aniId = ID_ANI_MARIO_IDLE_LEFT;
-        } else if (vx > 0) {
+        } else if (speed.x > 0) {
             if (ax < 0)
                 aniId = ID_ANI_MARIO_BRACE_RIGHT;
             else if (ax == MARIO_ACCEL_RUN_X)
                 aniId = ID_ANI_MARIO_RUNNING_RIGHT;
             else if (ax == MARIO_ACCEL_WALK_X)
                 aniId = ID_ANI_MARIO_WALKING_RIGHT;
-        } else // vx < 0
+        } else // speed.x < 0
         {
             if (ax > 0)
                 aniId = ID_ANI_MARIO_BRACE_LEFT;
@@ -197,7 +197,7 @@ namespace game {
         else if (level == MARIO_LEVEL_SMALL)
             aniId = GetAniIdSmall();
 
-        animations->getAnimation(aniId)->render(x, y);
+        animations->getAnimation(aniId)->render(position.x, position.y);
 
         // RenderBoundingBox();
 
@@ -242,25 +242,25 @@ namespace game {
             if (isSitting)
                 break;
             if (isOnPlatform) {
-                if (abs(this->vx) == MARIO_RUNNING_SPEED)
-                    vy = -MARIO_JUMP_RUN_SPEED_Y;
+                if (abs(this->speed.x) == MARIO_RUNNING_SPEED)
+                    speed.y = -MARIO_JUMP_RUN_SPEED_Y;
                 else
-                    vy = -MARIO_JUMP_SPEED_Y;
+                    speed.y = -MARIO_JUMP_SPEED_Y;
             }
             break;
 
         case MARIO_STATE_RELEASE_JUMP:
-            if (vy < 0)
-                vy += MARIO_JUMP_SPEED_Y / 2;
+            if (speed.y < 0)
+                speed.y += MARIO_JUMP_SPEED_Y / 2;
             break;
 
         case MARIO_STATE_SIT:
             if (isOnPlatform && level != MARIO_LEVEL_SMALL) {
                 state = MARIO_STATE_IDLE;
                 isSitting = true;
-                vx = 0;
-                vy = 0.0f;
-                y += MARIO_SIT_HEIGHT_ADJUST;
+                speed.x = 0;
+                speed.y = 0.0f;
+                position.y += MARIO_SIT_HEIGHT_ADJUST;
             }
             break;
 
@@ -268,18 +268,18 @@ namespace game {
             if (isSitting) {
                 isSitting = false;
                 state = MARIO_STATE_IDLE;
-                y -= MARIO_SIT_HEIGHT_ADJUST;
+                position.y -= MARIO_SIT_HEIGHT_ADJUST;
             }
             break;
 
         case MARIO_STATE_IDLE:
             ax = 0.0f;
-            vx = 0.0f;
+            speed.x = 0.0f;
             break;
 
         case MARIO_STATE_DIE:
-            vy = -MARIO_JUMP_DEFLECT_SPEED;
-            vx = 0;
+            speed.y = -MARIO_JUMP_DEFLECT_SPEED;
+            speed.x = 0;
             ax = 0;
             break;
         }
@@ -290,19 +290,19 @@ namespace game {
     void Mario::getBoundingBox(float &left, float &top, float &right, float &bottom) {
         if (level == MARIO_LEVEL_BIG) {
             if (isSitting) {
-                left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
-                top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
+                left = position.x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
+                top = position.y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
                 right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
                 bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
             } else {
-                left = x - MARIO_BIG_BBOX_WIDTH / 2;
-                top = y - MARIO_BIG_BBOX_HEIGHT / 2;
+                left = position.x - MARIO_BIG_BBOX_WIDTH / 2;
+                top = position.y - MARIO_BIG_BBOX_HEIGHT / 2;
                 right = left + MARIO_BIG_BBOX_WIDTH;
                 bottom = top + MARIO_BIG_BBOX_HEIGHT;
             }
         } else {
-            left = x - MARIO_SMALL_BBOX_WIDTH / 2;
-            top = y - MARIO_SMALL_BBOX_HEIGHT / 2;
+            left = position.x - MARIO_SMALL_BBOX_WIDTH / 2;
+            top = position.y - MARIO_SMALL_BBOX_HEIGHT / 2;
             right = left + MARIO_SMALL_BBOX_WIDTH;
             bottom = top + MARIO_SMALL_BBOX_HEIGHT;
         }
@@ -311,7 +311,7 @@ namespace game {
     void Mario::SetLevel(int l) {
         // Adjust position to avoid falling off platform
         if (this->level == MARIO_LEVEL_SMALL) {
-            y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+            position.y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
         }
         level = l;
     }

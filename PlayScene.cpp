@@ -93,8 +93,8 @@ namespace game {
             return;
 
         int object_type = atoi(tokens[0].c_str());
-        float x = (float)atof(tokens[1].c_str());
-        float y = (float)atof(tokens[2].c_str());
+        Vector2<std::float32_t> position = 
+            Vector2<std::float32_t>(atof(tokens[1].c_str()), atof(tokens[2].c_str()));
 
         GameObject *obj = NULL;
 
@@ -104,19 +104,19 @@ namespace game {
                 DebugOut(L"[ERROR] MARIO object was created before!\n");
                 return;
             }
-            obj = new Mario(x, y);
+            obj = new Mario(position);
             player = (Mario *)obj;
 
             DebugOut(L"[INFO] Player object has been created!\n");
             break;
         case OBJECT_TYPE_GOOMBA:
-            obj = new Goomba(x, y);
+            obj = new Goomba(position);
             break;
         case OBJECT_TYPE_BRICK:
-            obj = new Brick(x, y);
+            obj = new Brick(position);
             break;
         case OBJECT_TYPE_COIN:
-            obj = new Coin(x, y);
+            obj = new Coin(position);
             break;
 
         case OBJECT_TYPE_PLATFORM: {
@@ -129,7 +129,7 @@ namespace game {
             int sprite_end = atoi(tokens[8].c_str());
 
             obj = new Platform(
-                x, y,
+                position,
                 cell_width, cell_height, length,
                 sprite_begin, sprite_middle, sprite_end);
 
@@ -140,7 +140,7 @@ namespace game {
             float r = (float)atof(tokens[3].c_str());
             float b = (float)atof(tokens[4].c_str());
             int scene_id = atoi(tokens[5].c_str());
-            obj = new Portal(x, y, r, b, scene_id);
+            obj = new Portal(position, r, b, scene_id);
         } break;
 
         default:
@@ -149,7 +149,7 @@ namespace game {
         }
 
         // General object setup
-        obj->setPosition(x, y);
+        obj->setPosition(position);
 
         objects.push_back(obj);
     }
@@ -258,17 +258,14 @@ namespace game {
             return;
 
         // Update camera to follow mario
-        float cx, cy;
-        player->GetPosition(cx, cy);
+        Game* game = Game::GetInstance();
+        Vector2 cameraPosition = player->getPosition()
+            - Vector2<std::float32_t>(game->GetBackBufferWidth() / 2, game->GetBackBufferHeight() / 2);
 
-        Game *game = Game::GetInstance();
-        cx -= game->GetBackBufferWidth() / 2;
-        cy -= game->GetBackBufferHeight() / 2;
+        if (cameraPosition.x < 0)
+            cameraPosition.x = 0;
 
-        if (cx < 0)
-            cx = 0;
-
-        Game::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+        Game::GetInstance()->SetCamPos(cameraPosition.x, 0.0f /*cameraPosition.y*/);
 
         PurgeDeletedObjects();
     }

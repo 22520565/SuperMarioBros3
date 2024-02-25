@@ -14,9 +14,9 @@ namespace game {
         int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
       public:
-        Platform(float x, float y,
+        Platform(const Vector2<std::float32_t>& position,
                  float cell_width, float cell_height, int length,
-                 int sprite_id_begin, int sprite_id_middle, int sprite_id_end) : GameObject(x, y) {
+                 int sprite_id_begin, int sprite_id_middle, int sprite_id_end) : GameObject(position) {
             this->length = length;
             this->cellWidth = cell_width;
             this->cellHeight = cell_height;
