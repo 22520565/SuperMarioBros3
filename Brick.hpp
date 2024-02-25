@@ -3,6 +3,8 @@
 #include "Animation.hpp"
 #include "Animations.hpp"
 #include "GameObject.hpp"
+#include <Windows.h>
+#include <windows.h>
 
 namespace game {
 

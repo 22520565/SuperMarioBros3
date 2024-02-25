@@ -16,6 +16,7 @@
 //    and must not be misrepresented as being the original software.
 //
 // 3. This notice may not be removed or altered from any source distribution.
+// * This header file has been altered after copying from origin!
 
 #pragma once
 #include "Vector2.hpp"
@@ -27,25 +28,19 @@ namespace game {
         T z = T();
 
         /// \brief Default constructor.
-        constexpr Vector3<T>() noexcept(noexcept(Vector2<T>())) = default;
+        constexpr Vector3<T>() = default;
 
         /// \brief Construct a vector from its coordinates.
-        constexpr explicit Vector3<T>(const T x, const T y, const T z) noexcept(noexcept(Vector2<T>(x, y)))
-            : Vector2<T>(x, y), z(z) {}
+        constexpr explicit Vector3<T>(const T x, const T y, const T z) noexcept(
+            noexcept(Vector2<T>(x, y)) && noexcept(T(z))) : Vector2<T>(x, y), z(z) {}
 
         /// \brief Construct a vector3 from a vector2.
-        constexpr explicit Vector3<T>(const Vector2<T> &vector2) noexcept(noexcept(Vector2<T>(vector2)))
-            : Vector2<T>(vector2) {}
+        constexpr explicit Vector3<T>(const Vector2<T> &vector2) noexcept(
+            noexcept(Vector2<T>(vector2))) : Vector2<T>(vector2) {}
 
         /// \brief Construct a vector3 from a vector2 with Z coordinate.
-        constexpr explicit Vector3<T>(const Vector2<T> &vector2, const T z) noexcept(noexcept(Vector2<T>(vector2)))
-            : Vector2<T>(vector2), z(z) {}
-
-        /// \brief Default copy constructor
-        constexpr explicit Vector3<T>(const Vector3<T> &vector3) noexcept = default;
-
-        /// \brief Default move constructor
-        constexpr explicit Vector3<T>(Vector3<T> &&vector3) noexcept = default;
+        constexpr explicit Vector3<T>(const Vector2<T> &vector2, const T z) noexcept(
+            noexcept(Vector2<T>(vector2)) && noexcept(T(z))) : Vector2<T>(vector2), z(z) {}
 
         ///\brief Construct the vector from another type of vector.
         ///
@@ -57,7 +52,7 @@ namespace game {
         /// \param vector3: Vector3 to convert
         template <typename U>
         constexpr explicit Vector3<T>(const Vector3<U> &vector3) noexcept(
-            noexcept(Vector2<T>(vector3)) && noexcept(static_cast<T>(z)))
+            noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))))
             : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
 
         ///\brief Construct the vector from another type of vector.
@@ -70,14 +65,8 @@ namespace game {
         /// \param vector3: Vector3 to convert
         template <typename U>
         constexpr explicit Vector3<T>(Vector3<U> &&vector3) noexcept(
-            noexcept(Vector2<T>(vector3)) && noexcept(static_cast<T>(z)))
+            noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))))
             : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
-
-        /// \brief Convert a vector3 into a vector2
-        [[nodiscard("Use the result of this conversion or remove this redundant conversion!")]]
-        constexpr explicit operator Vector2<T>() const noexcept(noexcept(Vector2<T>(this->x, this->y))) {
-            return Vector2<T>(this->x, this->y);
-        }
 
         /// \brief Overload of binary operator ==
         ///
@@ -91,9 +80,8 @@ namespace game {
         ///
         /// \return True if \a left is equal to \a right
         [[nodiscard("Use the result of this comparison or remove this redundant comparison!")]]
-        friend constexpr bool operator==(const Vector3<T> &left, const Vector3<T> &right) noexcept(
-            noexcept(static_cast<const Vector2<T> &>(left) == static_cast<const Vector2<T> &>(right))
-                && noexcept(left.z == right.z)) = default;
+        friend constexpr bool
+        operator==(const Vector3<T> &left, const Vector3<T> &right) = default;
 
         /// \brief Overload of binary operator +
         ///
@@ -102,9 +90,10 @@ namespace game {
         ///
         /// \return Memberwise addition of both vectors
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator+(const Vector3<T> &left, const Vector3<T> &right) noexcept(
-            noexcept(static_cast<const Vector2<T> &>(left) + static_cast<const Vector2<T> &>(right))
-                && noexcept(left.z + right.z)) {
+        friend constexpr Vector3<T>
+        operator+(const Vector3<T> &left, const Vector3<T> &right) noexcept(
+            noexcept(Vector3<T>(static_cast<const Vector2<T> &>(left) + static_cast<const Vector2<T> &>(right),
+                                left.z + right.z))) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) + static_cast<const Vector2<T> &>(right),
                               left.z + right.z);
         }
@@ -132,8 +121,9 @@ namespace game {
         ///
         /// \return Memberwise opposite of the vector
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator-(const Vector3<T> &right) noexcept(
-            noexcept(-static_cast<const Vector2<T> &>(right)) && noexcept(-right.z)) {
+        friend constexpr Vector3<T>
+        operator-(const Vector3<T> &right) noexcept(
+            noexcept(Vector3<T>(-static_cast<const Vector2<T> &>(right), -right.z))) {
             return Vector3<T>(-static_cast<const Vector2<T> &>(right), -right.z);
         }
 
@@ -144,9 +134,10 @@ namespace game {
         ///
         /// \return Memberwise subtraction of both vectors
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator-(const Vector3<T> &left, const Vector3<T> &right) noexcept(
-            noexcept(static_cast<const Vector2<T> &>(left) - static_cast<const Vector2<T> &>(right))
-                && noexcept(left.z - right.z)) {
+        friend constexpr Vector3<T>
+        operator-(const Vector3<T> &left, const Vector3<T> &right) noexcept(
+            noexcept(Vector3<T>(static_cast<const Vector2<T> &>(left) - static_cast<const Vector2<T> &>(right),
+                                left.z - right.z))) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) - static_cast<const Vector2<T> &>(right),
                               left.z - right.z);
         }
@@ -175,8 +166,9 @@ namespace game {
         ///
         /// \return Memberwise multiplication by \a right
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator*(const Vector3<T> &left, const T right) noexcept(
-            noexcept(static_cast<const Vector2<T> &>(left) * right) && noexcept(left.z * right)) {
+        friend constexpr Vector3<T>
+        operator*(const Vector3<T> &left, const T right) noexcept(
+            noexcept(Vector3<T>(static_cast<const Vector2<T> &>(left) * right, left.z *right))) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) * right, left.z * right);
         }
 
@@ -187,8 +179,9 @@ namespace game {
         ///
         /// \return Memberwise multiplication by \a left
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator*(const T left, const Vector3<T> &right) noexcept(
-            noexcept(left * static_cast<const Vector2<T> &>(right)) && noexcept(left * right.z)) {
+        friend constexpr Vector3<T>
+        operator*(const T left, const Vector3<T> &right) noexcept(
+            noexcept(Vector3<T>(left * static_cast<const Vector2<T> &>(right), left *right.z))) {
             return Vector3<T>(left * static_cast<const Vector2<T> &>(right), left * right.z);
         }
 
@@ -215,8 +208,9 @@ namespace game {
         ///
         /// \return Memberwise division by \a right
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector3<T> operator/(const Vector3<T> &left, const T right) noexcept(
-            noexcept(static_cast<const Vector2<T> &>(left) / right) && noexcept(left.z / right)) {
+        friend constexpr Vector3<T>
+        operator/(const Vector3<T> &left, const T right) noexcept(
+            noexcept(Vector3<T>(static_cast<const Vector2<T> &>(left) / right, left.z / right))) {
             return Vector3<T>(static_cast<const Vector2<T> &>(left) / right, left.z / right);
         }
 

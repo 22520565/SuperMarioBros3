@@ -56,14 +56,14 @@ namespace game {
 
         // jump on top >> kill Goomba and deflect a bit
         if (e->ny < 0) {
-            if (goomba->GetState() != GOOMBA_STATE_DIE) {
+            if (goomba->getState() != GOOMBA_STATE_DIE) {
                 goomba->SetState(GOOMBA_STATE_DIE);
                 vy = -MARIO_JUMP_DEFLECT_SPEED;
             }
         } else // hit by Goomba
         {
             if (untouchable == 0) {
-                if (goomba->GetState() != GOOMBA_STATE_DIE) {
+                if (goomba->getState() != GOOMBA_STATE_DIE) {
                     if (level > MARIO_LEVEL_SMALL) {
                         level = MARIO_LEVEL_SMALL;
                         StartUntouchable();

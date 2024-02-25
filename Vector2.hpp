@@ -16,6 +16,7 @@
 //    and must not be misrepresented as being the original software.
 //
 // 3. This notice may not be removed or altered from any source distribution.
+// * This header file has been altered after copying from origin!
 
 #pragma once
 namespace game {
@@ -28,17 +29,11 @@ namespace game {
         T y = T();
 
         /// \brief Default constructor
-        constexpr Vector2<T>() noexcept(noexcept(T())) = default;
+        constexpr Vector2<T>() = default;
 
         /// \brief Construct the vector2 from its coordinates
-        constexpr explicit Vector2<T>(const T x, const T y) noexcept
-            : x(x), y(y) {}
-
-        /// \brief Default copy constructor
-        constexpr explicit Vector2<T>(const Vector2<T> &vector2) noexcept = default;
-
-        /// \brief Default move constructor
-        constexpr explicit Vector2<T>(Vector2<T> &&vector2) noexcept = default;
+        constexpr explicit Vector2<T>(const T x, const T y) noexcept(
+            noexcept(T(x)) && noexcept(T(y))) : x(x), y(y) {}
 
         ///\brief Construct the vector from another type of vector.
         ///
@@ -50,7 +45,7 @@ namespace game {
         /// \param vector2: Vector2 to convert
         template <typename U>
         constexpr explicit Vector2<T>(const Vector2<U> &vector2) noexcept(
-            noexcept(operator T(vector2.x)) && noexcept(operator T(vector2.y)))
+            noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
             : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
 
         ///\brief Construct the vector from another type of vector.
@@ -63,7 +58,7 @@ namespace game {
         /// \param vector2: Vector2 to convert
         template <typename U>
         constexpr explicit Vector2<T>(Vector2<U> &&vector2) noexcept(
-            noexcept(operator T(vector2.x)) && noexcept(operator T(vector2.y)))
+            noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
             : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
 
         /// \brief Overload of binary operator ==
@@ -78,8 +73,8 @@ namespace game {
         ///
         /// \return True if \a left is equal to \a right
         [[nodiscard("Use the result of this comparison or remove this redundant comparison!")]]
-        friend constexpr bool operator==(const Vector2<T> &left, const Vector2<T> &right) noexcept(
-            noexcept(left.x == right.x) && noexcept(left.y == right.y)) = default;
+        friend constexpr bool
+        operator==(const Vector2<T> &left, const Vector2<T> &right) = default;
 
         /// \brief Overload of binary operator +
         ///
@@ -88,8 +83,9 @@ namespace game {
         ///
         /// \return Memberwise addition of both vectors
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
-            noexcept(left.x + right.x) && noexcept(left.y + right.y)) {
+        friend constexpr Vector2<T>
+        operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
+            noexcept(Vector2<T>(left.x + right.x, left.y + right.y))) {
             return Vector2<T>(left.x + right.x, left.y + right.y);
         }
 
@@ -115,8 +111,8 @@ namespace game {
         ///
         /// \return Memberwise opposite of the vector
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator-(const Vector2<T> &right) noexcept(
-            noexcept(-right.x) && noexcept(-right.y)) {
+        friend constexpr Vector2<T>
+        operator-(const Vector2<T> &right) noexcept(noexcept(Vector2<T>(-right.x, -right.y))) {
             return Vector2<T>(-right.x, -right.y);
         }
 
@@ -127,8 +123,9 @@ namespace game {
         ///
         /// \return Memberwise subtraction of both vectors
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
-            noexcept(left.x - right.x) && noexcept(left.y - right.y)) {
+        friend constexpr Vector2<T>
+        operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
+            noexcept(Vector2<T>(left.x - right.x, left.y - right.y))) {
             return Vector2<T>(left.x - right.x, left.y - right.y);
         }
 
@@ -155,8 +152,9 @@ namespace game {
         ///
         /// \return Memberwise multiplication by \a right
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator*(const Vector2<T> &left, const T right) noexcept(
-            noexcept(left.x * right) && noexcept(left.y * right)) {
+        friend constexpr Vector2<T>
+        operator*(const Vector2<T> &left, const T right) noexcept(
+            noexcept(Vector2<T>(left.x * right, left.y *right))) {
             return Vector2<T>(left.x * right, left.y * right);
         }
 
@@ -167,8 +165,9 @@ namespace game {
         ///
         /// \return Memberwise multiplication by \a left
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator*(const T left, const Vector2<T> &right) noexcept(
-            noexcept(left * right.x) && noexcept(left * right.y)) {
+        friend constexpr Vector2<T>
+        operator*(const T left, const Vector2<T> &right) noexcept(
+            noexcept(Vector2<T>(left * right.x, left *right.y))) {
             return Vector2<T>(left * right.x, left * right.y);
         }
 
@@ -195,8 +194,9 @@ namespace game {
         ///
         /// \return Memberwise division by \a right
         [[nodiscard("Use the result of this calculation or remove this redundant calculation!")]]
-        friend constexpr Vector2<T> operator/(const Vector2<T> &left, const T right) noexcept(
-            noexcept(left.x / right) && noexcept(left.y / right)) {
+        friend constexpr Vector2<T>
+        operator/(const Vector2<T> &left, const T right) noexcept(
+            noexcept(Vector2<T>(left.x / right, left.y / right))) {
             return Vector2<T>(left.x / right, left.y / right);
         }
 

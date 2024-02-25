@@ -149,7 +149,7 @@ namespace game {
         }
 
         // General object setup
-        obj->SetPosition(x, y);
+        obj->setPosition(x, y);
 
         objects.push_back(obj);
     }

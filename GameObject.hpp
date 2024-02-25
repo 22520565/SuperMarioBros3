@@ -4,6 +4,7 @@
 #include "Animations.hpp"
 #include "Collision.hpp"
 #include "Sprites.hpp"
+#include "Vector3.hpp"
 #include "stdfloat"
 #include <d3dx10.h>
 #include <vector>
@@ -15,9 +16,14 @@
 namespace game {
     class GameObject {
       public:
-        constexpr GameObject() noexcept = default;
+        constexpr GameObject() = default;
         constexpr GameObject(std::float32_t x, std::float32_t y) noexcept : x(x), y(y) {}
-        void SetPosition(float x, float y) { this->x = x, this->y = y; }
+
+        constexpr void setPosition(const std::float32_t x, const std::float32_t y) noexcept(
+            noexcept(this->position = Vector2(x, y))) {
+            this->position = Vector2(x, y);
+        }
+
         void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
         void GetPosition(float &x, float &y) {
             x = this->x;
@@ -28,7 +34,7 @@ namespace game {
             vy = this->vy;
         }
 
-        int GetState() { return this->state; }
+        constexpr const int_fast32_t &getState() const noexcept { return this->state; }
         virtual void Delete() { isDeleted = true; }
         bool IsDeleted() { return isDeleted; }
 
@@ -53,14 +59,17 @@ namespace game {
         // Is this object blocking other object? If YES, collision framework will automatically push the other object
         virtual int IsBlocking() { return 1; }
 
-        ~GameObject();
-
         static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
 
       protected:
+        Vector2<std::float32_t> position = Vector2<std::float32_t>();
+        Vector2<std::float32_t> speed = Vector2<std::float32_t>();
+
+        // position
         std::float32_t x = 0.0F;
         std::float32_t y = 0.0F;
 
+        // speed, about to replace
         std::float32_t vx = 0.0F;
         std::float32_t vy = 0.0F;
 
