@@ -128,6 +128,7 @@
       <AdditionalDependencies>d3d10.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>
       </LinkTimeCodeGeneration>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +155,7 @@
     <ClInclude Include="Brick.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="Collision.hpp" />
+    <ClInclude Include="D3Resource.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameObject.hpp" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Sprite.hpp" />
@@ -199,6 +202,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="stdfloat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameProject.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

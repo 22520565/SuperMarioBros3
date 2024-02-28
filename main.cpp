@@ -177,13 +177,10 @@ int Run() {
     return 1;
 }
 
-int WINAPI WinMain(
-    _In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPSTR lpCmdLine,
-    _In_ int nCmdShow) {
-    HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
+int main() {
+    auto hInstance = GetModuleHandle(nullptr);
 
+    HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);
     game::SetDebugWindow(hWnd);
 
     game::LPGAME game = game::Game::GetInstance();
