@@ -21,7 +21,7 @@
 #pragma once
 #include "Vector2.hpp"
 namespace game {
-    template <class T>
+    template <typename T>
     struct Vector3 : Vector2<T> {
       public:
         // Z coordinate of the vector

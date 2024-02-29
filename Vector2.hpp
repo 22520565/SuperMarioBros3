@@ -20,7 +20,7 @@
 
 #pragma once
 namespace game {
-    template <class T>
+    template <typename T>
     struct Vector2 {
       public:
         // X coordinate of the vector
