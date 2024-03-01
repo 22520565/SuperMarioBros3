@@ -155,7 +155,7 @@
     <ClInclude Include="Brick.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="Collision.hpp" />
-    <ClInclude Include="D3Resource.hpp" />
+    <ClInclude Include="DxResource.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameObject.hpp" />
@@ -167,6 +167,9 @@
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
+    <ClInclude Include="Rect.hpp" />
+    <ClInclude Include="RenderTarget.hpp" />
+    <ClInclude Include="RenderWindow.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
     <ClInclude Include="Scene.hpp" />
@@ -176,6 +179,8 @@
     <ClInclude Include="Textures.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="WindowBase.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />

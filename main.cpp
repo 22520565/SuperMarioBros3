@@ -21,27 +21,9 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 ================================================================ */
 
-#include <d3d10.h>
-#include <d3dx10.h>
-#include <list>
 #include <windows.h>
-
-#include "Animation.hpp"
-#include "Animations.hpp"
 #include "Game.hpp"
-#include "GameObject.hpp"
-#include "Textures.hpp"
-#include "debug.hpp"
-
-#include "Brick.hpp"
-#include "Coin.hpp"
-#include "Goomba.hpp"
-#include "Mario.hpp"
-#include "Platform.hpp"
-
-#include "SampleKeyEventHandler.hpp"
-
-#include "AssetIDs.hpp"
+#include "RenderWindow.hpp"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -176,23 +158,48 @@ int Run() {
 
     return 1;
 }
+//TODO: hInstance should use from main argument instead of  GetModuleHandle(nullptr)
+//  (create something liike sf::ContextSetting)
 
 int main() {
-    auto hInstance = GetModuleHandle(nullptr);
+    game::RenderWindow window = game::RenderWindow(game::Vector2(800,600), SW_SHOWNORMAL);
+    MSG msg;
+    game::Texture texture = game::Texture();
+    texture.loadFromFile(L"textures/bbox.png");
+    while (window.isOpen())
+    {
+        while (window.pollMsg(msg)) {
+            switch (msg.message)
+            {
+            case WM_QUIT:
+                window.close();
 
-    HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);
-    game::SetDebugWindow(hWnd);
+            case WM_KEYDOWN:
+                if (msg.wParam == VK_ESCAPE) {
+                    window.close();
+                }
 
-    game::LPGAME game = game::Game::GetInstance();
-    game->Init(hWnd, hInstance);
-    game->InitKeyboard();
+            default:
+                break;
+            }
+        }
+        window.clear();
+        window.display();
+    }
+   //auto hInstance = GetModuleHandle(nullptr);
+   // HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);
+   // game::SetDebugWindow(hWnd);
 
-    // IMPORTANT: this is the only place where a hardcoded file name is allowed !
-    game->Load(L"mario-sample.txt");
+   // game::LPGAME game = game::Game::GetInstance();
+   // game->Init(hWnd, hInstance);
+   // game->InitKeyboard();
 
-    SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+   // // IMPORTANT: this is the only place where a hardcoded file name is allowed !
+   // game->Load(L"mario-sample.txt");
 
-    Run();
+   // SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+
+   // Run();
 
     return 0;
 }

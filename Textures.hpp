@@ -1,23 +1,20 @@
 #pragma once
+#include "NonConstructible.hpp"
 #include "Texture.hpp"
-#include <d3dx10.h>
+#include <mutex>
+#include <optional>
 #include <unordered_map>
+#include <winnt.h>
 
 namespace game {
-    /*
-        Manage texture database
-    */
-    class Textures {
-        static Textures *__instance;
-
-        std::unordered_map<int, LPTEXTURE> textures;
-
+    // Manage textures' database
+    class Textures : public NonConstructible {
       public:
-        Textures();
-        void add(int id, LPCWSTR filePath);
-        LPTEXTURE Get(unsigned int i);
-        void clear();
+        static const Texture *getTexture(const TCHAR *const &fileName);
 
-        static Textures *GetInstance();
+      private:
+        static inline std::unordered_map<const TCHAR *, Texture> textures =
+            std::unordered_map<const TCHAR *, Texture>();
+        static inline std::mutex mutex = std::mutex();
     };
 }

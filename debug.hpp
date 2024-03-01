@@ -1,11 +1,6 @@
 #pragma once
 // TODO: "cstdio" and "ctime" shall not be included!
-#include <csignal>
 #include <cstdarg>
-#include <cstdio>
-#include <cstdlib>
-#include <ctime>
-#include <string>
 #include <windows.h>
 
 namespace game {

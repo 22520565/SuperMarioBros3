@@ -10,7 +10,7 @@ namespace game {
         D3DXVECTOR3 p(position.x, position.y, 0);
         RECT rect;
 
-        LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
+        const Texture* bbox = Textures::getTexture(L"textures/bbox.png");
 
         float l, t, r, b;
 

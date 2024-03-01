@@ -42,7 +42,19 @@ namespace game {
         int b = atoi(tokens[4].c_str());
         int texID = atoi(tokens[5].c_str());
 
-        LPTEXTURE tex = Textures::GetInstance()->Get(texID);
+       const TCHAR* fileName = L"";
+        if (texID == 0) {
+            fileName = L"textures/mario.png";
+        }
+        else if(texID==10){
+            fileName = L"textures/enemies.png";
+        }
+        else {
+            fileName = L"textures/misc.png";
+        }
+
+        const Texture* tex = Textures::getTexture(fileName);
+
         if (tex == NULL) {
             DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
             return;

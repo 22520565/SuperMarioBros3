@@ -12,14 +12,17 @@ namespace game {
         int right;
         int bottom;
 
-        LPTEXTURE texture;
+        const Texture* texture;
         D3DX10_SPRITE sprite;
         D3DXMATRIX matScaling;
 
       public:
-        Sprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
+        Sprite(int id, int left, int top, int right, int bottom, const Texture* tex);
 
         void Draw(float x, float y);
+
+        void setTexture();
+        void setTextureRect();
     };
 
     typedef Sprite *LPSPRITE;

@@ -1,7 +1,7 @@
 #include "Sprite.hpp"
 
 namespace game {
-    Sprite::Sprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex) {
+    Sprite::Sprite(int id, int left, int top, int right, int bottom, const Texture* tex) {
         this->id = id;
         this->left = left;
         this->top = top;

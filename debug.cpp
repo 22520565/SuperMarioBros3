@@ -1,5 +1,6 @@
 #include "debug.hpp"
 #include <windows.h>
+#include <cstdio>
 
 namespace game {
     HWND _hwnd = NULL;
