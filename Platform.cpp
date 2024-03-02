@@ -2,7 +2,7 @@
 
 #include "Sprite.hpp"
 #include "Sprites.hpp"
-
+#include "Game.hpp"
 #include "Textures.hpp"
 
 namespace game {

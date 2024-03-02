@@ -24,6 +24,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #include <windows.h>
 #include "Game.hpp"
 #include "RenderWindow.hpp"
+#include "Sprite.hpp"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -162,10 +163,13 @@ int Run() {
 //  (create something liike sf::ContextSetting)
 
 int main() {
-    game::RenderWindow window = game::RenderWindow(game::Vector2(800,600), SW_SHOWNORMAL);
+    game::RenderWindow window = game::RenderWindow(game::Vector2(800,600),L"Test", SW_SHOWNORMAL);
+    game::Texture texture;
+    texture.loadFromFile(L"textures/bbox.png", window.getDevice());
+    game::Sprite sprite = game::Sprite(texture);
+    game::Sprite sprite2 = game::Sprite(texture);
+
     MSG msg;
-    game::Texture texture = game::Texture();
-    texture.loadFromFile(L"textures/bbox.png");
     while (window.isOpen())
     {
         while (window.pollMsg(msg)) {
@@ -173,18 +177,24 @@ int main() {
             {
             case WM_QUIT:
                 window.close();
+                break;
 
             case WM_KEYDOWN:
                 if (msg.wParam == VK_ESCAPE) {
                     window.close();
                 }
+                break;
 
             default:
                 break;
             }
         }
         window.clear();
-        window.display();
+        window.draw(sprite);
+       window.display();
+       window.clear(D3DXCOLOR(1.0F, 1.0F, 1.0F, 1.0F));
+      window.draw(sprite2);
+       window.display();
     }
    //auto hInstance = GetModuleHandle(nullptr);
    // HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);

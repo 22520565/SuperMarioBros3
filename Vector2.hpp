@@ -23,10 +23,8 @@ namespace game {
     template <typename T>
     struct Vector2 {
       public:
-        // X coordinate of the vector
-        T x = T();
-        // Y coordinate of the vector
-        T y = T();
+        T x = T(); // X coordinate of the vector
+        T y = T(); // Y coordinate of the vector
 
         /// \brief Default constructor
         constexpr Vector2<T>() = default;

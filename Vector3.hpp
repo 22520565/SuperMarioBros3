@@ -24,8 +24,7 @@ namespace game {
     template <typename T>
     struct Vector3 : Vector2<T> {
       public:
-        // Z coordinate of the vector
-        T z = T();
+        T z = T();// Z coordinate of the vector
 
         /// \brief Default constructor.
         constexpr Vector3<T>() = default;

@@ -155,6 +155,7 @@
     <ClInclude Include="Brick.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="Collision.hpp" />
+    <ClInclude Include="Drawable.hpp" />
     <ClInclude Include="DxResource.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Sprites.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Textures.hpp" />
+    <ClInclude Include="Transformable.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Window.hpp" />

@@ -181,20 +181,20 @@ namespace game {
             sprite.TexSize.y = 1.0f;
 
             if (spriteWidth == 0)
-                spriteWidth = tex->getWidth();
+                spriteWidth = tex->getSize().x;
             if (spriteHeight == 0)
-                spriteHeight = tex->getHeight();
+                spriteHeight = tex->getSize().y;
         } else {
-            sprite.TexCoord.x = rect->left / (float)tex->getWidth();
-            sprite.TexCoord.y = rect->top / (float)tex->getHeight();
+            sprite.TexCoord.x = rect->left / (float)tex->getSize().x;
+            sprite.TexCoord.y = rect->top / (float)tex->getSize().y;
 
             if (spriteWidth == 0)
                 spriteWidth = (rect->right - rect->left + 1);
             if (spriteHeight == 0)
                 spriteHeight = (rect->bottom - rect->top + 1);
 
-            sprite.TexSize.x = spriteWidth / (float)tex->getWidth();
-            sprite.TexSize.y = spriteHeight / (float)tex->getHeight();
+            sprite.TexSize.x = spriteWidth / (float)tex->getSize().x;
+            sprite.TexSize.y = spriteHeight / (float)tex->getSize().y;
         }
 
         // Set the texture index. Single textures will use 0

@@ -1,5 +1,6 @@
 #pragma once
 #include "debug.hpp"
+#include "DxResource.hpp"
 #include <cstdint>
 #include <D3DX10.h>
 
@@ -7,24 +8,17 @@ namespace game {
     //
     // Warpper class to simplify texture manipulation. See also Game::LoadTexture
     //
-    class Texture final {
-      private:
-        ID3D10Device*const device = nullptr;
-
-        ID3D10Texture2D *texture = nullptr;
-        ID3D10ShaderResourceView *shaderResourceView = nullptr;
-        uint_fast32_t width = 0U;
-        uint_fast32_t height = 0U;
+    class Texture final : public DxResource {
+    private:
+        CComPtr < ID3D10Texture2D> texture = CComPtr < ID3D10Texture2D>();
+        CComPtr < ID3D10ShaderResourceView >shaderResourceView = CComPtr < ID3D10ShaderResourceView >();
+        Vector2<uint_fast32_t> size = Vector2<uint_fast32_t>();
 
       public:
         constexpr Texture() noexcept = default;
 
-        constexpr Texture( ID3D10Device*const device):device(device) {}
-
-        bool loadFromFile(const TCHAR* const &fileName) {
+        bool loadFromFile(const TCHAR* const &fileName, const CComPtr<ID3D10Device> device) {
             bool fileLoaded = false;
-
-            ID3D10Resource *pD3D10Resource = nullptr;
 
             // Retrieve image information first
             D3DX10_IMAGE_INFO imageInfo;
@@ -44,6 +38,8 @@ namespace game {
                 info.Filter = D3DX10_FILTER_NONE;
                 info.pSrcInfo = &imageInfo;
 
+
+               CComPtr<ID3D10Resource> pD3D10Resource = CComPtr<ID3D10Resource>();
                 // Loads the texture into a temporary ID3D10Resource object
                 if (hr = D3DX10CreateTextureFromFile(device, fileName, &info,
                                                      nullptr, &pD3D10Resource, nullptr);
@@ -52,7 +48,6 @@ namespace game {
                 } else {
                     // Translates the ID3D10Resource object into a ID3D10Texture2D object
                     pD3D10Resource->QueryInterface(__uuidof(ID3D10Texture2D), (LPVOID *)&this->texture);
-                    pD3D10Resource->Release();
 
                     if (this->texture == nullptr) {
                         DebugOut(L"[ERROR] Failed to convert from ID3D10Resource to ID3D10Texture2D \n");
@@ -63,14 +58,13 @@ namespace game {
                         // Get the texture details
                         D3D10_TEXTURE2D_DESC desc;
                         this->texture->GetDesc(&desc);
-                        this->width = desc.Width;
-                        this->height = desc.Height;
+                        this->size.x = desc.Width;
+                        this->size.y = desc.Height;
 
                         // Create a shader resource view of the texture
                         const D3D10_SHADER_RESOURCE_VIEW_DESC SRVDesc = D3D10_SHADER_RESOURCE_VIEW_DESC{
                             // Set the texture format
                             .Format = desc.Format,
-
                             // Set the type of resource
                             .ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D,
                             .Texture2D = D3D10_TEX2D_SRV{
@@ -92,24 +86,12 @@ namespace game {
         }
 
         [[nodiscard]]
-        constexpr ID3D10ShaderResourceView *const &getShaderResourceView() const noexcept {
+        const CComPtr<ID3D10ShaderResourceView> getShaderResourceView() const noexcept {
             return this->shaderResourceView;
         }
 
         [[nodiscard]]
-        constexpr const uint_fast32_t &getWidth() const noexcept { return this->width; }
-
-        [[nodiscard]]
-        constexpr const uint_fast32_t &getHeight() const noexcept { return this->height; }
-
-        ~Texture() {
-            if (this->shaderResourceView != nullptr) {
-                this->shaderResourceView->Release();
-            }
-            if (this->texture != nullptr) {
-                this->texture->Release();
-            }
-        }
+        constexpr const Vector2<uint_fast32_t> &getSize() const noexcept { return this->size; }
     };
 
     // TODO: remove unneccessary aliasing

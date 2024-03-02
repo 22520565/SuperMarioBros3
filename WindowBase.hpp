@@ -8,28 +8,29 @@
 
 namespace game {
     class WindowBase : public NonCopyable {
-    public:
-       const HWND getSystemHandler() const { return this->hWnd; }
+      public:
+        const HWND getSystemHandler() const { return this->hWnd; }
 
-       bool isOpen() { return IsWindow(hWnd); }
+        bool isOpen() { return IsWindow(hWnd); }
 
-       bool pollMsg(MSG& msg) {
-           bool result = false;
-           if (PeekMessage(&msg, hWnd, 0U, 0U, PM_REMOVE)) {
-               TranslateMessage(&msg);
-               DispatchMessage(&msg);
-               result = true;
-           }
-           return result;
-       }
-    
-       bool close() { return DestroyWindow(hWnd); }
-    protected:
+        bool pollMsg(MSG &msg) {
+            bool result = false;
+            if (PeekMessage(&msg, hWnd, 0U, 0U, PM_REMOVE)) {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+                result = true;
+            }
+            return result;
+        }
+
+        bool close() { return DestroyWindow(hWnd); }
+
+      protected:
         HWND hWnd = nullptr;
         MSG msg = MSG();
         const Vector2<int> size = Vector2<int>();
         WindowBase();
-        WindowBase(const Vector2<int> &size, int nCmdShow):size(size) {
+        WindowBase(const Vector2<int> &size, const TCHAR *const title, int nCmdShow) : size(size) {
             WNDCLASSEX wc = WNDCLASSEX{
                 .cbSize = sizeof(WNDCLASSEX),
                 .style = CS_HREDRAW | CS_VREDRAW,
@@ -46,7 +47,7 @@ namespace game {
             };
             RegisterClassEx(&wc);
             hWnd = CreateWindow(
-                WINDOW_CLASS_NAME, MAIN_WINDOW_TITLE, WS_OVERLAPPEDWINDOW, // WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+                WINDOW_CLASS_NAME, title, WS_OVERLAPPEDWINDOW, // WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
                 CW_USEDEFAULT, CW_USEDEFAULT, size.x, size.y,
                 nullptr, nullptr, wc.hInstance, nullptr);
             if (hWnd != nullptr) [[likely]] {
