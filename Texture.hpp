@@ -38,7 +38,6 @@ namespace game {
                 info.Filter = D3DX10_FILTER_NONE;
                 info.pSrcInfo = &imageInfo;
 
-
                CComPtr<ID3D10Resource> pD3D10Resource = CComPtr<ID3D10Resource>();
                 // Loads the texture into a temporary ID3D10Resource object
                 if (hr = D3DX10CreateTextureFromFile(device, fileName, &info,
@@ -86,7 +85,7 @@ namespace game {
         }
 
         [[nodiscard]]
-        const CComPtr<ID3D10ShaderResourceView> getShaderResourceView() const noexcept {
+        const CComPtr<ID3D10ShaderResourceView>& getShaderResourceView() const noexcept {
             return this->shaderResourceView;
         }
 

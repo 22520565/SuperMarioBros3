@@ -31,7 +31,7 @@ namespace game {
         RenderTarget() = default;
 
       public:
-          ~RenderTarget() = default;
+         ~RenderTarget() = default;
         void clear() { this->clear(D3DXCOLOR(0.0F, 0.0F, 0.0F, 0.0F)); }
         void clear(D3DXCOLOR color) { pD3DDevice->ClearRenderTargetView(pRenderTargetView, color); }
         const D3D10_VIEWPORT& getViewPort() { return this->viewPort; }

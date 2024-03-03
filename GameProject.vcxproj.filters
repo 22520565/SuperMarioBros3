@@ -120,6 +120,9 @@
     <ClInclude Include="Drawable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">

@@ -164,12 +164,13 @@ int Run() {
 
 int main() {
     game::RenderWindow window = game::RenderWindow(game::Vector2(800,600),L"Test", SW_SHOWNORMAL);
+   // game::RenderWindow window2 = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL);
     game::Texture texture;
     texture.loadFromFile(L"textures/bbox.png", window.getDevice());
     game::Sprite sprite = game::Sprite(texture);
-    game::Sprite sprite2 = game::Sprite(texture);
+  sprite.setPosition(game::Vector3(0.0F, 0.0F, 1.0F));
 
-    MSG msg;
+    MSG msg=MSG();
     while (window.isOpen())
     {
         while (window.pollMsg(msg)) {
@@ -189,11 +190,10 @@ int main() {
                 break;
             }
         }
+        sprite.setOrigin(game::Vector3(0.0F, 0.0F, 1.0F));
+        sprite.rotate(0.01);
         window.clear();
         window.draw(sprite);
-       window.display();
-       window.clear(D3DXCOLOR(1.0F, 1.0F, 1.0F, 1.0F));
-      window.draw(sprite2);
        window.display();
     }
    //auto hInstance = GetModuleHandle(nullptr);

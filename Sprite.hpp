@@ -12,17 +12,15 @@ namespace game {
      //   int id; // Sprite ID in the sprite database
         const Texture* texture;
         Rect<uint_fast32_t> textureRect = Rect<uint_fast32_t>(Vector2<uint_fast32_t>(), texture->getSize());
-       mutable D3DX10_SPRITE dxSprite;
+        void draw(RenderTarget& target) const override;
         
 
         D3DXMATRIX matScaling;
-        // Sprite handling object, BIG MYSTERY: it has to be in this place OR will lead to access violation in D3D11.dll ????
         
 
       public:
           Sprite(const Texture& texture);
 
-          void draw(RenderTarget& target) const override;
        Sprite(int id, int left, int top, int right, int bottom, const Texture* tex);
 
         void Draw(float x, float y);

@@ -1,18 +1,7 @@
 #include "Sprite.hpp"
 
 namespace game {
-    Sprite::Sprite(const Texture& texture) : texture(&texture){
-        D3DXMATRIX matTransform;
-        D3DXMatrixIdentity(&matTransform);
-       dxSprite = D3DX10_SPRITE{
-           .matWorld= matTransform,
-           .TexCoord=D3DXVECTOR2(),
-           .TexSize=D3DXVECTOR2(texture.getSize().x,texture.getSize().y),
-           .ColorModulate= D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
-           .pTexture= this->texture->getShaderResourceView(), // Set the sprite's shader resource view
-           .TextureIndex=0U,
-       };
-    }
+    Sprite::Sprite(const Texture& texture) : texture(&texture){    }
 
     Sprite::Sprite(int id, int left, int top, int right, int bottom, const Texture* tex) {
         //this->id = id;
@@ -46,7 +35,15 @@ namespace game {
     void Sprite::draw(RenderTarget& target) const {
         CComPtr<ID3DX10Sprite> g_pSprite = nullptr;
         HRESULT hr = D3DX10CreateSprite(target.getDevice(), 0, &g_pSprite);
-        g_pSprite->Begin(0);;
+        D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
+           .matWorld = this->getTransform(),
+           .TexCoord = D3DXVECTOR2(),
+           .TexSize = D3DXVECTOR2(texture->getSize().x,texture->getSize().y),
+           .ColorModulate = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+           .pTexture = this->texture->getShaderResourceView(), // Set the sprite's shader resource view
+           .TextureIndex = 0U,
+        };
+        g_pSprite->Begin(0);
         g_pSprite->DrawSpritesImmediate(&dxSprite, 1, 0, 0); 
         g_pSprite->End();
         }

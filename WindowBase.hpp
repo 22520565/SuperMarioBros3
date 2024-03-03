@@ -64,9 +64,9 @@ namespace game {
             LRESULT lresult = 0;
 
             switch (message) {
-            case WM_DESTROY:
+           /* case WM_DESTROY:
                 PostQuitMessage(0);
-                break;
+                break;*/
             default:
                 lresult = DefWindowProc(hWnd, message, wParam, lParam);
                 break;

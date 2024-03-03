@@ -1,8 +1,5 @@
 #pragma once
 #include "Vector3.hpp"
-#include <D3DX10.h>
-#include <DirectXMath.h>
-#include <array>
 #include <cmath>
 
 namespace game {
@@ -59,11 +56,16 @@ namespace game {
 
         /// \brief Convert to D3DXMATRIX
         explicit(false) operator D3DXMATRIX() const {
-            return D3DXMATRIX(
+            /*return D3DXMATRIX(
                 f00, f01, f02, f03,
                 f10, f11, f12, f13,
                 f20, f21, f22, f23,
-                f30, f31, f32, f33);
+                f30, f31, f32, f33);*/
+            return D3DXMATRIX(
+                f00, f10, f20, f30,
+                f01, f11, f21, f31,
+                f02, f12, f22, f32,
+                f03, f13, f23, f33);
         }
 
         /// \brief Combine the current transform with another one.
