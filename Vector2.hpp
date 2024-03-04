@@ -26,6 +26,12 @@ namespace game {
         T x = T(); // X coordinate of the vector
         T y = T(); // Y coordinate of the vector
 
+        static constexpr Vector2<T> zero = Vector2<T>(0,0);
+        static constexpr Vector2<T> up = Vector2<T>(0, 1);
+        static constexpr Vector2<T> down = Vector2<T>(0, -1);
+        static constexpr Vector2<T> right = Vector2(1, 0);
+        static constexpr Vector2<T> left = Vector2(-1, 0);
+
         /// \brief Default constructor
         constexpr Vector2<T>() = default;
 
