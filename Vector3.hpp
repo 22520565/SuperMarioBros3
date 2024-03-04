@@ -26,14 +26,6 @@ namespace game {
       public:
         T z = T();// Z coordinate of the vector
 
-        static constexpr Vector3<T> zero = Vector3<T>(Vector2<T>::zero,0);
-        static constexpr Vector3<T> up = Vector3<T>(Vector2<T>::up,0);
-        static constexpr Vector3<T> down = Vector3<T>(Vector2<T>::down,0);
-        static constexpr Vector3<T> right = Vector3<T>(Vector2<T>::right,0);
-        static constexpr Vector3<T> left = Vector3<T>(Vector2<T>::left,0);
-        static constexpr Vector3<T> forward = Vector3<T>(Vector2<T>::zero, 1);
-        static constexpr Vector3<T> backward = Vector3<T>(Vector2<T>::zero, -1);
-
         /// \brief Default constructor.
         constexpr Vector3<T>() = default;
 
@@ -236,5 +228,53 @@ namespace game {
             left.z /= right;
             return left;
         }
+
+        // A Vector3 of (0, 0, 0).
+        static const Vector3<T> zero;
+
+        // A Vector3 of (1, 1, 1).
+        static const Vector3<T>one;
+
+        // A Vector3 of (0, 1, 0).
+        static const Vector3<T> up;
+
+        // A Vector3 of (0, -1, 0).
+        static const Vector3<T> down ;
+
+        // A Vector3 of (1, 0, 0).
+        static const Vector3<T> right ;
+
+        // A Vector3 of (-1, 0, 0).
+        static const Vector3<T> left ;
+
+        // A Vector3 of (0, 0, 1).
+        static const Vector3<T> forward;
+
+        // A Vector3 of (0, 0, -1).
+        static const Vector3<T> backward;
     };
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::zero = Vector3<T>(Vector2<T>::zero, 0);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::one = Vector3<T>(Vector2<T>::one, 1);
+
+    template <typename T>
+    const Vector3<T> Vector3<T>::up = Vector3<T>(Vector2<T>::up, 0);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::down = Vector3<T>(Vector2<T>::down, 0);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::right = Vector3<T>(Vector2<T>::right, 0);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::left = Vector3<T>(Vector2<T>::left, 0);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::forward = Vector3<T>(Vector2<T>::zero, 1);
+
+    template<typename T>
+    const Vector3<T> Vector3<T>::backward = Vector3<T>(Vector2<T>::zero, -1);
 }

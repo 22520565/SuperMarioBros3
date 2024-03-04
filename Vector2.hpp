@@ -26,12 +26,6 @@ namespace game {
         T x = T(); // X coordinate of the vector
         T y = T(); // Y coordinate of the vector
 
-        static constexpr Vector2<T> zero = Vector2<T>(0,0);
-        static constexpr Vector2<T> up = Vector2<T>(0, 1);
-        static constexpr Vector2<T> down = Vector2<T>(0, -1);
-        static constexpr Vector2<T> right = Vector2(1, 0);
-        static constexpr Vector2<T> left = Vector2(-1, 0);
-
         /// \brief Default constructor
         constexpr Vector2<T>() = default;
 
@@ -217,7 +211,43 @@ namespace game {
             noexcept(left.x /= right) && noexcept(left.y /= right)) {
             left.x /= right;
             left.y /= right;
-            return left;
+            return left; 
         }
+
+        // A Vector2 of (0, 0).
+        static const Vector2<T> zero;
+
+        // A Vector2 of (1, 1).
+        static const Vector2<T> one;
+
+        // A Vector2 of (0, 1). 
+        static const Vector2<T> up;
+
+        // A Vector2 of (0, -1).
+        static const Vector2<T> down;
+
+        // A Vector2 of (1, 0).
+        static const Vector2<T> right;
+
+        // A Vector2 of (-1, 0).
+        static const Vector2<T> left;
     };
+
+    template<typename T>
+    const Vector2<T> Vector2<T>::zero = Vector2<T>(0, 0);
+
+    template<typename T>
+    const Vector2<T> Vector2<T>::one = Vector2<T>(1, 1);
+
+    template<typename T>
+    const Vector2<T> Vector2<T>::up = Vector2<T>(0, 1);
+
+    template<typename T>
+    const Vector2<T> Vector2<T>::down = Vector2<T>(0, -1);
+
+    template <typename T>
+    const Vector2<T> Vector2<T>::right = Vector2<T>(1, 0);
+
+    template<typename T>
+    const Vector2<T> Vector2<T>::left = Vector2<T>(-1, 0);
 }
