@@ -172,7 +172,9 @@
     <ClInclude Include="RenderTarget.hpp" />
     <ClInclude Include="RenderWindow.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Rotation.hpp" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
+    <ClInclude Include="Scalation.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Sprites.hpp" />
@@ -182,6 +184,7 @@
     <ClInclude Include="Transformable.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="View.hpp" />
     <ClInclude Include="Window.hpp" />
     <ClInclude Include="WindowBase.hpp" />
   </ItemGroup>
