@@ -1,50 +1,61 @@
 #pragma once
+#include "D3DX10math.h"
 #include "Vector3.hpp"
 #include <cmath>
+#include <minwindef.h>
 
 namespace game {
     class Transform final {
       public:
-        FLOAT f00 = 1.0F;
-        FLOAT f01 = 0.0F;
-        FLOAT f02 = 0.0F;
-        FLOAT f03 = 0.0F;
-        FLOAT f10 = 0.0F;
-        FLOAT f11 = 1.0F;
-        FLOAT f12 = 0.0F;
-        FLOAT f13 = 0.0F;
-        FLOAT f20 = 0.0F;
-        FLOAT f21 = 0.0F;
-        FLOAT f22 = 1.0F;
-        FLOAT f23 = 0.0F;
-        FLOAT f30 = 0.0F;
-        FLOAT f31 = 0.0F;
-        FLOAT f32 = 0.0F;
-        FLOAT f33 = 1.0F;
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        FLOAT f00 = 1.0F; // Element (0, 0) of the matrix.
+        FLOAT f01 = 0.0F; // Element (0, 1) of the matrix.
+        FLOAT f02 = 0.0F; // Element (0, 2) of the matrix.
+        FLOAT f03 = 0.0F; // Element (0, 3) of the matrix.
+        FLOAT f10 = 0.0F; // Element (1, 0) of the matrix.
+        FLOAT f11 = 1.0F; // Element (1, 1) of the matrix.
+        FLOAT f12 = 0.0F; // Element (1, 2) of the matrix.
+        FLOAT f13 = 0.0F; // Element (1, 3) of the matrix.
+        FLOAT f20 = 0.0F; // Element (2, 0) of the matrix.
+        FLOAT f21 = 0.0F; // Element (2, 1) of the matrix.
+        FLOAT f22 = 1.0F; // Element (2, 2) of the matrix.
+        FLOAT f23 = 0.0F; // Element (2, 3) of the matrix.
+        FLOAT f30 = 0.0F; // Element (3, 0) of the matrix.
+        FLOAT f31 = 0.0F; // Element (3, 1) of the matrix.
+        FLOAT f32 = 0.0F; // Element (3, 2) of the matrix.
+        FLOAT f33 = 1.0F; // Element (3, 3) of the matrix.
 
+        ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
         ///
         /// Creates an identity transform (a transform that does nothing).
+        ///
+        ////////////////////////////////////////////////////////////
         constexpr Transform() noexcept = default;
 
+        ////////////////////////////////////////////////////////////
         /// \brief Construct a transform from a 4x4 matrix.
         ///
-        /// \param f00: Element (0, 0) of the matrix
-        /// \param f01: Element (0, 1) of the matrix
-        /// \param f02: Element (0, 2) of the matrix
-        /// \param f03: Element (0, 3) of the matrix
-        /// \param f10: Element (1, 0) of the matrix
-        /// \param f11: Element (1, 1) of the matrix
-        /// \param f12: Element (1, 2) of the matrix
-        /// \param f13: Element (1, 3) of the matrix
-        /// \param f20: Element (2, 0) of the matrix
-        /// \param f21: Element (2, 1) of the matrix
-        /// \param f22: Element (2, 2) of the matrix
-        /// \param f23: Element (2, 3) of the matrix
-        /// \param f30: Element (3, 0) of the matrix
-        /// \param f31: Element (3, 1) of the matrix
-        /// \param f32: Element (3, 2) of the matrix
-        /// \param f33: Element (3, 3) of the matrix
+        /// \param f00: Element (0, 0) of the matrix.
+        /// \param f01: Element (0, 1) of the matrix.
+        /// \param f02: Element (0, 2) of the matrix.
+        /// \param f03: Element (0, 3) of the matrix.
+        /// \param f10: Element (1, 0) of the matrix.
+        /// \param f11: Element (1, 1) of the matrix.
+        /// \param f12: Element (1, 2) of the matrix.
+        /// \param f13: Element (1, 3) of the matrix.
+        /// \param f20: Element (2, 0) of the matrix.
+        /// \param f21: Element (2, 1) of the matrix.
+        /// \param f22: Element (2, 2) of the matrix.
+        /// \param f23: Element (2, 3) of the matrix.
+        /// \param f30: Element (3, 0) of the matrix.
+        /// \param f31: Element (3, 1) of the matrix.
+        /// \param f32: Element (3, 2) of the matrix.
+        /// \param f33: Element (3, 3) of the matrix.
+        ///
+        ////////////////////////////////////////////////////////////
         constexpr Transform(const FLOAT f00, const FLOAT f01, const FLOAT f02, const FLOAT f03,
                             const FLOAT f10, const FLOAT f11, const FLOAT f12, const FLOAT f13,
                             const FLOAT f20, const FLOAT f21, const FLOAT f22, const FLOAT f23,
@@ -54,7 +65,12 @@ namespace game {
               f20(f20), f21(f21), f22(f22), f23(f23),
               f30(f30), f31(f31), f32(f32), f33(f33) {}
 
-        /// \brief Convert to D3DXMATRIX
+        ////////////////////////////////////////////////////////////
+        /// \brief Convert to D3DXMATRIX.
+        ///
+        /// \return D3DXMATRIX
+        ///
+        ////////////////////////////////////////////////////////////
         explicit(false) operator D3DXMATRIX() const {
             /*return D3DXMATRIX(
                 f00, f01, f02, f03,
@@ -68,11 +84,14 @@ namespace game {
                 f03, f13, f23, f33);
         }
 
+        ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with another one.
         ///
         /// \param transform: Transform to combine with this transform.
         ///
         /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
         [[nodiscard]]
         constexpr Transform combine(const Transform &transform) const noexcept {
             return Transform(
@@ -94,10 +113,14 @@ namespace game {
                 (this->f30 * transform.f03) + (this->f31 * transform.f13) + (this->f32 * transform.f23) + (this->f33 * transform.f33));
         }
 
+        ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a translation.
+        ///
         /// \param offset: Translation offset to apply.
         ///
         /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
         [[nodiscard]]
         constexpr Transform translate(const Vector3<FLOAT> &offset) const noexcept {
             const Transform translationTransform = Transform(
@@ -108,40 +131,120 @@ namespace game {
             return this->combine(translationTransform);
         }
 
-        /// \brief Combine the current transform with a rotation
-        /// \param angle: Rotation angle, in degrees.
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a rotation with
+        /// a center point of (0, 0, 0).
+        ///
+        /// \param angle: Rotation angle in three dimensions, in degrees.
         ///
         /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const FLOAT angle, const Vector3<FLOAT> &center) const noexcept {
+        constexpr Transform rotate(const Vector3<FLOAT> &angle) const noexcept {
+            const Transform rotationX = Transform(
+                1.0F, 0.0F, 0.0F, 0.0F,
+                0.0F, std::cos(angle.x), -std::sin(angle.x), 0.0F,
+                0, std::sin(angle.x), std::cos(angle.x), 0.0F,
+                0.0F, 0.0F, 0.0F, 1.0F);
+            const Transform rotationY = Transform(
+                std::cos(angle.y), 0.0F, std::sin(angle.y), 0.0F,
+                0.0F, 1.0F, 0.0F, 0.0F,
+                -std::sin(angle.y), 0.0F, std::cos(angle.y), 0.0F,
+                0.0F, 0.0F, 0.0F, 1.0F);
+            const Transform rotationZ = Transform(
+                std::cos(angle.z), -std::sin(angle.z), 0.0F, 0.0F,
+                std::sin(angle.z), std::cos(angle.z), 0.0F, 0.0F,
+                0.0F, 0.0F, 1.0F, 0.0F,
+                0.0F, 0.0F, 0.0F, 1.0F);
+            return this->combine(rotationX).combine(rotationY).combine(rotationZ);
+        }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a rotation with
+        /// a specified center point.
+        ///
+        /// \param angle: Rotation angle in three dimensions, in degrees.
+        /// \param center: Coordinate of center point to rotate.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Transform rotate(const Vector3<FLOAT> &angle, const Vector3<FLOAT> &center) const noexcept {
+            return this->translate(-center).rotate(angle).translate(center);
+        }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a rotation with
+        /// a center point of (0, 0, 0).
+        ///
+        /// \param angle: Rotation angle, in degrees.
+        /// \param axis: Unit vector of the rotation axis.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Transform rotate(const FLOAT angle, const Vector3<FLOAT> &axis) const noexcept {
             const Transform rotationTransform = Transform(
-                std::cos(angle) + ((1.0F - std::cos(angle)) * center.x * center.x),
-                ((1.0F - std::cos(angle)) * center.x * center.y) - (std::sin(angle) * center.z),
-                ((1.0F - std::cos(angle)) * center.x * center.z) + (sin(angle) * center.y),
+                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.x * axis.x),
+                ((1.0F - std::cos(angle)) * axis.x * axis.y) - (std::sin(angle) * axis.z),
+                ((1.0F - std::cos(angle)) * axis.x * axis.z) + (sin(angle) * axis.y),
                 0.0F,
-                ((1.0F - std::cos(angle)) * center.x * center.y) + (std::sin(angle) * center.z),
-                std::cos(angle) + ((1.0F - std::cos(angle)) * center.y * center.y),
-                ((1.0F - std::cos(angle)) * center.y * center.z) - (std::sin(angle) * center.x),
+                ((1.0F - std::cos(angle)) * axis.x * axis.y) + (std::sin(angle) * axis.z),
+                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.y * axis.y),
+                ((1.0F - std::cos(angle)) * axis.y * axis.z) - (std::sin(angle) * axis.x),
                 0.0F,
-                ((1.0F - std::cos(angle)) * center.x * center.z) - (std::sin(angle) * center.y),
-                ((1.0F - std::cos(angle)) * center.y * center.z) + (std::sin(angle) * center.x),
-                std::cos(angle) + ((1.0F - std::cos(angle)) * center.z * center.z),
+                ((1.0F - std::cos(angle)) * axis.x * axis.z) - (std::sin(angle) * axis.y),
+                ((1.0F - std::cos(angle)) * axis.y * axis.z) + (std::sin(angle) * axis.x),
+                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.z * axis.z),
                 0.0F,
                 0.0F, 0.0F, 0.0F, 1.0F);
             return this->combine(rotationTransform);
         }
 
-        /// \brief Combine the current transform with a scaling.
-        /// \param factors: Scaling factors
-        /// \param center: Center of scaling
+        [[nodiscard]]
+        constexpr Transform rotate(const FLOAT angle, const Vector3<FLOAT> &axis,
+                                   const Vector3<FLOAT> &center) const noexcept {
+            return this->translate(-center).rotate(angle, axis).translate(center);
+        }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a scalation with
+        /// a center point of (0, 0, 0)
+        ///
+        /// \param factor: Scaling factor in three dimensions.
         ///
         /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform scale(const Vector3<FLOAT> &factors, const Vector3<FLOAT> &center) const noexcept {
+        constexpr Transform scale(const Vector3<FLOAT> &factor) const noexcept {
             const Transform scalingTransform = Transform(
-                factors.x, 0.0F, 0.0F, (1.0F - factors.x) * center.x,
-                0.0F, factors.y, 0.0F, (1.0F - factors.y) * center.y,
-                0.0F, 0.0F, factors.z, (1.0F - factors.z) * center.z,
+                factor.x, 0.0F, 0.0F, 0.0F,
+                0.0F, factor.y, 0.0F, 0.0F,
+                0.0F, 0.0F, factor.z, 0.0F,
+                0.0F, 0.0F, 0.0F, 1.0F);
+            return this->combine(scalingTransform);
+        }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a scalation with
+        /// a specified center point.
+        ///
+        /// \param factor: Scaling factor in three dimensions.
+        /// \param center: Coordinate of center point of scaling.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Transform scale(const Vector3<FLOAT> &factor, const Vector3<FLOAT> &center) const noexcept {
+            const Transform scalingTransform = Transform(
+                factor.x, 0.0F, 0.0F, (1.0F - factor.x) * center.x,
+                0.0F, factor.y, 0.0F, (1.0F - factor.y) * center.y,
+                0.0F, 0.0F, factor.z, (1.0F - factor.z) * center.z,
                 0.0F, 0.0F, 0.0F, 1.0F);
             return this->combine(scalingTransform);
         }
