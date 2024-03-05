@@ -3,6 +3,7 @@
 #include "Vector3.hpp"
 #include <cmath>
 #include <minwindef.h>
+#include <numbers>
 
 namespace game {
     class Transform final {
@@ -141,7 +142,8 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const Vector3<FLOAT> &angle) const noexcept {
+        constexpr Transform rotate(Vector3<FLOAT> angle) const noexcept {
+            angle *= std::numbers::pi_v<FLOAT>/180.0F;
             const Transform rotationX = Transform(
                 1.0F, 0.0F, 0.0F, 0.0F,
                 0.0F, std::cos(angle.x), -std::sin(angle.x), 0.0F,

@@ -163,12 +163,13 @@ int Run() {
 //  (create something liike sf::ContextSetting)
 
 int main() {
-    game::RenderWindow window = game::RenderWindow(game::Vector2(800,600),L"Test", SW_SHOWNORMAL);
+    game::RenderWindow window = game::RenderWindow(game::Vector2(600,600),L"Test", SW_SHOWNORMAL);
    // game::RenderWindow window2 = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL);
     game::Texture texture;
     texture.loadFromFile(L"textures/bbox.png", window.getDevice());
     game::Sprite sprite = game::Sprite(texture);
-  sprite.setPosition(game::Vector3(0.0F, 0.0F, 1.0F));
+  //sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
+  sprite.setRotation(game::Vector3(0.0F, 0.0F, 180.0F), game::Vector3<FLOAT>::zero());
 
     MSG msg=MSG();
     while (window.isOpen())
@@ -190,8 +191,6 @@ int main() {
                 break;
             }
         }
-        sprite.setOrigin(game::Vector3(0.0F, 0.0F, 1.0F));
-        sprite.rotate(0.01);
         window.clear();
         window.draw(sprite);
        window.display();
