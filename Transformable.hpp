@@ -31,7 +31,6 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr void setPosition(const Vector3<FLOAT> &newPosition) noexcept {
-            this->transform = this->transform.translate(newPosition - this->position);
             this->position = newPosition;
         }
 
@@ -60,9 +59,6 @@ namespace game {
             if (angle.z < 0.0F) [[unlikely]] {
                 angle.z += maxDegrees;
             }
-            this->transform = this->transform
-                                  .rotate(-this->rotationAngle, this->rotationCenter)
-                                  .rotate(angle, center);
             this->rotationAngle = angle;
             this->rotationCenter = center;
         }
@@ -80,7 +76,6 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr void setScalation(const Vector3<FLOAT> &factors, const Vector3<FLOAT> &center) noexcept {
-            this->transform = this->transform.scale(factors, center);
             this->scalationFactor = factors;
             this->scalationCenter = center;
         }
@@ -144,7 +139,6 @@ namespace game {
         /// \param offset: Offset.
         ////////////////////////////////////////////////////////////
         constexpr void move(const Vector3<FLOAT> &offset) noexcept {
-            this->transform = this->transform.translate(offset);
             this->position += offset;
         }
 
@@ -174,7 +168,6 @@ namespace game {
             if (angle.z < 0.0F) [[unlikely]] {
                 angle.z += maxDegrees;
             }
-            this->transform = this->transform.rotate(angle, this->rotationCenter);
             this->rotationAngle += angle;
             if (this->rotationAngle.x >= maxDegrees) [[unlikely]] {
                 this->rotationAngle.x -= maxDegrees;
@@ -205,7 +198,6 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr void scale(const Vector3<FLOAT> &factor) noexcept {
-            this->transform = this->transform.scale(factor);
             this->scalationFactor.x *= factor.x;
             this->scalationFactor.y *= factor.y;
             this->scalationFactor.z *= factor.z;
@@ -218,7 +210,11 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Transform &getTransform() const { return this->transform; }
+        constexpr Transform getTransform() const { 
+            return Transform().translate(this->position)
+                .rotate(this->rotationAngle, this->rotationCenter)
+                .scale(this->scalationFactor, this->scalationCenter);
+        }
 
       private:
         ////////////////////////////////////////////////////////////
@@ -229,6 +225,5 @@ namespace game {
         Vector3<FLOAT> rotationCenter = Vector3<FLOAT>::zero();  // Rotation center point of the object.
         Vector3<FLOAT> scalationFactor = Vector3<FLOAT>::one();  // Scalation factor of the object.
         Vector3<FLOAT> scalationCenter = Vector3<FLOAT>::zero(); // Scalation center point of the object.
-        Transform transform = Transform();                       // Combined transformation of the object.
     };
 }
