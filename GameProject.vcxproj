@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Angle.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationFrame.hpp" />
     <ClInclude Include="Animations.hpp" />
@@ -169,12 +170,11 @@
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
     <ClInclude Include="Rect.hpp" />
+    <ClInclude Include="Rect3.hpp" />
     <ClInclude Include="RenderTarget.hpp" />
     <ClInclude Include="RenderWindow.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Rotation.hpp" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
-    <ClInclude Include="Scalation.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Sprites.hpp" />

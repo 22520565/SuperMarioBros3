@@ -126,10 +126,10 @@
     <ClInclude Include="View.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rotation.hpp">
+    <ClInclude Include="Rect3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scalation.hpp">
+    <ClInclude Include="Angle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
