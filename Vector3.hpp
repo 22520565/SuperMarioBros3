@@ -35,11 +35,6 @@ namespace game {
     struct Vector3 : Vector2<T> {
       public:
         ////////////////////////////////////////////////////////////
-        // Member data
-        ////////////////////////////////////////////////////////////
-        T z = T();// Z coordinate of the vector.
-
-        ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
         ///
         ////////////////////////////////////////////////////////////
@@ -49,7 +44,7 @@ namespace game {
         /// \brief Construct a vector3 from its coordinates.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit Vector3<T>(const T x, const T y, const T z) noexcept(
+        constexpr explicit(false) Vector3<T>(const T x, const T y, const T z) noexcept(
             noexcept(Vector2<T>(x, y)) && noexcept(T(z))) : Vector2<T>(x, y), z(z) {}
 
         ////////////////////////////////////////////////////////////
@@ -96,6 +91,48 @@ namespace game {
         constexpr explicit Vector3<T>(Vector3<U> &&vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))))
             : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
+
+
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a Vector3 of (0, 0, 0).
+        ///
+        /// \return A Vector3 of (0, 0, 0).
+        /// 
+        ////////////////////////////////////////////////////////////
+        static constexpr Vector3<T> zero() noexcept { return Vector3<T>(Vector2<T>::zero(), 0); }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a Vector3 of (1, 1, 1).
+        ///
+        /// \return A Vector3 of (1, 1, 1).
+        /// 
+        ////////////////////////////////////////////////////////////
+        static constexpr Vector3<T>one() noexcept { return Vector3<T>(Vector2<T>::one(), 1); }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a Vector3 of (1, 0, 0).
+        ///
+        /// \return A Vector3 of (1, 0, 0).
+        /// 
+        ////////////////////////////////////////////////////////////
+        static constexpr Vector3<T> unitX() noexcept { return Vector3<T>(Vector2<T>::unitX(), 0); }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a Vector3 of (0, 1, 0).
+        ///
+        /// \return A Vector3 of (0, 1, 0).
+        /// 
+        ////////////////////////////////////////////////////////////
+        static constexpr Vector3<T> unitY() noexcept { return Vector3<T>(Vector2<T>::unitY(), 0); }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a Vector3 of (0, 0, 1).
+        ///
+        /// \return A Vector3 of (0, 0, 1).
+        /// 
+        ////////////////////////////////////////////////////////////
+        static constexpr Vector3<T> unitZ() noexcept { return Vector3<T>(Vector2<T>::zero(), 1); }
 
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
@@ -292,67 +329,8 @@ namespace game {
         }
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (0, 0, 0).
-        ///
-        /// \return A constant Vector3 of (0, 0, 0).
-        /// 
+        // Member data
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> zero() noexcept { return Vector3<T>(Vector2<T>::zero(), 0); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (1, 1, 1).
-        ///
-        /// \return A constant Vector3 of (1, 1, 1).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T>one() noexcept { return Vector3<T>(Vector2<T>::one(), 1); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (0, 1, 0).
-        ///
-        /// \return A constant Vector3 of (0, 1, 0).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> up() noexcept { return Vector3<T>(Vector2<T>::up(), 0); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (0, -1, 0).
-        ///
-        /// \return A constant Vector3 of (0, -1, 0).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> down()noexcept { return Vector3<T>(Vector2<T>::down(), 0); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (1, 0, 0).
-        ///
-        /// \return A constant Vector3 of (1, 0, 0).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> right() noexcept{ return Vector3<T>(Vector2<T>::right(),0); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (-1, 0, 0).
-        ///
-        /// \return A constant Vector3 of (-1, 0, 0).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> left() noexcept{ return Vector3<T>(Vector2<T>::left(),0); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (0, 0, 1).
-        ///
-        /// \return A constant Vector3 of (0, 0, 1).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> forward() noexcept{ return Vector3<T>(Vector2<T>::zero(), 1); }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get a constant Vector3 of (0, 0, -1).
-        ///
-        /// \return A constant Vector3 of (0, 0, -1).
-        /// 
-        ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> backward() noexcept{ return Vector3<T>(Vector2<T>::zero(),-1); }
+        T z = T();// Z coordinate of the vector.
     };
 }

@@ -34,12 +34,6 @@ namespace game {
 	struct Vector2 {
 	public:
 		////////////////////////////////////////////////////////////
-		// Member data
-		////////////////////////////////////////////////////////////
-		T x = T(); // X coordinate of the vector.
-		T y = T(); // Y coordinate of the vector.
-
-		////////////////////////////////////////////////////////////
 		/// \brief Default constructor.
 		///
 		////////////////////////////////////////////////////////////
@@ -49,7 +43,7 @@ namespace game {
 		/// \brief Construct a vector2 from its coordinates.
 		///
 		////////////////////////////////////////////////////////////
-		constexpr explicit Vector2<T>(const T x, const T y) noexcept(
+		constexpr explicit(false) Vector2<T>(const T x, const T y) noexcept(
 			noexcept(T(x)) && noexcept(T(y))) : x(x), y(y) {}
 
 		////////////////////////////////////////////////////////////
@@ -83,13 +77,48 @@ namespace game {
 		constexpr explicit Vector2<T>(Vector2<U>&& vector2) noexcept(
 			noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
 			: x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
-		
+
+
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get a Vector2 of (0, 0).
+		///
+		/// \return A Vector2 of (0, 0).
+		/// 
+		////////////////////////////////////////////////////////////
+		static constexpr Vector2<T> zero() noexcept { return Vector2<T>(0, 0); }
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get a Vector2 of (1, 1).
+		///
+		/// \return A Vector2 of (1, 1).
+		/// 
+		////////////////////////////////////////////////////////////
+		static constexpr Vector2<T> one() noexcept { return Vector2<T>(1, 1); }
+
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get a Vector2 of (1, 0).
+		///
+		/// \return A Vector2 of (1, 0).
+		/// 
+		////////////////////////////////////////////////////////////
+		static constexpr Vector2<T> unitX() noexcept { return Vector2<T>(1, 0); }
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get a Vector2 of (0, 1).
+		///
+		/// \return A Vector2 of (0, 1).
+		/// 
+		////////////////////////////////////////////////////////////
+		static constexpr Vector2<T> unitY() noexcept { return Vector2<T>(0, 1); }
+
 		////////////////////////////////////////////////////////////
 		/// \brief Overload of binary operator ==
 		///
 		/// This operator compares strict equality between two vectors.
 		///
-		/// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
+		/// \note Since C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
 		/// Thus, it's not necessary to define operator != and you can still use operator != normally.
 		///
 		/// \param left: Left operand (a vector).
@@ -273,51 +302,9 @@ namespace game {
 		}
 
 		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (0, 0).
-		///
-		/// \return A constant Vector2 of (0, 0).
-		/// 
+		// Member data
 		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> zero() noexcept { return Vector2<T>(0, 0); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (1, 1).
-		///
-		/// \return A constant Vector2 of (1, 1).
-		/// 
-		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> one() noexcept { return Vector2<T>(1, 1); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (0, 1).
-		///
-		/// \return A constant Vector2 of (0, 1).
-		/// 
-		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> up() noexcept { return Vector2<T>(0, 1); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (0, -1).
-		///
-		/// \return A constant Vector2 of (0, -1).
-		/// 
-		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> down() noexcept { return Vector2<T>(0, -1); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (1, 0).
-		///
-		/// \return A constant Vector2 of (1, 0).
-		/// 
-		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> right() noexcept { return Vector2<T>(1, 0); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Get a constant Vector2 of (-1, 0).
-		///
-		/// \return A constant Vector2 of (-1, 0).
-		/// 
-		////////////////////////////////////////////////////////////
-		static constexpr Vector2<T> left() noexcept { return Vector2<T>(-1, 0); }
+		T x = T(); // X coordinate of the vector.
+		T y = T(); // Y coordinate of the vector.
 	};
 }
