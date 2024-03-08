@@ -6,14 +6,16 @@
 namespace game {
     class Window : public WindowBase, public DxResource {
     public:
-        Window(const Vector2<int>& size, const TCHAR *const title, int nCmdShow) 
-            : WindowBase(size, title, nCmdShow), DxResource() {
-            RECT rect = RECT();
-            GetClientRect(hWnd, &rect);
+        constexpr Window() = default;
 
-            backBufferSize = Vector2<uint_fast32_t>(rect.right + 1, rect.bottom + 1);
+        Window(const Vector2<int>& size, const TCHAR *const title, int nCmdShow,
+            HINSTANCE hInstance, const TCHAR* const className)
+            : WindowBase(size, title, nCmdShow,hInstance, className), DxResource() {
+            auto windowSize = this->getSize();
 
-            DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", rect.right - 1, rect.bottom - 1);
+            backBufferSize = Vector2<uint_fast32_t>(windowSize.x, windowSize.y);
+
+            DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", windowSize.x, windowSize.y);
 
              }
     };

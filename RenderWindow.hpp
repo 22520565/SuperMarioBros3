@@ -6,8 +6,9 @@ namespace game {
 	class RenderWindow final : public Window, public RenderTarget {
 	private:
 	public:
-		RenderWindow(const Vector2<int>& size, const TCHAR *const title, int nCmdShow)
-			: Window(size,title, nCmdShow), RenderTarget() {
+	RenderWindow(const Vector2<int>& size, const TCHAR *const title, int nCmdShow, 
+            HINSTANCE hInstance, const TCHAR* const className)
+			: Window(size,title, nCmdShow, hInstance, className), RenderTarget() {
             // Create & clear the DXGI_SWAP_CHAIN_DESC structure
             // Fill in the needed values
             DXGI_SWAP_CHAIN_DESC swapChainDesc = DXGI_SWAP_CHAIN_DESC{
@@ -28,7 +29,7 @@ namespace game {
                 },
                 .BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
                 .BufferCount = 1,
-                .OutputWindow = hWnd,
+                .OutputWindow = this->getWindowHandler(),
                 .Windowed = true,
                 .SwapEffect = DXGI_SWAP_EFFECT(),
                 .Flags = UINT(),
@@ -46,8 +47,8 @@ namespace game {
             }
 
 			// Get the back buffer from the swapchain
-			ID3D10Texture2D* pBackBuffer = nullptr;
-		hr = pSwapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), (LPVOID*)&pBackBuffer);
+			CComPtr<ID3D10Texture2D> pBackBuffer = CComPtr<ID3D10Texture2D>();
+		hr = pSwapChain->GetBuffer(0, __uuidof(ID3D10Texture2D), reinterpret_cast<void**>(&pBackBuffer));
 			if (hr != S_OK) {
 				DebugOut((wchar_t*)L"[ERROR] pSwapChain->GetBuffer has failed %s %d", _W(__FILE__), __LINE__);
 				return;
@@ -56,7 +57,6 @@ namespace game {
             // create the render target view
             hr = pD3DDevice->CreateRenderTargetView(pBackBuffer, nullptr, &pRenderTargetView);
 
-            pBackBuffer->Release();
             if (hr != S_OK) {
                 DebugOut((wchar_t*)L"[ERROR] CreateRenderTargetView has failed %s %d", _W(__FILE__), __LINE__);
                 return;
@@ -95,7 +95,7 @@ namespace game {
 
             pD3DDevice->CreateSamplerState(&desc, &this->pPointSamplerState);
             // create the sprite object to handle sprite drawing
-            hr = D3DX10CreateSprite(pD3DDevice, 0, &spriteObject);
+            hr = D3DX10CreateSprite(pD3DDevice, 0, &this->spriteObject);
 
             if (hr != S_OK) {
                 DebugOut((wchar_t*)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
@@ -111,7 +111,7 @@ namespace game {
                 static_cast<FLOAT>(viewPort.Width),
                 static_cast<FLOAT>(viewPort.TopLeftY),
                 static_cast<FLOAT>(viewPort.Height),
-                0.1F, 10.0F);
+                0.0F, 10.0F);
             hr = spriteObject->SetProjectionTransform(&matProjection);
            
             // Initialize the blend state for alpha drawing
@@ -132,8 +132,8 @@ namespace game {
             DebugOut((wchar_t*)L"[INFO] InitDirectX has been successful\n");
 		}
 
-		Vector2<int> getSize() const override { return Window::getSize(); }
+       inline Vector2<int> getSize() const override { return WindowBase::getSize(); }
 
-		void display() { pSwapChain->Present(1, 0); }
+	constexpr void display() const noexcept { pSwapChain->Present(1, 0); }
 	};
 }

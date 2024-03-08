@@ -21,10 +21,10 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 ================================================================ */
 
-#include <windows.h>
 #include "Game.hpp"
 #include "RenderWindow.hpp"
 #include "Sprite.hpp"
+#include <windows.h>
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -159,31 +159,37 @@ int Run() {
 
     return 1;
 }
-//TODO: hInstance should use from main argument instead of  GetModuleHandle(nullptr)
-//  (create something liike sf::ContextSetting)
+// TODO: hInstance should use from main argument instead of  GetModuleHandle(nullptr)
+//   (create something liike sf::ContextSetting)
 
-int main() {
-    game::RenderWindow window = game::RenderWindow(game::Vector2(600,600),L"Test", SW_SHOWNORMAL);
-   // game::RenderWindow window2 = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL);
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
+                   _In_ LPSTR lpCmdLine, _In_ int nCmdShow) {
+    game::RenderWindow window = game::RenderWindow(game::Vector2(600, 600), L"Test", SW_SHOWNORMAL, hInstance, L"Hello");
+    // game::RenderWindow window2 = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance);
     game::Texture texture;
     texture.loadFromFile(L"textures/bbox.png", window.getDevice());
     game::Sprite sprite = game::Sprite(texture);
-  //sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
-  sprite.setRotation(game::Vector3(0.0F, 0.0F, 180.0F), game::Vector3<FLOAT>::zero());
-
-    MSG msg=MSG();
-    while (window.isOpen())
-    {
-        while (window.pollMsg(msg)) {
-            switch (msg.message)
-            {
+    // sprite.setPosition(game::Vector3(1.0F, 1.0F, 1.0F));
+    sprite.setRotation(game::Vector3(0.0F, 0.0F, 0.0F), game::Vector3<FLOAT>(0.50F, 0.50F, 0.0F));
+    ;
+    while (window.isOpen()) {
+        for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
+            switch (msg->message) {
             case WM_QUIT:
                 window.close();
                 break;
 
             case WM_KEYDOWN:
-                if (msg.wParam == VK_ESCAPE) {
+                if (msg->wParam == VK_ESCAPE) {
                     window.close();
+                } else if (msg->wParam == 'A') {
+                    sprite.move(game::Vector3<FLOAT>::unitX()*-10);
+                } else if (msg->wParam == 'D') {
+                    sprite.move(game::Vector3<FLOAT>::unitX()*10);
+                } else if (msg->wParam == 'W') {
+                    sprite.move(game::Vector3<FLOAT>::unitY()*10);
+                } else if (msg->wParam == 'S') {
+                    sprite.move(game::Vector3<FLOAT>::unitY()*-10);
                 }
                 break;
 
@@ -191,24 +197,25 @@ int main() {
                 break;
             }
         }
+        sprite.rotate(game::Vector3<FLOAT>(0.0F, 0.0F, 1.0F));
         window.clear();
         window.draw(sprite);
-       window.display();
+        window.display();
     }
-   //auto hInstance = GetModuleHandle(nullptr);
-   // HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);
-   // game::SetDebugWindow(hWnd);
+    // auto hInstance = GetModuleHandle(nullptr);
+    //  HWND hWnd = CreateGameWindow(hInstance, SW_SHOWNORMAL, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //  game::SetDebugWindow(hWnd);
 
-   // game::LPGAME game = game::Game::GetInstance();
-   // game->Init(hWnd, hInstance);
-   // game->InitKeyboard();
+    // game::LPGAME game = game::Game::GetInstance();
+    // game->Init(hWnd, hInstance);
+    // game->InitKeyboard();
 
-   // // IMPORTANT: this is the only place where a hardcoded file name is allowed !
-   // game->Load(L"mario-sample.txt");
+    // // IMPORTANT: this is the only place where a hardcoded file name is allowed !
+    // game->Load(L"mario-sample.txt");
 
-   // SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+    // SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
-   // Run();
+    // Run();
 
     return 0;
 }

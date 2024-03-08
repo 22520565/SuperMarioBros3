@@ -19,6 +19,7 @@
 // * This header file has been altered after copying from origin!
 #pragma once
 #include "Vector2.hpp"
+#include <algorithm>
 
 namespace game {
     template <typename T>
@@ -33,7 +34,7 @@ namespace game {
 
         /// \brief Default constructor.
         /// Creates an empty rectangle (it is equivalent to calling
-        /// Rect(0, 0, 0, 0)).
+        /// Rect({0, 0}, {0, 0})).
         constexpr Rect<T>() = default;
 
         /// \brief Construct the rectangle from position and size.
@@ -42,21 +43,9 @@ namespace game {
         ///
         /// \param position: Position of the top-left corner of the rectangle
         /// \param size: Size of the rectangle
-        constexpr explicit Rect(const Vector2<T> &position, const Vector2<T> &size) noexcept(
+        constexpr explicit(false) Rect(const Vector2<T> &position, const Vector2<T> &size) noexcept(
             noexcept(Vector2<T>(position)) && noexcept(Vector2<T>(size)))
             : position(position), size(size) {}
-
-        /// \brief Construct the rectangle from its coordinates.
-        /// Be careful, the last two parameters are the width
-        /// and height, not the right and bottom coordinates!
-        ///
-        /// \param left: Left coordinate of the rectangle
-        /// \param top: Top coordinate of the rectangle
-        /// \param width: Width of the rectangle
-        /// \param height: Height of the rectangle
-        constexpr explicit Rect(const T left, const T top, const T width, const T height) noexcept(
-            noexcept(T(left)) && noexcept(T(top)) && noexcept(T(width)) && noexcept(T(height)))
-            : left(left), top(top), width(width), height(height) {}
 
         /// \brief Construct the rectangle from another type of rectangle
         ///
@@ -72,6 +61,15 @@ namespace game {
                 && noexcept(Vector2<T>(static_cast<Vector2<T>>(rect.size))))
             : position(static_cast<Vector2<T>>(rect.position)), size(static_cast<Vector2<T>>(rect.size)) {}
 
+        ////////////////////////////////////////////////////////////
+/// \brief Get the position of the center of the rectangle.
+///
+/// \return Center of rectangle.
+///
+////////////////////////////////////////////////////////////
+        constexpr Vector2<T> getCenter() const noexcept(noexcept(this->position + (this->size / T(2)))) {
+            return this->position + (this->size / T(2)); }
+
         /// \brief Check if a point is inside the rectangle's area
         ///
         /// This check is non-inclusive. If the point lies on the
@@ -81,24 +79,19 @@ namespace game {
         ///
         /// \return True if the point is inside, false otherwise.
         constexpr bool contains(const Vector2<T> &point) const noexcept(
-            noexcept(this->contains(point.x, point.y))) {
-            return this->contains(point.x, point.y);
-        }
+            noexcept((std::min)(this->left, this->left + this->width)) &&
+            noexcept((std::max)(this->left, this->left + this->width)) &&
+            noexcept((std::min)(this->top, this->top + this->height)) &&
+            noexcept((std::max)(this->top, this->top + this->height))&&
+            noexcept((point.x >= minX) && (point.x < maxX) && (point.y >= minY) && (point.y < maxY))){
+            // Rectangles with negative dimensions are allowed, so we must handle them correctly.
+// Compute the real min and max of the rectangle on both axes.
+            const T minX = (std::min)(this->left, this->left + this->width);
+                const T maxX = (std::max)(this->left, this->left + this->width);
+                const T minY = (std::min)(this->top, this->top + this->height);
+                const T maxY = (std::max)(this->top, this->top + this->height);
 
-        /// \brief Check if a point is inside the rectangle's area
-        ///
-        /// This check is non-inclusive. If the point lies on the
-        /// edge of the rectangle, this function will return false.
-        ///
-        /// \param x: X coordinate of the point to test
-        /// \param y: Y coordinate of the point to test
-        ///
-        /// \return True if the point is inside, false otherwise.
-        constexpr bool contains(T x, T y) const noexcept(
-            noexcept((this->left < x) && (x < (this->left + this->width)) &&
-                     (this->top < y) && (y < (this->top + this->height)))) {
-            return (this->left < x) && (x < (this->left + this->width)) &&
-                   (this->top < y) && (y < (this->top + this->height));
+                return (point.x >= minX) && (point.x < maxX) && (point.y >= minY) && (point.y < maxY);
         }
     };
 }
