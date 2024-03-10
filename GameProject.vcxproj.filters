@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Inline Files">
+      <UniqueIdentifier>{c59ad252-f7bf-4e07-8317-38d14eed6d05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.hpp">
@@ -204,10 +207,10 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="Vector2.inl">
-      <Filter>Source Files</Filter>
+      <Filter>Inline Files</Filter>
     </None>
     <None Include="Vector3.inl">
-      <Filter>Source Files</Filter>
+      <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

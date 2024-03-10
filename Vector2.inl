@@ -20,11 +20,12 @@
 //
 // 3. This notice may not be removed or altered from any source distribution.
 //
-// *. This source file has been altered after copying from origin!
+// *. This inline file has been altered after copying from origin!
 //
 ////////////////////////////////////////////////////////////
 
 #include "Vector2.hpp"
+#include <type_traits>
 
 namespace game {
     ////////////////////////////////////////////////////////////
