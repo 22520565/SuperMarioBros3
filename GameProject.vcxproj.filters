@@ -203,6 +203,12 @@
     <None Include="stdfloat">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="Vector2.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Vector3.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc">

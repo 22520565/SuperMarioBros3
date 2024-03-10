@@ -25,6 +25,9 @@
 ////////////////////////////////////////////////////////////
 
 #pragma once
+#include "stdfloat"
+#include <cstdint>
+#include <type_traits>
 
 namespace game {
     ////////////////////////////////////////////////////////////
@@ -32,6 +35,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     class Vector2 {
       public:
         ////////////////////////////////////////////////////////////
@@ -49,7 +53,7 @@ namespace game {
         constexpr Vector2() = default;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector2 from cartesian coordinates
+        /// \brief Construct the vector2 from cartesian coordinates.
         ///
         /// \param x: X coordinate.
         /// \param y: Y coordinate.
@@ -153,6 +157,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
@@ -171,6 +176,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     constexpr const Vector2<T> &
     operator+=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x += right.x) && noexcept(left.y += right.y));
@@ -184,6 +190,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator-(const Vector2<T> &right) noexcept(noexcept(Vector2<T>(-right.x, -right.y)));
@@ -198,6 +205,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
@@ -216,6 +224,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     constexpr const Vector2<T> &
     operator-=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x -= right.x) && noexcept(left.y -= right.y));
@@ -230,6 +239,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator*(const Vector2<T> &left, const T right) noexcept(
@@ -245,6 +255,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator*(const T left, const Vector2<T> &right) noexcept(
@@ -263,6 +274,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     constexpr const Vector2<T> &
     operator*=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x *= right) && noexcept(left.y *= right));
@@ -279,6 +291,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     [[nodiscard]]
     constexpr Vector2<T>
     operator/(const Vector2<T> &left, const T right) noexcept(
@@ -299,9 +312,58 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
+        requires std::is_arithmetic_v<T>
     constexpr const Vector2<T> &
     operator/=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x /= right) && noexcept(left.y /= right));
+
+    // Define common types
+
+    using Vector2c = Vector2<char>;
+    using Vector2uc = Vector2<unsigned char>;
+    using Vector2s = Vector2<short>;
+    using Vector2us = Vector2<unsigned short>;
+    using Vector2i = Vector2<int>;
+    using Vector2u = Vector2<unsigned>;
+    using Vector2ui = Vector2<unsigned int>;
+    using Vector2l = Vector2<long>;
+    using Vector2ul = Vector2<unsigned long>;
+    using Vector2ll = Vector2<long long>;
+    using Vector2ull = Vector2<unsigned long long>;
+
+    using Vector2i8 = Vector2<int8_t>;
+    using Vector2il8 = Vector2<int_least8_t>;
+    using Vector2if8 = Vector2<int_fast8_t>;
+    using Vector2u8 = Vector2<uint8_t>;
+    using Vector2ul8 = Vector2<uint_least8_t>;
+    using Vector2uf8 = Vector2<uint_fast8_t>;
+    using Vector2i16 = Vector2<int16_t>;
+    using Vector2il16 = Vector2<int_least16_t>;
+    using Vector2if16 = Vector2<int_fast16_t>;
+    using Vector2u16 = Vector2<uint16_t>;
+    using Vector2ul16 = Vector2<uint_least16_t>;
+    using Vector2uf16 = Vector2<uint_fast16_t>;
+    using Vector2i32 = Vector2<int32_t>;
+    using Vector2il32 = Vector2<int_least32_t>;
+    using Vector2if32 = Vector2<int_fast32_t>;
+    using Vector2u32 = Vector2<uint32_t>;
+    using Vector2ul32 = Vector2<uint_least32_t>;
+    using Vector2uf32 = Vector2<uint_fast32_t>;
+    using Vector2i64 = Vector2<int64_t>;
+    using Vector2il64 = Vector2<int_least64_t>;
+    using Vector2if64 = Vector2<int_fast64_t>;
+    using Vector2u64 = Vector2<uint64_t>;
+    using Vector2ul64 = Vector2<uint_least64_t>;
+    using Vector2uf64 = Vector2<uint_fast64_t>;
+
+    using Vector2f = Vector2<float>;
+    using Vector2d = Vector2<double>;
+    using Vector2ld = Vector2<long double>;
+    using Vector2f16 = Vector2<std::float16_t>;
+    using Vector2bf16 = Vector2<std::bfloat16_t>;
+    using Vector2f32 = Vector2<std::float32_t>;
+    using Vector2f64 = Vector2<std::float64_t>;
+    using Vector2f128 = Vector2<std::float128_t>;
 }
 
 #include "Vector2.inl"

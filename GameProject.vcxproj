@@ -215,6 +215,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="stdfloat" />
+    <None Include="Vector2.inl" />
+    <None Include="Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc" />
