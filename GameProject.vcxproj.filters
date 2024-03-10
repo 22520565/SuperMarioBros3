@@ -16,6 +16,9 @@
     <Filter Include="Inline Files">
       <UniqueIdentifier>{c59ad252-f7bf-4e07-8317-38d14eed6d05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Wrapper Files">
+      <UniqueIdentifier>{d286bf56-8f36-4ab9-97db-89cf93a2902d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.hpp">
@@ -203,13 +206,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="stdfloat">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="Vector2.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Vector3.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="stdfloat">
+      <Filter>Wrapper Files</Filter>
+    </None>
+    <None Include="Angle.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

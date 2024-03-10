@@ -28,6 +28,7 @@
 #include "Vector2.hpp"
 #include "stdfloat"
 #include <cstdint>
+#include <type_traits>
 
 namespace game {
     ////////////////////////////////////////////////////////////
@@ -87,7 +88,7 @@ namespace game {
         /// \param vector3: Vector3 to convert.
         ///
         ////////////////////////////////////////////////////////////
-        template <typename U>
+        template <typename U>  requires std::is_arithmetic_v<U>
         constexpr explicit Vector3<T>(const Vector3<U> &vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 
@@ -101,7 +102,7 @@ namespace game {
         ///
         /// \param vector3: Vector3 to convert.
         ////////////////////////////////////////////////////////////
-        template <typename U>
+        template <typename U>  requires std::is_arithmetic_v<U>
         constexpr explicit Vector3<T>(Vector3<U> &&vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 
@@ -343,7 +344,6 @@ namespace game {
     using Vector3us = Vector3<unsigned short>;
     using Vector3i = Vector3<int>;
     using Vector3u = Vector3<unsigned>;
-    using Vector3ui = Vector3<unsigned int>;
     using Vector3l = Vector3<long>;
     using Vector3ul = Vector3<unsigned long>;
     using Vector3ll = Vector3<long long>;

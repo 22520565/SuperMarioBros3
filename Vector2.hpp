@@ -73,7 +73,7 @@ namespace game {
         /// \param vector2: Vector2 to convert.
         ///
         ////////////////////////////////////////////////////////////
-        template <typename U>
+        template <typename U> requires std::is_arithmetic_v<U>
         constexpr explicit Vector2(const Vector2<U> &vector2) noexcept(
             noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
 
@@ -88,7 +88,7 @@ namespace game {
         /// \param vector2: Vector2 to convert.
         ///
         ////////////////////////////////////////////////////////////
-        template <typename U>
+        template <typename U> requires std::is_arithmetic_v<U>
         constexpr explicit Vector2(Vector2<U> &&vector2) noexcept(
             noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
 
@@ -325,7 +325,6 @@ namespace game {
     using Vector2us = Vector2<unsigned short>;
     using Vector2i = Vector2<int>;
     using Vector2u = Vector2<unsigned>;
-    using Vector2ui = Vector2<unsigned int>;
     using Vector2l = Vector2<long>;
     using Vector2ul = Vector2<unsigned long>;
     using Vector2ll = Vector2<long long>;

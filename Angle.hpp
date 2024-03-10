@@ -20,424 +20,488 @@
 //
 // 3. This notice may not be removed or altered from any source distribution.
 //
+// *. This header file has been altered after copying from origin!
+//
 ////////////////////////////////////////////////////////////
 
 #pragma once
-#include <numbers>
+#include "Vector3.hpp"
 #include <cmath>
+#include <compare>
+#include <concepts>
+#include <numbers>
+#include <type_traits>
+#include <windows.h>
 
-namespace game
-{
-	////////////////////////////////////////////////////////////
-	/// \brief Represents an angle value.
-	///
-	////////////////////////////////////////////////////////////
-	class Angle
-	{
-	public:
-		////////////////////////////////////////////////////////////
-		/// \brief Default constructor.
-		///
-		/// Sets the angle value to zero.
-		///
-		////////////////////////////////////////////////////////////
-		constexpr Angle() = default;
+// Forward declaration
+namespace game {
+    template <std::floating_point T>
+    class Angle;
 
-		////////////////////////////////////////////////////////////
-		/// \brief Return the angle's value in degrees.
-		///
-		/// \return Angle in degrees.
-		///
-		/// \see asRadians.
-		///
-		////////////////////////////////////////////////////////////
-		[[nodiscard]] constexpr const float& asDegrees() const { return this->degrees; }
+    template <std::floating_point T>
+    constexpr Angle<T> degrees(const T angle) noexcept(
+        noexcept(Angle<T>(angle)));
 
-		////////////////////////////////////////////////////////////
-		/// \brief Return the angle's value in radians
-		///
-		/// \return Angle in radians
-		///
-		/// \see asDegrees
-		///
-		////////////////////////////////////////////////////////////
-		[[nodiscard]] constexpr float asRadians() const { return this->degrees * (std::numbers::pi_v<float> / 180.0F); }
-
-		////////////////////////////////////////////////////////////
-		/// \brief Wrap to a range such that -180� <= angle < 180�
-		///
-		/// Similar to a modulo operation, this returns a copy of the angle
-		/// constrained to the range [-180�, 180�) == [-Pi, Pi).
-		/// The resulting angle represents a rotation which is equivalent to *this.
-		///
-		/// \return Signed angle, wrapped to [-180�, 180�)
-		///
-		/// \see wrapUnsigned
-		///
-		////////////////////////////////////////////////////////////
-		[[nodiscard]] constexpr Angle wrapSigned() const {
-			return Angle(std::fmod(this->degrees + 180.0F, 360.0F) - 180.0F);
-		}
-
-		////////////////////////////////////////////////////////////
-		/// \brief Wrap to a range such that 0� <= angle < 360�
-		///
-		/// Similar to a modulo operation, this returns a copy of the angle
-		/// constrained to the range [0�, 360�) == [0, Tau) == [0, 2*Pi).
-		/// The resulting angle represents a rotation which is equivalent to *this.
-		///
-		/// The name "unsigned" originates from the similarity to unsigned integers:
-		/// <table>
-		/// <tr>
-		///   <th></th>
-		///   <th>signed</th>
-		///   <th>unsigned</th>
-		/// </tr>
-		/// <tr>
-		///   <td>char</td>
-		///   <td>[-128, 128)</td>
-		///   <td>[0, 256)</td>
-		/// </tr>
-		/// <tr>
-		///   <td>Angle</td>
-		///   <td>[-180�, 180�)</td>
-		///   <td>[0�, 360�)</td>
-		/// </tr>
-		/// </table>
-		///
-		/// \return Unsigned angle, wrapped to [0�, 360�)
-		///
-		/// \see wrapSigned
-		///
-		////////////////////////////////////////////////////////////
-		[[nodiscard]] constexpr Angle wrapUnsigned() const { return Angle(std::fmod(this->degrees, 360.0F)); }
-
-		////////////////////////////////////////////////////////////
-		// Static member data
-		////////////////////////////////////////////////////////////
-		// NOLINTNEXTLINE(readability-identifier-naming)
-		static const Angle Zero; //!< Predefined 0 degree angle value
-
-	private:
-		friend constexpr Angle degrees(float angle);
-		friend constexpr Angle radians(float angle);
-
-		////////////////////////////////////////////////////////////
-		/// \brief Construct from a number of degrees
-		///
-		/// This function is internal. To construct angle values,
-		/// use sf::radians or sf::degrees instead.
-		///
-		/// \param degrees Angle in degrees
-		///
-		////////////////////////////////////////////////////////////
-		constexpr explicit Angle(float degrees);
-
-		////////////////////////////////////////////////////////////
-		// Member data
-		////////////////////////////////////////////////////////////
-		float degrees=0.0F; //!< Angle value stored as degrees
-	};
-
-	////////////////////////////////////////////////////////////
-	/// \brief Construct an angle value from a number of degrees
-	///
-	/// \param angle Number of degrees
-	///
-	/// \return Angle value constructed from the number of degrees
-	///
-	/// \see radians
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle degrees(float angle) { return Angle(angle); }
-
-	////////////////////////////////////////////////////////////
-	/// \brief Construct an angle value from a number of radians
-	///
-	/// \param angle Number of radians
-	///
-	/// \return Angle value constructed from the number of radians
-	///
-	/// \see degrees
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle radians(float angle) { return Angle(angle * (180 / std::numbers::pi_v<float>)); }
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of == operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if both angle values are equal
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator==(Angle left, Angle right){
-		return left.asDegrees() == right.asDegrees();
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of != operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if both angle values are different
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator!=(Angle left, Angle right) {
-		return left.asDegrees() != right.asDegrees();
-	}
-
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of < operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if \a left is less than \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator<(Angle left, Angle right) {
-		return left.asDegrees() < right.asDegrees();
-	}
-
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of > operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if \a left is greater than \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator>(Angle left, Angle right) {
-		return left.asDegrees() > right.asDegrees();
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of <= operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if \a left is less than or equal to \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator<=(Angle left, Angle right) {
-		return left.asDegrees() <= right.asDegrees();
-	}
-
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of >= operator to compare two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return True if \a left is greater than or equal to \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr bool operator>=(Angle left, Angle right) {
-		return left.asDegrees() >= right.asDegrees();
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of unary - operator to negate an angle value.
-	///
-	/// Represents a rotation in the opposite direction.
-	///
-	/// \param right Right operand (an angle)
-	///
-	/// \return Negative of the angle value
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator-(Angle right)
-	{
-		return degrees(-right.asDegrees());
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary + operator to add two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return Sum of the two angle values
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator+(Angle left, Angle right) {
-		return degrees(left.asDegrees() + right.asDegrees());
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary += operator to add/assign two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return Sum of the two angle values
-	///
-	////////////////////////////////////////////////////////////
-	constexpr Angle& operator+=(Angle& left, Angle right) {
-		return left = left + right;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary - operator to subtract two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return Difference of the two angle values
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator-(Angle left, Angle right) {
-		return degrees(left.asDegrees() - right.asDegrees());
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary -= operator to subtract/assign two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return Difference of the two angle values
-	///
-	////////////////////////////////////////////////////////////
-	constexpr Angle& operator-=(Angle& left, Angle right) {
-		return left = left - right;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary * operator to scale an angle value
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (a number)
-	///
-	/// \return \a left multiplied by \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator*(Angle left, float right) {
-		return degrees(left.asDegrees() * right);
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary * operator to scale an angle value
-	///
-	/// \param left  Left operand (a number)
-	/// \param right Right operand (an angle)
-	///
-	/// \return \a left multiplied by \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator*(float left, Angle right) {
-		return right * left;
-	}
-
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary *= operator to scale/assign an angle value
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (a number)
-	///
-	/// \return \a left multiplied by \a right
-	///
-	////////////////////////////////////////////////////////////
-	constexpr Angle& operator*=(Angle& left, float right) {
-		return left = left * right;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary / operator to scale an angle value
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (a number)
-	///
-	/// \return \a left divided by \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator/(Angle left, float right) {
-		return degrees(left.asDegrees() / right);
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary /= operator to scale/assign an angle value
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (a number)
-	///
-	/// \return \a left divided by \a right
-	///
-	////////////////////////////////////////////////////////////
-	constexpr Angle& operator/=(Angle& left, float right) {
-		return left = left / right;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary / operator to compute the ratio of two angle values
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return \a left divided by \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr float operator/(Angle left, Angle right) {
-		return left.asDegrees() / right.asDegrees();
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary % operator to compute modulo of an angle value.
-	///
-	/// Right hand angle must be greater than zero.
-	///
-	/// Examples:
-	/// \code
-	/// sf::degrees(90) % sf::degrees(40)  // 10 degrees
-	/// sf::degrees(-90) % sf::degrees(40) // 30 degrees (not -10)
-	/// \endcode
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return \a left modulo \a right
-	///
-	////////////////////////////////////////////////////////////
-	[[nodiscard]] constexpr Angle operator%(Angle left, Angle right) {
-		return degrees(std::fmod(left.asDegrees(), right.asDegrees()));
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \relates Angle
-	/// \brief Overload of binary %= operator to compute/assign remainder of an angle value
-	///
-	/// \param left  Left operand (an angle)
-	/// \param right Right operand (an angle)
-	///
-	/// \return \a left modulo \a right
-	///
-	////////////////////////////////////////////////////////////
-	constexpr Angle& operator%=(Angle& left, Angle right){ return left = left % right; }
+    template <std::floating_point T>
+    constexpr Angle<T> radians(const T angle) noexcept(
+        noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>))));
 }
+
+namespace game {
+    ////////////////////////////////////////////////////////////
+    /// \brief Represents an angle value.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    class Angle final {
+      public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor.
+        ///
+        /// Sets the angle value to zero.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Angle() = default;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct the angle from another type of angle.
+        ///
+        /// This constructor doesn't replace the copy constructor,
+        /// it's called only when U != T.
+        /// A call to this constructor will fail to compile if U
+        /// is not convertible to T.
+        ///
+        /// \param angle: Angle to convert.
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::floating_point U>
+        constexpr explicit Angle(const Angle<U> &angle) noexcept(
+            noexcept(T(static_cast<T>(angle.amountDegrees))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct the angle from another type of angle.
+        ///
+        /// This constructor doesn't replace the copy constructor,
+        /// it's called only when U != T.
+        /// A call to this constructor will fail to compile if U
+        /// is not convertible to T.
+        ///
+        /// \param angle: Angle to convert.
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::floating_point U>
+        constexpr explicit Angle(Angle<U> &&angle) noexcept(
+            noexcept(T(static_cast<T>(angle.amountDegrees))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Return the angle's value in degrees.
+        ///
+        /// \return Angle in degrees.
+        ///
+        /// \see asRadians.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr const T &asDegrees() const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Return the angle's value in radians
+        ///
+        /// \return Angle in radians
+        ///
+        /// \see asDegrees
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr T asRadians() const noexcept(
+            noexcept(this->amountDegrees * (std::numbers::pi_v<T> / static_cast<T>(180.0))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Wrap to a range such that -180째 <= angle < 180째
+        ///
+        /// Similar to a modulo operation, this returns a copy of the angle
+        /// constrained to the range [-180째, 180째) == [-Pi, Pi).
+        /// The resulting angle represents a rotation which is equivalent to *this.
+        ///
+        /// \return Signed angle, wrapped to [-180째, 180째)
+        ///
+        /// \see wrapUnsigned
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Angle<T> wrapSigned() const noexcept(
+            noexcept(Angle<T>(std::fmod(this->amountDegrees + static_cast<T>(180.0F), static_cast<T>(360.0F)) -
+                              static_cast<T>(180.0F))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Wrap to a range such that 0째 <= angle < 360째
+        ///
+        /// Similar to a modulo operation, this returns a copy of the angle
+        /// constrained to the range [0째, 360째) == [0, Tau) == [0, 2*Pi).
+        /// The resulting angle represents a rotation which is equivalent to *this.
+        ///
+        /// \return Unsigned angle, wrapped to [0째, 360째)
+        ///
+        /// \see wrapSigned
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Angle<T> wrapUnsigned() const noexcept(
+            noexcept(Angle<T>(std::fmod(this->amountDegrees, static_cast<T>(360.0)))));
+
+        ////////////////////////////////////////////////////////////
+        /// \relates Angle
+        /// \brief Overload of <=> operator to compare two angle values.
+        ///
+        /// \param left: Left operand (an angle).
+        /// \param right: Right operand (an angle).
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        friend constexpr std::partial_ordering
+        operator<=>(Angle<T> left, Angle<T> right) = default;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get an Angle of 0.
+        ///
+        /// \return An angle of 0.
+        ///
+        ////////////////////////////////////////////////////////////
+        static constexpr Angle<T> zero() noexcept(noexcept(Angle<T>(T(0.0)))) {
+            return Angle<T>(T(0.0));
+        };
+
+      private:
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of degrees
+        ///
+        /// \param angle Number of degrees
+        ///
+        /// \return Angle value constructed from the number of degrees
+        ///
+        /// \see radians
+        ///
+        ////////////////////////////////////////////////////////////
+        friend constexpr Angle<T> degrees<>(const T angle) noexcept(
+            noexcept(Angle<T>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of degrees
+        ///
+        /// \param angle Number of degrees
+        ///
+        /// \return Angle value constructed from the number of degrees
+        ///
+        /// \see radians
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::integral U>
+        friend constexpr Angle<long double> degrees(const U angle) noexcept(
+            noexcept(Angle<long double>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of radians
+        ///
+        /// \param angle Number of radians
+        ///
+        /// \return Angle value constructed from the number of radians
+        ///
+        /// \see degrees
+        ///
+        ////////////////////////////////////////////////////////////
+        friend constexpr Angle<T> radians<>(const T angle) noexcept(
+            noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of radians
+        ///
+        /// \param angle Number of radians
+        ///
+        /// \return Angle value constructed from the number of radians
+        ///
+        /// \see degrees
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::integral U>
+        friend constexpr Angle<long double> radians(const U angle) noexcept(
+            noexcept(Angle<long double>(angle * (static_cast<long double>(180.0) / std::numbers::pi_v<long double>))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct from a number of degrees.
+        ///
+        /// This function is similar to degrees().
+        ///
+        /// \param degrees Angle in degrees
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr explicit Angle<T>(const T degrees) noexcept : amountDegrees(degrees) {}
+
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        T amountDegrees = T(); // Angle value stored as degrees
+    };
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary + operator to add two angle values.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return Sum of the two angle values.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator+(const Angle<T> left, const Angle<T> right) noexcept(
+        noexcept(degrees(left.asDegrees() + right.asDegrees())));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary += operator to add/assign two angle values.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return Sum of the two angle values.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    constexpr Angle<T> &operator+=(Angle<T> &left, const Angle<T> right) noexcept(
+        noexcept(left = (left + right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of unary - operator to negate an angle value.
+    ///
+    /// Represents a rotation in the opposite direction.
+    ///
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return Negative of the angle value.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator-(const Angle<T> right) noexcept(noexcept(degrees(-right.asDegrees())));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary - operator to subtract two angle values.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return Difference of the two angle values.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator-(const Angle<T> left, const Angle<T> right) noexcept(
+        noexcept(degrees(left.asDegrees() - right.asDegrees())));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary -= operator to subtract/assign two angle values.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return Difference of the two angle values.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    constexpr Angle<T> &operator-=(Angle<T> &left, const Angle<T> right) noexcept(
+        noexcept(left = (left - right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary * operator to scale an angle value.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (a number).
+    ///
+    /// \return \a left multiplied by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator*(const Angle<T> left, const T right) noexcept(
+        noexcept(degrees(left.asDegrees() * right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary * operator to scale an angle value.
+    ///
+    /// \param left: Left operand (a number).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return \a left multiplied by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator*(const T left, const Angle<T> right) noexcept(noexcept(right * left));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary *= operator to scale/assign an angle value.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (a number).
+    ///
+    /// \return \a left multiplied by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    constexpr Angle<T> &operator*=(Angle<T> &left, const T right) noexcept(
+        noexcept(left = (left * right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary / operator to scale an angle value.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (a number).
+    ///
+    /// \return \a left divided by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator/(const Angle<T> left, const T right) noexcept(
+        noexcept(degrees(left.asDegrees() / right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary /= operator to scale/assign an angle value.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (a number).
+    ///
+    /// \return \a left divided by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    constexpr Angle<T> &operator/=(Angle<T> &left, const T right) noexcept(
+        noexcept(left = (left / right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary / operator to compute the ratio of two angle values.
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return \a left divided by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr T
+    operator/(const Angle<T> left, const Angle<T> right) noexcept(
+        noexcept(left.asDegrees() / right.asDegrees()));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary % operator to compute modulo of an angle value.
+    ///
+    /// Right hand angle must be greater than zero.
+    ///
+    /// Examples:
+    /// \code
+    /// degrees(90) % degrees(40)  // 10 degrees
+    /// degrees(-90) % degrees(40) // 30 degrees (not -10)
+    /// \endcode
+    ///
+    /// \param left: Left operand (an angle).
+    /// \param right: Right operand (an angle).
+    ///
+    /// \return \a left modulo \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    [[nodiscard]]
+    constexpr Angle<T>
+    operator%(const Angle<T> left, const Angle<T> right) noexcept(
+        noexcept(degrees(std::fmod(left.asDegrees(), right.asDegrees()))));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Angle
+    /// \brief Overload of binary %= operator to compute/assign remainder of an angle value
+    ///
+    /// \param left: Left operand (an angle)
+    /// \param right: Right operand (an angle)
+    ///
+    /// \return \a left modulo \a right
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
+    constexpr Angle<T> &operator%=(Angle<T> &left, const Angle<T> right) noexcept(
+        noexcept(left = (left % right)));
+
+    inline namespace literals {
+        ////////////////////////////////////////////////////////////
+        /// \brief User defined literal for angles in degrees, e.g. 10.5_deg.
+        ///
+        /// \param angle Angle in degrees.
+        ///
+        /// \return \a Angle.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        consteval Angle<long double>
+        operator""_deg(const long double angle) noexcept(
+            noexcept(degrees<long double>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \relates sf::Angle
+        /// \brief User defined literal for angles in degrees, e.g. 90_deg
+        ///
+        /// \param angle Angle in degrees
+        ///
+        /// \return \a Angle
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        consteval Angle<long double>
+        operator""_deg(unsigned long long int angle) noexcept(
+            noexcept(degrees<long double>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief User defined literal for angles in radians, e.g. 0.1_rad.
+        ///
+        /// \param angle Angle in radians.
+        ///
+        /// \return \a Angle.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        consteval Angle<long double>
+        operator""_rad(const long double angle) noexcept(
+            noexcept(radians<long double>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \relates sf::Angle
+        /// \brief User defined literal for angles in radians, e.g. 2_rad
+        ///
+        /// \param angle Angle in radians
+        ///
+        /// \return \a Angle
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        consteval Angle<long double>
+        operator""_rad(unsigned long long int angle) noexcept(
+            noexcept(radians<long double>(angle)));
+    }
+}
+
+#include "Angle.inl"
