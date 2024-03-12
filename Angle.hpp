@@ -212,16 +212,33 @@ namespace game {
         /// \return An angle of 0.
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Angle<T> zero() noexcept(noexcept(Angle<T>(T(0.0)))) {
-            return Angle<T>(T(0.0));
-        };
+        [[nodiscard]]
+        static consteval Angle<T> zero() noexcept(noexcept(Angle<T>()));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get an Angle of 1.0_deg.
+        ///
+        /// \return An angle of 1.0_deg.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        static consteval Angle<T> one_deg() noexcept(noexcept(Angle<T>::degrees(1.0)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get an Angle of 1.0_rad.
+        ///
+        /// \return An angle of 1.0_rad.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        static consteval Angle<T> one_rad() noexcept(noexcept(Angle<T>::radians(1.0)));
 
       private:
         ////////////////////////////////////////////////////////////
         /// \brief Construct from a number of degrees.
-            ///
-    /// This function is internal. To construct angle values,
-    /// use game::radians or game::degrees instead.
+        ///
+        /// This function is internal. To construct angle values,
+        /// use game::radians or game::degrees instead.
         ///
         /// \param degrees: Angle in degrees.
         ///

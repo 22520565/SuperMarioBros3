@@ -109,6 +109,27 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
+    consteval Angle<T> Angle<T>::zero() noexcept(noexcept(Angle<T>())) {
+        return Angle<T>();
+    };
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    consteval Angle<T> Angle<T>::one_deg() noexcept(noexcept(Angle<T>::degrees(1.0))) {
+        return Angle<T>::degrees(1.0);
+    };
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    consteval Angle<T> Angle<T>::one_rad() noexcept(noexcept(Angle<T>::radians(1.0))) {
+        return Angle<T>::radians(1.0);
+    };
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator+(const Angle<T> left, const Angle<T> right) noexcept(
         noexcept(Angle<T>::degrees(left.asDegrees() + right.asDegrees()))) {
         return Angle<T>::degrees(left.asDegrees() + right.asDegrees());

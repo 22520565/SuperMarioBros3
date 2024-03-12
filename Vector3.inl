@@ -39,7 +39,7 @@ namespace game {
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector3<T>::Vector3(const Vector2<T> &vector2) noexcept(
-        noexcept(Vector2<T>(vector2)) && noexcept(z(0))) : Vector2<T>(vector2), z(0) {}
+        noexcept(Vector2<T>(vector2)) && noexcept(z(T()))) : Vector2<T>(vector2), z(T()) {}
 
     ////////////////////////////////////////////////////////////
     template <typename T>

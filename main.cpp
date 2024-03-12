@@ -198,7 +198,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 break;
             }
         }
-       sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
+      sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
         window.clear();
         window.draw(sprite);
         window.display();

@@ -11,8 +11,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Angle<T> x = 0_deg;
-        Angle<T> y = 0_deg;
+        Angle<T> x = Angle<T>::zero();
+        Angle<T> y = Angle<T>::zero();
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
@@ -139,15 +139,13 @@ namespace game {
             noexcept(Angle2<T>(x.wrapUnsigned(), y.wrapUnsigned())));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle2 of (0_deg, 0_deg).
+        /// \brief Get a Angle2 of (0, 0).
         ///
-        /// It's equivalent to (0_rad, 0_rad).
-        ///
-        /// \return A Angle2 of (0_deg, 0_deg).
+        /// \return A Angle2 of (0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> zero() noexcept(
-            noexcept(Angle2<T>(0.0_deg, 0.0_deg)));
+            noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::zero())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (1_deg, 1_deg).
@@ -156,7 +154,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> one_deg() noexcept(
-            noexcept(Angle2<T>(1.0_deg, 1.0_deg)));
+            noexcept(Angle2<T>(Angle<T>::one_deg(), Angle<T>::one_deg())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (1_deg, 0_deg).
@@ -165,7 +163,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> unitX_deg() noexcept(
-            noexcept(Angle2<T>(1.0_deg, 0.0_deg)));
+            noexcept(Angle2<T>(Angle<T>::one_deg(), Angle<T>::zero())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (0_deg, 1_deg).
@@ -174,7 +172,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> unitY_deg() noexcept(
-            noexcept(Angle2<T>(0.0_deg, 1.0_deg)));
+            noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::one_deg())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (1_rad, 1_rad).
@@ -183,7 +181,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> one_rad() noexcept(
-            noexcept(Angle2<T>(1.0_rad, 1.0_rad)));
+            noexcept(Angle2<T>(Angle<T>::one_rad(), Angle<T>::one_rad())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (1_rad, 0_rad).
@@ -192,7 +190,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> unitX_rad() noexcept(
-            noexcept(Angle2<T>(1.0_rad, 0.0_rad)));
+            noexcept(Angle2<T>(Angle<T>::one_rad(), Angle<T>::zero())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle2 of (0_rad, 1_rad).
@@ -201,7 +199,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle2<T> unitY_rad() noexcept(
-            noexcept(Angle2<T>(0.0_rad, 1.0_rad)));
+            noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::one_rad())));
     };
 
     ////////////////////////////////////////////////////////////

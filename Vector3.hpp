@@ -68,7 +68,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Vector3(const Vector2<T> &vector2) noexcept(
-            noexcept(Vector2<T>(vector2)) && noexcept(z(0)));
+            noexcept(Vector2<T>(vector2)) && noexcept(z(T())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct a vector3 from a vector2 with Z coordinate.

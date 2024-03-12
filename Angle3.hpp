@@ -12,7 +12,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Angle<T> z = 0_deg;
+        Angle<T> z = Angle<T>::zero();
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
@@ -38,7 +38,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Angle3(const Angle2<T> &angle2) noexcept(
-            noexcept(Angle2<T>(angle2)) && noexcept(z(0.0_deg)));
+            noexcept(Angle2<T>(angle2)) && noexcept(z(Angle<T>::zero())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct an angle3 from an angle2 with Z coordinate.
@@ -159,7 +159,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> zero() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(0.0_deg))));
+            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (1_deg, 1_deg, 1_deg).
@@ -168,7 +168,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_deg() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::one_deg(), static_cast<Angle<T>>(1.0_deg))));
+            noexcept(Angle3<T>(Angle2<T>::one_deg(), static_cast<Angle<T>>(Angle<T>::one_deg()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (1_deg, 0_deg, 0_deg).
@@ -177,7 +177,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_deg() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::unitX_deg(), static_cast<Angle<T>>(0.0_deg))));
+            noexcept(Angle3<T>(Angle2<T>::unitX_deg(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (0, 1, 0).
@@ -186,7 +186,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_deg() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::unitY_deg(), static_cast<Angle<T>>(0.0_deg))));
+            noexcept(Angle3<T>(Angle2<T>::unitY_deg(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (0, 0, 1).
@@ -195,7 +195,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_deg() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(1.0_deg))));
+            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(Angle<T>::one_deg()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (1_rad, 1_rad, 1_rad).
@@ -204,7 +204,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_rad() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::one_rad(), static_cast<Angle<T>>(1.0_rad))));
+            noexcept(Angle3<T>(Angle2<T>::one_rad(), static_cast<Angle<T>>(Angle<T>::one_rad()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (1_rad, 0_rad, 0_rad).
@@ -213,7 +213,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_rad() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::unitX_rad(), static_cast<Angle<T>>(0.0_rad))));
+            noexcept(Angle3<T>(Angle2<T>::unitX_rad(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (0, 1, 0).
@@ -222,7 +222,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_rad() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::unitY_rad(), static_cast<Angle<T>>(0.0_rad))));
+            noexcept(Angle3<T>(Angle2<T>::unitY_rad(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a Angle3 of (0, 0, 1).
@@ -231,7 +231,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_rad() noexcept(
-            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(1.0_rad))));
+            noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(Angle<T>::one_rad()))));
     };
 
     ////////////////////////////////////////////////////////////

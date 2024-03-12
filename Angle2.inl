@@ -60,50 +60,50 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::zero() noexcept(noexcept(Angle2<T>(0.0_deg, 0.0_deg))) {
-        return Angle2<T>(0.0_deg, 0.0_deg);
+    consteval Angle2<T> Angle2<T>::zero() noexcept(noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::zero()))) {
+        return Angle2<T>(Angle<T>::zero(), Angle<T>::zero());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::one_deg() noexcept(noexcept(Angle2<T>(1.0_deg, 1.0_deg))) {
-        return Angle2<T>(1.0_deg, 1.0_deg);
+    consteval Angle2<T> Angle2<T>::one_deg() noexcept(noexcept(Angle2<T>(Angle<T>::one_deg(), Angle<T>::one_deg()))) {
+        return Angle2<T>(Angle<T>::one_deg(), Angle<T>::one_deg());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::unitX_deg() noexcept(noexcept(Angle2<T>(1.0_deg, 0.0_deg))) {
-        return Angle2<T>(1.0_deg, 0.0_deg);
+    consteval Angle2<T> Angle2<T>::unitX_deg() noexcept(noexcept(Angle2<T>(Angle<T>::one_deg(), Angle<T>::zero()))) {
+        return Angle2<T>(Angle<T>::one_deg(), Angle<T>::zero());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::unitY_deg() noexcept(noexcept(Angle2<T>(0.0_deg, 1.0_deg))) {
-        return Angle2<T>(0.0_deg, 1.0_deg);
+    consteval Angle2<T> Angle2<T>::unitY_deg() noexcept(noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::one_deg()))) {
+        return Angle2<T>(Angle<T>::zero(), Angle<T>::one_deg());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::one_rad() noexcept(noexcept(Angle2<T>(1.0_rad, 1.0_rad))) {
-        return Angle2<T>(1.0_rad, 1.0_rad);
+    consteval Angle2<T> Angle2<T>::one_rad() noexcept(noexcept(Angle2<T>(Angle<T>::one_rad(), Angle<T>::one_rad()))) {
+        return Angle2<T>(Angle<T>::one_rad(), Angle<T>::one_rad());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::unitX_rad() noexcept(noexcept(Angle2<T>(1.0_rad, 0.0_rad))) {
-        return Angle2<T>(1.0_rad, 0.0_rad);
+    consteval Angle2<T> Angle2<T>::unitX_rad() noexcept(noexcept(Angle2<T>(Angle<T>::one_rad(), Angle<T>::zero()))) {
+        return Angle2<T>(Angle<T>::one_rad(), Angle<T>::zero());
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    consteval Angle2<T> Angle2<T>::unitY_rad() noexcept(noexcept(Angle2<T>(0.0_rad, 1.0_rad))) {
-        return Angle2<T>(0.0_rad, 1.0_rad);
+    consteval Angle2<T> Angle2<T>::unitY_rad() noexcept(noexcept(Angle2<T>(Angle<T>::zero(), Angle<T>::one_rad()))) {
+        return Angle2<T>(Angle<T>::zero(), Angle<T>::one_rad());
     }
 
     ////////////////////////////////////////////////////////////
