@@ -37,7 +37,8 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    template <typename U>  requires std::is_arithmetic_v<U>
+    template <typename U>
+        requires std::is_arithmetic_v<U>
     constexpr Vector2<T>::Vector2(const Vector2<U> &vector2) noexcept(
         noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
         : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
@@ -45,7 +46,8 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    template <typename U>  requires std::is_arithmetic_v<U>
+    template <typename U>
+        requires std::is_arithmetic_v<U>
     constexpr Vector2<T>::Vector2(Vector2<U> &&vector2) noexcept(
         noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
         : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}
@@ -53,7 +55,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    constexpr Vector2<T> Vector2<T>::zero() noexcept(
+    consteval Vector2<T> Vector2<T>::zero() noexcept(
         noexcept(Vector2<T>(static_cast<T>(0), static_cast<T>(0)))) {
         return Vector2<T>(static_cast<T>(0), static_cast<T>(0));
     }
@@ -61,7 +63,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    constexpr Vector2<T> Vector2<T>::one() noexcept(
+    consteval Vector2<T> Vector2<T>::one() noexcept(
         noexcept(Vector2<T>(static_cast<T>(1), static_cast<T>(1)))) {
         return Vector2<T>(static_cast<T>(1), static_cast<T>(1));
     }
@@ -69,7 +71,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    constexpr Vector2<T> Vector2<T>::unitX() noexcept(
+    consteval Vector2<T> Vector2<T>::unitX() noexcept(
         noexcept(Vector2<T>(static_cast<T>(1), static_cast<T>(0)))) {
         return Vector2<T>(static_cast<T>(1), static_cast<T>(0));
     }
@@ -77,7 +79,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<T>
-    constexpr Vector2<T> Vector2<T>::unitY() noexcept(
+    consteval Vector2<T> Vector2<T>::unitY() noexcept(
         noexcept(Vector2<T>(static_cast<T>(0), static_cast<T>(1)))) {
         return Vector2<T>(static_cast<T>(0), static_cast<T>(1));
     }

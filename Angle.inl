@@ -32,15 +32,15 @@ namespace game {
     template <std::floating_point T>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(const Angle<U> &angle) noexcept(
-        noexcept(T(static_cast<T>(angle.amountDegrees))))
-        : amountDegrees(static_cast<T>(angle.amountDegrees)) {}
+        noexcept(T(static_cast<T>(angle.asDegrees()))))
+        : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(Angle<U> &&angle) noexcept(
-        noexcept(T(static_cast<T>(angle.amountDegrees))))
-        : amountDegrees(static_cast<T>(angle.amountDegrees)) {}
+        noexcept(T(static_cast<T>(angle.asDegrees()))))
+        : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>

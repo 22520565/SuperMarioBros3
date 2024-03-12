@@ -138,6 +138,12 @@
     <ClInclude Include="Angle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Angle2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Angle3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -216,6 +222,12 @@
       <Filter>Wrapper Files</Filter>
     </None>
     <None Include="Angle.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Angle2.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Angle3.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

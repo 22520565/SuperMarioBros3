@@ -150,6 +150,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Angle.hpp" />
+    <ClInclude Include="Angle2.hpp" />
+    <ClInclude Include="Angle3.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationFrame.hpp" />
     <ClInclude Include="Animations.hpp" />
@@ -214,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Angle.inl" />
+    <None Include="Angle2.inl" />
+    <None Include="Angle3.inl" />
     <None Include="packages.config" />
     <None Include="stdfloat" />
     <None Include="Vector2.inl" />

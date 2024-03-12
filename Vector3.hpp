@@ -68,13 +68,13 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Vector3(const Vector2<T> &vector2) noexcept(
-            noexcept(Vector2<T>(vector2)));
+            noexcept(Vector2<T>(vector2)) && noexcept(T(0)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct a vector3 from a vector2 with Z coordinate.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit Vector3<T>(const Vector2<T> &vector2, const T z) noexcept(
+        constexpr explicit Vector3(const Vector2<T> &vector2, const T z) noexcept(
             noexcept(Vector2<T>(vector2)) && noexcept(T(z)));
 
         ////////////////////////////////////////////////////////////
@@ -88,8 +88,9 @@ namespace game {
         /// \param vector3: Vector3 to convert.
         ///
         ////////////////////////////////////////////////////////////
-        template <typename U>  requires std::is_arithmetic_v<U>
-        constexpr explicit Vector3<T>(const Vector3<U> &vector3) noexcept(
+        template <typename U>
+            requires std::is_arithmetic_v<U>
+        constexpr explicit Vector3(const Vector3<U> &vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 
         ////////////////////////////////////////////////////////////
@@ -102,8 +103,9 @@ namespace game {
         ///
         /// \param vector3: Vector3 to convert.
         ////////////////////////////////////////////////////////////
-        template <typename U>  requires std::is_arithmetic_v<U>
-        constexpr explicit Vector3<T>(Vector3<U> &&vector3) noexcept(
+        template <typename U>
+            requires std::is_arithmetic_v<U>
+        constexpr explicit Vector3(Vector3<U> &&vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 
         ////////////////////////////////////////////////////////////
@@ -130,7 +132,7 @@ namespace game {
         /// \return A Vector3 of (0, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> zero() noexcept(
+        static consteval Vector3<T> zero() noexcept(
             noexcept(Vector3<T>(Vector2<T>::zero(), static_cast<T>(0))));
 
         ////////////////////////////////////////////////////////////
@@ -139,7 +141,7 @@ namespace game {
         /// \return A Vector3 of (1, 1, 1).
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> one() noexcept(
+        static consteval Vector3<T> one() noexcept(
             noexcept(Vector3<T>(Vector2<T>::one(), static_cast<T>(1))));
 
         ////////////////////////////////////////////////////////////
@@ -148,7 +150,7 @@ namespace game {
         /// \return A Vector3 of (1, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> unitX() noexcept(
+        static consteval Vector3<T> unitX() noexcept(
             noexcept(Vector3<T>(Vector2<T>::unitX(), static_cast<T>(0))));
 
         ////////////////////////////////////////////////////////////
@@ -157,7 +159,7 @@ namespace game {
         /// \return A Vector3 of (0, 1, 0).
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> unitY() noexcept(
+        static consteval Vector3<T> unitY() noexcept(
             noexcept(Vector3<T>(Vector2<T>::unitY(), static_cast<T>(0))));
 
         ////////////////////////////////////////////////////////////
@@ -166,7 +168,7 @@ namespace game {
         /// \return A Vector3 of (0, 0, 1).
         ///
         ////////////////////////////////////////////////////////////
-        static constexpr Vector3<T> unitZ() noexcept(
+        static consteval Vector3<T> unitZ() noexcept(
             noexcept(Vector3<T>(Vector2<T>::zero(), static_cast<T>(1))));
     };
 

@@ -75,8 +75,8 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
-        constexpr explicit Angle(const Angle<U> &angle) noexcept(
-            noexcept(T(static_cast<T>(angle.amountDegrees))));
+        constexpr explicit(false) Angle(const Angle<U> &angle) noexcept(
+            noexcept(T(static_cast<T>(angle.asDegrees()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the angle from another type of angle.
@@ -90,8 +90,62 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
-        constexpr explicit Angle(Angle<U> &&angle) noexcept(
-            noexcept(T(static_cast<T>(angle.amountDegrees))));
+        constexpr explicit(false) Angle(Angle<U> &&angle) noexcept(
+            noexcept(T(static_cast<T>(angle.asDegrees()))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of degrees
+        ///
+        /// \param angle Number of degrees
+        ///
+        /// \return Angle value constructed from the number of degrees
+        ///
+        /// \see radians
+        ///
+        ////////////////////////////////////////////////////////////
+        friend constexpr Angle<T> degrees<>(const T angle) noexcept(
+            noexcept(Angle<T>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of degrees
+        ///
+        /// \param angle Number of degrees
+        ///
+        /// \return Angle value constructed from the number of degrees
+        ///
+        /// \see radians
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::integral U>
+        friend constexpr Angle<long double> degrees(const U angle) noexcept(
+            noexcept(Angle<long double>(angle)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of radians
+        ///
+        /// \param angle Number of radians
+        ///
+        /// \return Angle value constructed from the number of radians
+        ///
+        /// \see degrees
+        ///
+        ////////////////////////////////////////////////////////////
+        friend constexpr Angle<T> radians<>(const T angle) noexcept(
+            noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an angle value from a number of radians
+        ///
+        /// \param angle Number of radians
+        ///
+        /// \return Angle value constructed from the number of radians
+        ///
+        /// \see degrees
+        ///
+        ////////////////////////////////////////////////////////////
+        template <std::integral U>
+        friend constexpr Angle<long double> radians(const U angle) noexcept(
+            noexcept(Angle<long double>(angle * (static_cast<long double>(180.0) / std::numbers::pi_v<long double>))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Return the angle's value in degrees.
@@ -173,60 +227,6 @@ namespace game {
 
       private:
         ////////////////////////////////////////////////////////////
-        /// \brief Construct an angle value from a number of degrees
-        ///
-        /// \param angle Number of degrees
-        ///
-        /// \return Angle value constructed from the number of degrees
-        ///
-        /// \see radians
-        ///
-        ////////////////////////////////////////////////////////////
-        friend constexpr Angle<T> degrees<>(const T angle) noexcept(
-            noexcept(Angle<T>(angle)));
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Construct an angle value from a number of degrees
-        ///
-        /// \param angle Number of degrees
-        ///
-        /// \return Angle value constructed from the number of degrees
-        ///
-        /// \see radians
-        ///
-        ////////////////////////////////////////////////////////////
-        template <std::integral U>
-        friend constexpr Angle<long double> degrees(const U angle) noexcept(
-            noexcept(Angle<long double>(angle)));
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Construct an angle value from a number of radians
-        ///
-        /// \param angle Number of radians
-        ///
-        /// \return Angle value constructed from the number of radians
-        ///
-        /// \see degrees
-        ///
-        ////////////////////////////////////////////////////////////
-        friend constexpr Angle<T> radians<>(const T angle) noexcept(
-            noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>))));
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Construct an angle value from a number of radians
-        ///
-        /// \param angle Number of radians
-        ///
-        /// \return Angle value constructed from the number of radians
-        ///
-        /// \see degrees
-        ///
-        ////////////////////////////////////////////////////////////
-        template <std::integral U>
-        friend constexpr Angle<long double> radians(const U angle) noexcept(
-            noexcept(Angle<long double>(angle * (static_cast<long double>(180.0) / std::numbers::pi_v<long double>))));
-
-        ////////////////////////////////////////////////////////////
         /// \brief Construct from a number of degrees.
         ///
         /// This function is similar to degrees().
@@ -234,7 +234,7 @@ namespace game {
         /// \param degrees Angle in degrees
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit Angle<T>(const T degrees) noexcept : amountDegrees(degrees) {}
+        constexpr explicit Angle(const T degrees) noexcept : amountDegrees(degrees) {}
 
         ////////////////////////////////////////////////////////////
         // Member data
