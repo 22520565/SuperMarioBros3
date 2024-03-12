@@ -164,14 +164,15 @@ int Run() {
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                    _In_ LPSTR lpCmdLine, _In_ int nCmdShow) {
+    using game::operator""_deg;
     game::RenderWindow window = game::RenderWindow(game::Vector2(600, 600), L"Test", SW_SHOWNORMAL, hInstance, L"Hello");
     // game::RenderWindow window2 = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance);
     game::Texture texture;
     texture.loadFromFile(L"textures/bbox.png", window.getDevice());
     game::Sprite sprite = game::Sprite(texture);
     // sprite.setPosition(game::Vector3(1.0F, 1.0F, 1.0F));
-    sprite.setRotation(game::Vector3(0.0F, 0.0F, 0.0F), game::Vector3<FLOAT>(0.50F, 0.50F, 0.0F));
-    ;
+    sprite.setRotation(game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(0.0F, 0.0F, 0.0F));
+    
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
             switch (msg->message) {
@@ -183,13 +184,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 if (msg->wParam == VK_ESCAPE) {
                     window.close();
                 } else if (msg->wParam == 'A') {
-                    sprite.move(game::Vector3<FLOAT>::unitX()*-10);
+                    sprite.move(game::Vector3f::unitX()*-10.0F);
                 } else if (msg->wParam == 'D') {
-                    sprite.move(game::Vector3<FLOAT>::unitX()*10);
+                    sprite.move(game::Vector3f::unitX()*10.0F);
                 } else if (msg->wParam == 'W') {
-                    sprite.move(game::Vector3<FLOAT>::unitY()*10);
+                    sprite.move(game::Vector3f::unitY()*10.0F);
                 } else if (msg->wParam == 'S') {
-                    sprite.move(game::Vector3<FLOAT>::unitY()*-10);
+                    sprite.move(game::Vector3f::unitY()*-10.0F);
                 }
                 break;
 
@@ -197,7 +198,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 break;
             }
         }
-        sprite.rotate(game::Vector3<FLOAT>(0.0F, 0.0F, 1.0F));
+       sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
         window.clear();
         window.draw(sprite);
         window.display();

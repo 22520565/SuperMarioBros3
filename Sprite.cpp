@@ -2,8 +2,8 @@
 
 namespace game {
     Sprite::Sprite(const Texture& texture) : texture(&texture){ 
-        this->scale(Vector3<FLOAT>(this->textureRect.width, this->textureRect.height,1.0F));
-        this->move(Vector3<FLOAT>(400.0F,400.0F,0.0F));
+        this->scale(Vector3f(this->textureRect.width/2, this->textureRect.height/2,1.0F));
+      this->move(Vector3f(300.0F,300.0F,0.0F));
     }
 
     Sprite::Sprite(int id, int left, int top, int right, int bottom, const Texture* tex) {

@@ -72,8 +72,8 @@ namespace game {
     template <std::floating_point T>
     constexpr void Transformable<T>::scale(const Vector3<T> &factor) noexcept {
         this->setScalation(Vector3<T>(this->scalationFactor.x * factor.x,
-                                      this->scalationCenter.y * factor.y,
-                                      this->scalationCenter.z * factor.z));
+                                      this->scalationFactor.y * factor.y,
+                                      this->scalationFactor.z * factor.z));
     }
 
     ////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ namespace game {
             this->transform = Transform<T>()
                                   .translate(this->position)
                                   .rotate(this->rotationAngle3, this->rotationCenter)
-                                  .scale(this->scalationCenter, this->scalationFactor);
+                                  .scale(this->scalationFactor, this->scalationCenter);
             this->transformNeedUpdate = false;
         }
 

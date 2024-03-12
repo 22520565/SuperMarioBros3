@@ -7,7 +7,7 @@
 #include "RenderTarget.hpp"
 
 namespace game {
-    class Sprite : public Drawable, public Transformable
+    class Sprite : public Drawable, public Transformable<float>
     {
      //   int id; // Sprite ID in the sprite database
         const Texture* texture;

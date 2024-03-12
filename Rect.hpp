@@ -22,76 +22,76 @@
 #include <algorithm>
 
 namespace game {
-    template <typename T>
-    class Rect {
-      public:
-        Vector2<T> position = Vector2<T>();
-        Vector2<T> size = Vector2<T>();
-        T &left = position.x;
-        T &top = position.y;
-        T &width = size.x;
-        T &height = size.y;
+	template <typename T>
+	class Rect {
+	public:
+		Vector2<T> position = Vector2<T>();
+		Vector2<T> size = Vector2<T>();
+		T& left = position.x;
+		T& top = position.y;
+		T& width = size.x;
+		T& height = size.y;
 
-        /// \brief Default constructor.
-        /// Creates an empty rectangle (it is equivalent to calling
-        /// Rect({0, 0}, {0, 0})).
-        constexpr Rect<T>() = default;
+		/// \brief Default constructor.
+		/// Creates an empty rectangle (it is equivalent to calling
+		/// Rect({0, 0}, {0, 0})).
+		constexpr Rect<T>() = default;
 
-        /// \brief Construct the rectangle from position and size.
-        /// Be careful, the last parameter is the size,
-        /// not the bottom-right corner!
-        ///
-        /// \param position: Position of the top-left corner of the rectangle
-        /// \param size: Size of the rectangle
-        constexpr explicit(false) Rect(const Vector2<T> &position, const Vector2<T> &size) noexcept(
-            noexcept(Vector2<T>(position)) && noexcept(Vector2<T>(size)))
-            : position(position), size(size) {}
+		/// \brief Construct the rectangle from position and size.
+		/// Be careful, the last parameter is the size,
+		/// not the bottom-right corner!
+		///
+		/// \param position: Position of the top-left corner of the rectangle
+		/// \param size: Size of the rectangle
+		constexpr explicit(false) Rect(const Vector2<T>& position, const Vector2<T>& size) noexcept(
+			noexcept(Vector2<T>(position)) && noexcept(Vector2<T>(size)))
+			: position(position), size(size) {}
 
-        /// \brief Construct the rectangle from another type of rectangle
-        ///
-        /// This constructor doesn't replace the copy constructor,
-        /// it's called only when U != T.
-        /// A call to this constructor will fail to compile if U
-        /// is not convertible to T.
-        ///
-        /// \param rec: Rectangle to convert
-        template <typename U>
-        constexpr explicit Rect(const Rect<U> &rect) noexcept(
-            noexcept(Vector2<T>(static_cast<Vector2<T>>(rect.position)))
-                && noexcept(Vector2<T>(static_cast<Vector2<T>>(rect.size))))
-            : position(static_cast<Vector2<T>>(rect.position)), size(static_cast<Vector2<T>>(rect.size)) {}
+		/// \brief Construct the rectangle from another type of rectangle
+		///
+		/// This constructor doesn't replace the copy constructor,
+		/// it's called only when U != T.
+		/// A call to this constructor will fail to compile if U
+		/// is not convertible to T.
+		///
+		/// \param rec: Rectangle to convert
+		template <typename U>
+		constexpr explicit Rect(const Rect<U>& rect) noexcept(
+			noexcept(Vector2<T>(static_cast<Vector2<T>>(rect.position)))
+			&& noexcept(Vector2<T>(static_cast<Vector2<T>>(rect.size))))
+			: position(static_cast<Vector2<T>>(rect.position)), size(static_cast<Vector2<T>>(rect.size)) {}
 
-        ////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////
 /// \brief Get the position of the center of the rectangle.
 ///
 /// \return Center of rectangle.
 ///
 ////////////////////////////////////////////////////////////
-        constexpr Vector2<T> getCenter() const noexcept(noexcept(this->position + (this->size / T(2)))) {
-            return this->position + (this->size / T(2)); }
+		constexpr Vector2<T> getCenter() const noexcept(noexcept(this->position + (this->size / T(2)))) {
+			return this->position + (this->size / T(2));
+		}
 
-        /// \brief Check if a point is inside the rectangle's area
-        ///
-        /// This check is non-inclusive. If the point lies on the
-        /// edge of the rectangle, this function will return false.
-        ///
-        /// \param point: Point to test
-        ///
-        /// \return True if the point is inside, false otherwise.
-        constexpr bool contains(const Vector2<T> &point) const noexcept(
-            noexcept((std::min)(this->left, this->left + this->width)) &&
-            noexcept((std::max)(this->left, this->left + this->width)) &&
-            noexcept((std::min)(this->top, this->top + this->height)) &&
-            noexcept((std::max)(this->top, this->top + this->height))&&
-            noexcept((point.x >= minX) && (point.x < maxX) && (point.y >= minY) && (point.y < maxY))){
-            // Rectangles with negative dimensions are allowed, so we must handle them correctly.
-// Compute the real min and max of the rectangle on both axes.
-            const T minX = (std::min)(this->left, this->left + this->width);
-                const T maxX = (std::max)(this->left, this->left + this->width);
-                const T minY = (std::min)(this->top, this->top + this->height);
-                const T maxY = (std::max)(this->top, this->top + this->height);
+		/// \brief Check if a point is inside the rectangle's area
+		///
+		/// This check is non-inclusive. If the point lies on the
+		/// edge of the rectangle, this function will return false.
+		///
+		/// \param point: Point to test
+		///
+		/// \return True if the point is inside, false otherwise.
+		constexpr bool contains(const Vector2<T>& point) const noexcept(
+			noexcept(point.x >= (std::min)(this->left, this->left + this->width)) &&
+			noexcept(point.x < (std::max)(this->left, this->left + this->width)) &&
+			noexcept(point.y >= (std::min)(this->top, this->top + this->height)) &&
+			noexcept(point.y < (std::max)(this->top, this->top + this->height))) {
+			// Rectangles with negative dimensions are allowed, so we must handle them correctly.
+			// Compute the real min and max of the rectangle on both axes.
+			const T minX = (std::min)(this->left, this->left + this->width);
+			const T maxX = (std::max)(this->left, this->left + this->width);
+			const T minY = (std::min)(this->top, this->top + this->height);
+			const T maxY = (std::max)(this->top, this->top + this->height);
 
-                return (point.x >= minX) && (point.x < maxX) && (point.y >= minY) && (point.y < maxY);
-        }
-    };
+			return (point.x >= minX) && (point.x < maxX) && (point.y >= minY) && (point.y < maxY);
+		}
+	};
 }

@@ -33,7 +33,7 @@ namespace game {
         /// \param size   Size of zone to display.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Vector3<FLOAT> &center, const Vector3<FLOAT> &size);
+        constexpr explicit View(const Vector3f &center, const Vector3f &size);
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the target viewport
@@ -58,7 +58,7 @@ namespace game {
         /// \see setSize, getCenter
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setCenter(const Vector3<FLOAT> &newCenter) noexcept {
+        constexpr void setCenter(const Vector3f &newCenter) noexcept {
             this->center = newCenter;
         }
 
@@ -70,7 +70,7 @@ namespace game {
         /// \see setCenter, getCenter
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setSize(const Vector3<FLOAT> &newSize) noexcept {
+        constexpr void setSize(const Vector3f &newSize) noexcept {
             this->size = newSize;
         }
 
@@ -82,7 +82,7 @@ namespace game {
         /// \see getSize, setCenter
         ///
         ////////////////////////////////////////////////////////////
-        constexpr const Vector3<FLOAT> &getCenter() const noexcept { return this->center; }
+        constexpr const Vector3f &getCenter() const noexcept { return this->center; }
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the size of the view
@@ -92,7 +92,7 @@ namespace game {
         /// \see getCenter, setSize
         ///
         ////////////////////////////////////////////////////////////
-        constexpr const Vector3<FLOAT> &getSize() const noexcept { return this->size; }
+        constexpr const Vector3f &getSize() const noexcept { return this->size; }
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the projection transform of the view.
@@ -103,7 +103,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         D3DXMATRIX getTransform() const noexcept {
-           const Vector3<FLOAT> position = this->center - (this->size) / 2.0F;
+           const Vector3f position = this->center - (this->size) / 2.0F;
             D3DXMATRIX matProjection = D3DXMATRIX();
             D3DXMatrixOrthoOffCenterLH(
                 &matProjection,
@@ -117,8 +117,8 @@ namespace game {
         }
 
       private:
-        Vector3<FLOAT> center; // Center of the view, in scene coordinates
-        Vector3<FLOAT> size;   // Size of the view, in scene coordinates
+        Vector3f center; // Center of the view, in scene coordinates
+        Vector3f size;   // Size of the view, in scene coordinates
         FLOAT rotation;        // Angle of rotation of the view rectangle, in degrees
         Rect<FLOAT> viewport = // Viewport rectangle, expressed as a factor of the render-target's size
             Rect<FLOAT>(Vector2<FLOAT>::zero(), Vector2<FLOAT>::one());

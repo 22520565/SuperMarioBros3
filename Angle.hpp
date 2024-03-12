@@ -33,23 +33,6 @@
 #include <type_traits>
 #include <windows.h>
 
-// // Forward declaration
-// namespace game {
-//     template <typename T>
-//         requires std::is_floating_point_v<std::remove_reference_t<T>>
-//     class Angle;
-
-//     template <typename T>
-//         requires std::is_floating_point_v<std::remove_reference_t<T>>
-//     constexpr Angle<T> degrees(const T angle) noexcept(
-//         noexcept(Angle<T>(angle)));
-
-//     template <typename T>
-//         requires std::is_floating_point_v<std::remove_reference_t<T>>
-//     constexpr Angle<T> radians(const T angle) noexcept(
-//         noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>))));
-// }
-
 namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Represents an angle value.
@@ -236,10 +219,11 @@ namespace game {
       private:
         ////////////////////////////////////////////////////////////
         /// \brief Construct from a number of degrees.
+            ///
+    /// This function is internal. To construct angle values,
+    /// use game::radians or game::degrees instead.
         ///
-        /// This function is similar to degrees().
-        ///
-        /// \param degrees Angle in degrees
+        /// \param degrees: Angle in degrees.
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Angle(const T degrees) noexcept : amountDegrees(degrees) {}
@@ -265,7 +249,7 @@ namespace game {
     [[nodiscard]]
     constexpr Angle<T>
     operator+(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(left.asDegrees() + right.asDegrees())));
+        noexcept(Angle<T>::degrees(left.asDegrees() + right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle
@@ -297,7 +281,7 @@ namespace game {
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle<T>
-    operator-(const Angle<T> right) noexcept(noexcept(degrees(-right.asDegrees())));
+    operator-(const Angle<T> right) noexcept(noexcept(Angle<T>::degrees(-right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle
@@ -314,7 +298,7 @@ namespace game {
     [[nodiscard]]
     constexpr Angle<T>
     operator-(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(left.asDegrees() - right.asDegrees())));
+        noexcept(Angle<T>::degrees(left.asDegrees() - right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle
@@ -346,7 +330,7 @@ namespace game {
     [[nodiscard]]
     constexpr Angle<T>
     operator*(const Angle<T> left, const T right) noexcept(
-        noexcept(degrees(left.asDegrees() * right)));
+        noexcept(Angle<T>::degrees(left.asDegrees() * right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle
@@ -394,7 +378,7 @@ namespace game {
     [[nodiscard]]
     constexpr Angle<T>
     operator/(const Angle<T> left, const T right) noexcept(
-        noexcept(degrees(left.asDegrees() / right)));
+        noexcept(Angle<T>::degrees(left.asDegrees() / right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle
@@ -451,7 +435,7 @@ namespace game {
     [[nodiscard]]
     constexpr Angle<T>
     operator%(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(std::fmod(left.asDegrees(), right.asDegrees()))));
+        noexcept(Angle<T>::degrees(std::fmod(left.asDegrees(), right.asDegrees()))));
 
     ////////////////////////////////////////////////////////////
     /// \relates Angle

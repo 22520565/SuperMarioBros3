@@ -110,8 +110,8 @@ namespace game {
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator+(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(left.asDegrees() + right.asDegrees()))) {
-        return degrees(left.asDegrees() + right.asDegrees());
+        noexcept(Angle<T>::degrees(left.asDegrees() + right.asDegrees()))) {
+        return Angle<T>::degrees(left.asDegrees() + right.asDegrees());
     }
 
     ////////////////////////////////////////////////////////////
@@ -127,14 +127,14 @@ namespace game {
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator-(const Angle<T> right) noexcept(
-        noexcept(degrees(-right.asDegrees()))) { return degrees(-right.asDegrees()); }
+        noexcept(Angle<T>::degrees(-right.asDegrees()))) { return Angle<T>::degrees(-right.asDegrees()); }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator-(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(left.asDegrees() - right.asDegrees()))) {
-        return degrees(left.asDegrees() - right.asDegrees());
+        noexcept(Angle<T>::degrees(left.asDegrees() - right.asDegrees()))) {
+        return Angle<T>::degrees(left.asDegrees() - right.asDegrees());
     }
 
     ////////////////////////////////////////////////////////////
@@ -150,8 +150,8 @@ namespace game {
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator*(const Angle<T> left, const T right) noexcept(
-        noexcept(degrees(left.asDegrees() * right))) {
-        return degrees(left.asDegrees() * right);
+        noexcept(Angle<T>::degrees(left.asDegrees() * right))) {
+        return Angle<T>::degrees(left.asDegrees() * right);
     }
 
     ////////////////////////////////////////////////////////////
@@ -173,8 +173,8 @@ namespace game {
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator/(const Angle<T> left, const T right) noexcept(
-        noexcept(degrees(left.asDegrees() / right))) {
-        return degrees(left.asDegrees() / right);
+        noexcept(Angle<T>::degrees(left.asDegrees() / right))) {
+        return Angle<T>::degrees(left.asDegrees() / right);
     }
 
     ////////////////////////////////////////////////////////////
@@ -198,8 +198,8 @@ namespace game {
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator%(const Angle<T> left, const Angle<T> right) noexcept(
-        noexcept(degrees(std::fmod(left.asDegrees(), right.asDegrees())))) {
-        return degrees(std::fmod(left.asDegrees(), right.asDegrees()));
+        noexcept(Angle<T>::degrees(std::fmod(left.asDegrees(), right.asDegrees())))) {
+        return Angle<T>::degrees(std::fmod(left.asDegrees(), right.asDegrees()));
     }
 
     ////////////////////////////////////////////////////////////
