@@ -60,7 +60,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit Angle3(const Angle3<U> &angle3) noexcept(
-            noexcept(Angle2<T>(angle3)) && noexcept(z(static_cast<Angle<T>>(angle3.z))));
+            noexcept(Angle2<T>(angle3)) && noexcept(Angle<T>(static_cast<Angle<T>>(angle3.z))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the vector from another type of vector.
@@ -74,7 +74,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit Angle3(Angle3<U> &&angle3) noexcept(
-            noexcept(Angle2<T>(angle3)) && noexcept(z(static_cast<Angle<T>>(angle3.z))));
+            noexcept(Angle2<T>(angle3)) && noexcept(Angle<T>(static_cast<Angle<T>>(angle3.z))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==

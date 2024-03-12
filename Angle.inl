@@ -33,7 +33,7 @@ namespace game {
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(const Angle<U> &angle) noexcept(
-        noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))))
+        noexcept(T(static_cast<T>(angle.asDegrees()))))
         : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ namespace game {
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(Angle<U> &&angle) noexcept(
-        noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))))
+        noexcept(T(static_cast<T>(angle.asDegrees()))))
         : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////

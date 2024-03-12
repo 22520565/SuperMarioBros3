@@ -80,7 +80,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit(false) Angle(const Angle<U> &angle) noexcept(
-            noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))));
+            noexcept(T(static_cast<T>(angle.asDegrees()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the angle from another type of angle.
@@ -95,7 +95,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit(false) Angle(Angle<U> &&angle) noexcept(
-            noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))));
+            noexcept(T(static_cast<T>(angle.asDegrees()))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct an angle value from a number of degrees

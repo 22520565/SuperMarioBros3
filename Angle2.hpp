@@ -45,8 +45,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit Angle2(const Angle2<U> &angle2) noexcept(
-            noexcept(x(static_cast<Angle<T>>(angle2.x)))
-                && noexcept(y(static_cast<Angle<T>>(angle2.y))));
+            noexcept(Angle<T>(static_cast<Angle<T>>(angle2.x)))
+                && noexcept(Angle<T>(static_cast<Angle<T>>(angle2.y))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the angle from another type of angle.
@@ -61,8 +61,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit Angle2(Angle2<U> &&angle2) noexcept(
-            noexcept(x(static_cast<Angle<T>>(angle2.x)))
-                && noexcept(y(static_cast<Angle<T>>(angle2.y))));
+            noexcept(Angle<T>(static_cast<Angle<T>>(angle2.x)))
+                && noexcept(Angle<T>(static_cast<Angle<T>>(angle2.y))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==

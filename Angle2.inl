@@ -12,8 +12,8 @@ namespace game {
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle2<T>::Angle2(const Angle2<U> &angle2) noexcept(
-        noexcept(x(static_cast<Angle<T>>(angle2.x)))
-            && noexcept(y(static_cast<Angle<T>>(angle2.y))))
+        noexcept(Angle<T>(static_cast<Angle<T>>(angle2.x)))
+            && noexcept(Angle<T>(static_cast<Angle<T>>(angle2.y))))
         : x(static_cast<Angle<T>>(angle2.x)), y(static_cast<T>(angle2.y)) {}
 
     ////////////////////////////////////////////////////////////
@@ -21,8 +21,8 @@ namespace game {
         requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle2<T>::Angle2(Angle2<U> &&angle2) noexcept(
-        noexcept(x(static_cast<Angle<T>>(angle2.x)))
-            && noexcept(y(static_cast<Angle<T>>(angle2.y))))
+        noexcept(Angle<T>(static_cast<Angle<T>>(angle2.x)))
+            && noexcept(Angle<T>(static_cast<Angle<T>>(angle2.y))))
         : x(static_cast<Angle<T>>(angle2.x)), y(static_cast<T>(angle2.y)) {}
 
     ////////////////////////////////////////////////////////////
