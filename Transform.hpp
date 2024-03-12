@@ -104,7 +104,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        Transform<T> rotate(const Angle3<T> &angle3) const noexcept;
+        constexpr Transform<T> rotate(const Angle3<T> &angle3) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with
@@ -117,7 +117,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        Transform rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept;
+        constexpr Transform rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with

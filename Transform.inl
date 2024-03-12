@@ -68,7 +68,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    Transform<T> Transform<T>::rotate(const Angle3<T> &angle3) const noexcept {
+   constexpr Transform<T> Transform<T>::rotate(const Angle3<T> &angle3) const noexcept {
         const Vector3<T> rad = angle3.asRadians();
         const T cosX = std::cos(rad.x);
         const T sinX = std::sin(rad.x);
@@ -104,7 +104,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    Transform<T> Transform<T>::rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept {
+    constexpr  Transform<T> Transform<T>::rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept {
         const Vector3<T> rad = angle3.asRadians();
         const T cosX = std::cos(rad.x);
         const T sinX = std::sin(rad.x);
