@@ -215,15 +215,29 @@
     <ClCompile Include="WindowBase.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Angle.inl" />
-    <None Include="Angle2.inl" />
-    <None Include="Angle3.inl" />
+    <None Include="Angle.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Angle2.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Angle3.inl">
+      <FileType>Document</FileType>
+    </None>
     <None Include="packages.config" />
     <None Include="stdfloat" />
-    <None Include="Transform.inl" />
-    <None Include="Transformable.inl" />
-    <None Include="Vector2.inl" />
-    <None Include="Vector3.inl" />
+    <None Include="Transform.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Transformable.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Vector2.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Vector3.inl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc" />

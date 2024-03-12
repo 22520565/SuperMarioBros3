@@ -212,12 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Vector2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Vector3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
     <None Include="stdfloat">
       <Filter>Wrapper Files</Filter>
     </None>
@@ -234,6 +228,12 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Transformable.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Vector2.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Vector3.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

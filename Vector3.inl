@@ -39,7 +39,7 @@ namespace game {
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector3<T>::Vector3(const Vector2<T> &vector2) noexcept(
-        noexcept(Vector2<T>(vector2)) && noexcept(T(0))) : Vector2<T>(vector2), z(0) {}
+        noexcept(Vector2<T>(vector2)) && noexcept(z(0))) : Vector2<T>(vector2), z(0) {}
 
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -53,7 +53,7 @@ namespace game {
     template <typename U>
         requires std::is_arithmetic_v<U>
     constexpr Vector3<T>::Vector3(const Vector3<U> &vector3) noexcept(
-        noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))))
+        noexcept(Vector2<T>(vector3)) && noexcept(z(static_cast<T>(vector3.z))))
         : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
 
     ////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ namespace game {
     template <typename U>
         requires std::is_arithmetic_v<U>
     constexpr Vector3<T>::Vector3(Vector3<U> &&vector3) noexcept(
-        noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))))
+        noexcept(Vector2<T>(vector3)) && noexcept(z(static_cast<T>(vector3.z))))
         : Vector2<T>(vector3), z(static_cast<T>(vector3.z)) {}
 
     ////////////////////////////////////////////////////////////

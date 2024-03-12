@@ -29,81 +29,94 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(const Angle<U> &angle) noexcept(
-        noexcept(T(static_cast<T>(angle.asDegrees()))))
+        noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))))
         : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     template <std::floating_point U>
     constexpr Angle<T>::Angle(Angle<U> &&angle) noexcept(
-        noexcept(T(static_cast<T>(angle.asDegrees()))))
+        noexcept(amountDegrees(static_cast<T>(angle.asDegrees()))))
         : amountDegrees(static_cast<T>(angle.asDegrees())) {}
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
-    [[nodiscard]]
-    constexpr Angle<T> degrees(const T angle) noexcept(
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    constexpr Angle<T> Angle<T>::degrees(const T angle) noexcept(
         noexcept(Angle<T>(angle))) { return Angle<T>(angle); }
 
     ////////////////////////////////////////////////////////////
-    template <std::integral T>
-    constexpr Angle<long double> degrees(const T angle) noexcept(
-        noexcept(Angle<long double>(angle))) { return Angle<long double>(angle); }
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <std::integral U>
+    constexpr Angle<T> Angle<T>::degrees(const U angle) noexcept(
+        noexcept(Angle<T>(static_cast<T>(angle)))) {
+        return Angle<T>(static_cast<T>(angle));
+    }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
-    [[nodiscard]]
-    constexpr Angle<T> radians(const T angle) noexcept(
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    constexpr Angle<T> Angle<T>::radians(const T angle) noexcept(
         noexcept(Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>)))) {
         return Angle<T>(angle * (static_cast<T>(180.0) / std::numbers::pi_v<T>));
     }
 
     ////////////////////////////////////////////////////////////
-    template <std::integral T>
-    [[nodiscard]]
-    constexpr Angle<long double> radians(const T angle) noexcept(
-        noexcept(Angle<long double>(angle * (static_cast<long double>(180.0) / std::numbers::pi_v<long double>)))) {
-        return Angle<long double>(angle * (static_cast<long double>(180.0) / std::numbers::pi_v<long double>));
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <std::integral U>
+    constexpr Angle<T> Angle<T>::radians(const U angle) noexcept(
+        noexcept(Angle<T>(static_cast<T>(angle) * (static_cast<T>(180.0) / std::numbers::pi_v<T>)))) {
+        return Angle<T>(static_cast<T>(angle) * (static_cast<T>(180.0) / std::numbers::pi_v<T>));
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr const T &Angle<T>::asDegrees() const noexcept { return this->amountDegrees; }
 
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr T Angle<T>::asRadians() const noexcept(
-        noexcept(this->amountDegrees * (std::numbers::pi_v<T> / static_cast<T>(180.0)))) {
+        noexcept(amountDegrees * (std::numbers::pi_v<T> / static_cast<T>(180.0)))) {
         return this->amountDegrees * (std::numbers::pi_v<T> / static_cast<T>(180.0));
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> Angle<T>::wrapSigned() const noexcept(
-        noexcept(Angle<T>(std::fmod(this->amountDegrees + static_cast<T>(180.0F), static_cast<T>(360.0F)) -
+        noexcept(Angle<T>(std::fmod(amountDegrees + static_cast<T>(180.0F), static_cast<T>(360.0F)) -
                           static_cast<T>(180.0F)))) {
         return Angle<T>(std::fmod(this->amountDegrees + static_cast<T>(180.0F), static_cast<T>(360.0F)) -
                         static_cast<T>(180.0F));
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> Angle<T>::wrapUnsigned() const noexcept(
-        noexcept(Angle(std::fmod(this->amountDegrees, static_cast<T>(360.0))))) {
+        noexcept(Angle<T>(std::fmod(amountDegrees, static_cast<T>(360.0))))) {
         return Angle(std::fmod(this->amountDegrees, static_cast<T>(360.0)));
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator+(const Angle<T> left, const Angle<T> right) noexcept(
         noexcept(degrees(left.asDegrees() + right.asDegrees()))) {
         return degrees(left.asDegrees() + right.asDegrees());
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> &operator+=(Angle<T> &left, const Angle<T> right) noexcept(
         noexcept(left = (left + right))) {
         left = left + right;
@@ -111,19 +124,22 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator-(const Angle<T> right) noexcept(
         noexcept(degrees(-right.asDegrees()))) { return degrees(-right.asDegrees()); }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator-(const Angle<T> left, const Angle<T> right) noexcept(
         noexcept(degrees(left.asDegrees() - right.asDegrees()))) {
         return degrees(left.asDegrees() - right.asDegrees());
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> &operator-=(Angle<T> &left, const Angle<T> right) noexcept(
         noexcept(left = (left - right))) {
         left = left - right;
@@ -131,19 +147,22 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator*(const Angle<T> left, const T right) noexcept(
         noexcept(degrees(left.asDegrees() * right))) {
         return degrees(left.asDegrees() * right);
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator*(const T left, const Angle<T> right) noexcept(
         noexcept(right * left)) { return right * left; }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> &operator*=(Angle<T> &left, const T right) noexcept(
         noexcept(left = (left * right))) {
         left = left * right;
@@ -151,14 +170,16 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator/(const Angle<T> left, const T right) noexcept(
         noexcept(degrees(left.asDegrees() / right))) {
         return degrees(left.asDegrees() / right);
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> &operator/=(Angle<T> &left, const T right) noexcept(
         noexcept(left = (left / right))) {
         left = left / right;
@@ -166,21 +187,24 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr T operator/(const Angle<T> left, const Angle<T> right) noexcept(
         noexcept(left.asDegrees() / right.asDegrees())) {
         return left.asDegrees() / right.asDegrees();
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> operator%(const Angle<T> left, const Angle<T> right) noexcept(
         noexcept(degrees(std::fmod(left.asDegrees(), right.asDegrees())))) {
         return degrees(std::fmod(left.asDegrees(), right.asDegrees()));
     }
 
     ////////////////////////////////////////////////////////////
-    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Angle<T> &operator%=(Angle<T> &left, const Angle<T> right) noexcept(
         noexcept(left = (left % right))) {
         left = left % right;
@@ -191,21 +215,26 @@ namespace game {
         ////////////////////////////////////////////////////////////
         consteval Angle<long double>
         operator""_deg(const long double angle) noexcept(
-            noexcept(degrees<long double>(angle))) {
-            return degrees<long double>(angle);
+            noexcept(Angle<long double>::degrees(angle))) {
+            return Angle<long double>::degrees(angle);
         }
 
         consteval Angle<long double>
-        operator""_deg(unsigned long long int angle) noexcept(
-            noexcept(degrees<long double>(angle))) { return degrees<long double>(angle); }
-
+        operator""_deg(const unsigned long long int angle) noexcept(
+            noexcept(Angle<long double>::degrees(angle))) {
+            return Angle<long double>::degrees(angle);
+        }
         ////////////////////////////////////////////////////////////
         consteval Angle<long double>
         operator""_rad(const long double angle) noexcept(
-            noexcept(radians<long double>(angle))) { return radians<long double>(angle); }
+            noexcept(Angle<long double>::radians(angle))) {
+            return Angle<long double>::radians(angle);
+        }
 
         consteval Angle<long double>
-        operator""_rad(unsigned long long int angle) noexcept(
-            noexcept(radians<long double>(angle))) { return radians<long double>(angle); }
+        operator""_rad(const unsigned long long int angle) noexcept(
+            noexcept(Angle<long double>::radians(angle))) {
+            return Angle<long double>::radians(angle);
+        }
     }
 }

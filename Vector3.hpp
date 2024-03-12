@@ -68,7 +68,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Vector3(const Vector2<T> &vector2) noexcept(
-            noexcept(Vector2<T>(vector2)) && noexcept(T(0)));
+            noexcept(Vector2<T>(vector2)) && noexcept(z(0)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct a vector3 from a vector2 with Z coordinate.
@@ -91,7 +91,7 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<U>
         constexpr explicit Vector3(const Vector3<U> &vector3) noexcept(
-            noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
+            noexcept(Vector2<T>(vector3)) && noexcept(z(static_cast<T>(vector3.z))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the vector from another type of vector.
@@ -106,7 +106,7 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<U>
         constexpr explicit Vector3(Vector3<U> &&vector3) noexcept(
-            noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
+            noexcept(Vector2<T>(vector3)) && noexcept(z(static_cast<T>(vector3.z))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==

@@ -76,7 +76,7 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<U>
         constexpr explicit Vector2(const Vector2<U> &vector2) noexcept(
-            noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
+            noexcept(x(static_cast<T>(vector2.x))) && noexcept(y(static_cast<T>(vector2.y))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the vector from another type of vector.
@@ -92,7 +92,7 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<U>
         constexpr explicit Vector2(Vector2<U> &&vector2) noexcept(
-            noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
+            noexcept(x(static_cast<T>(vector2.x))) && noexcept(y(static_cast<T>(vector2.y))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
