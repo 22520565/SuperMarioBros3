@@ -35,7 +35,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     class Vector2 {
       public:
         ////////////////////////////////////////////////////////////
@@ -159,7 +159,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
@@ -178,7 +178,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator+=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x += right.x) && noexcept(left.y += right.y));
 
@@ -191,7 +191,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator-(const Vector2<T> &right) noexcept(noexcept(Vector2<T>(-right.x, -right.y)));
@@ -206,7 +206,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
@@ -225,7 +225,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator-=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x -= right.x) && noexcept(left.y -= right.y));
 
@@ -239,7 +239,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator*(const Vector2<T> &left, const T right) noexcept(
@@ -255,7 +255,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator*(const T left, const Vector2<T> &right) noexcept(
@@ -274,7 +274,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator*=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x *= right) && noexcept(left.y *= right));
 
@@ -290,7 +290,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector2<T>
     operator/(const Vector2<T> &left, const T right) noexcept(
@@ -311,7 +311,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator/=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x /= right) && noexcept(left.y /= right));
 

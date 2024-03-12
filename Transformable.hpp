@@ -1,13 +1,17 @@
 #pragma once
+#include "Angle.hpp"
 #include "Transform.hpp"
 #include <cmath>
 #include <cstdint>
 
 namespace game {
+    ////////////////////////////////////////////////////////////
+    /// \brief Decomposed transform defined by a position, a rotation and a scale
+    ///
+    ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
     class Transformable {
       public:
-        static constexpr FLOAT maxDegrees = 360.0F;
-
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
         ///
@@ -30,15 +34,14 @@ namespace game {
         /// \param newPosition: New position.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setPosition(const Vector3<FLOAT> &newPosition) noexcept {
-            this->position = newPosition;
-        }
+        constexpr void setPosition(const Vector3<T> &newPosition) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the rotation of the object.
         ///
-        /// This function completely overwrites the previous rotation.
-        /// See the rotate function to add an angle based on the previous rotation instead.
+        /// This function completely overwrites the previous rotation
+        /// except the rotation center point.
+        /// See the rotate function to add an angle based on the previous rotation angles instead.
         /// The default rotation angles of a transformable object is (0, 0, 0).
         /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
         ///
@@ -46,39 +49,50 @@ namespace game {
         /// \param center: Coordinate of the center point to rotate.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setRotation(Vector3<FLOAT> angle, const Vector3<FLOAT> &center) noexcept {
-            angle = Vector3(std::fmod(angle.x, maxDegrees),
-                            std::fmod(angle.y, maxDegrees),
-                            std::fmod(angle.z, maxDegrees));
-            if (angle.x < 0.0F) [[unlikely]] {
-                angle.x += maxDegrees;
-            }
-            if (angle.y < 0.0F) [[unlikely]] {
-                angle.y += maxDegrees;
-            }
-            if (angle.z < 0.0F) [[unlikely]] {
-                angle.z += maxDegrees;
-            }
-            this->rotationAngle = angle;
-            this->rotationCenter = center;
-        }
+        constexpr void setRotation(const Angle3<T> &angle3) noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Set the rotation of the object.
+        ///
+        /// This function completely overwrites the previous rotation.
+        /// See the rotate function to add an angle based on the previous rotation angles instead.
+        /// The default rotation angles of a transformable object is (0, 0, 0).
+        /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
+        ///
+        /// \param angle: Rotation angle in three dimensions, in degrees.
+        /// \param center: Coordinate of the center point to rotate.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr void setRotation(const Angle3<T> &angle3, const Vector3<T> &center) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the scalation of the object.
         ///
-        /// This function completely overwrites the previous scalation.
+        /// This function completely overwrites the previous scalation
+        /// except the scalation center point.
         /// See the scale function to add a factor based on the previous scale instead.
-        /// The default scalation factors of a transformable object is (1, 1, 1).
+        /// The default scalation factor of a transformable object is (1, 1, 1).
         /// The default coordinate of scalation center point of a transformable object is (0, 0, 0).
         ///
         /// \param factor: Scaling factor in three dimensions.
         /// \param center: Coordinate of the center point to scale.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setScalation(const Vector3<FLOAT> &factors, const Vector3<FLOAT> &center) noexcept {
-            this->scalationFactor = factors;
-            this->scalationCenter = center;
-        }
+        constexpr void setScalation(const Vector3<T> &factor) noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Set the scalation of the object.
+        ///
+        /// This function completely overwrites the previous scalation.
+        /// See the scale function to add a factor based on the previous scale instead.
+        /// The default scalation factor of a transformable object is (1, 1, 1).
+        /// The default coordinate of scalation center point of a transformable object is (0, 0, 0).
+        ///
+        /// \param factor: Scaling factor in three dimensions.
+        /// \param center: Coordinate of the center point to scale.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr void setScalation(const Vector3<T> &factor, const Vector3<T> &center) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the position of the object.
@@ -86,8 +100,8 @@ namespace game {
         /// \return Current position.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Vector3<FLOAT> &getPosition() const noexcept { return this->position; }
+        [[nodiscard]]
+        constexpr const Vector3<T> &getPosition() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the rotation angle of the object.
@@ -96,8 +110,8 @@ namespace game {
         /// \return Current rotation angle in three dimensions, in degrees.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Vector3<FLOAT> &getRotationAngle() const noexcept { return this->rotationAngle; }
+        [[nodiscard]]
+        constexpr const Angle3<T> &getRotationAngle() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the rotation center point of the object.
@@ -105,8 +119,8 @@ namespace game {
         /// \return Coordinate of the current rotation center point.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Vector3<FLOAT> &getRotationCenter() const noexcept { return this->rotationCenter; }
+        [[nodiscard]]
+        constexpr const Vector3<T> &getRotationCenter() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the current scalation factor of the object.
@@ -114,8 +128,8 @@ namespace game {
         /// \return Current scaling factor in three dimensions.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Vector3<FLOAT> &getScalationFactor() const noexcept { return this->scalationFactor; }
+        [[nodiscard]]
+        constexpr const Vector3<T> &getScalationFactor() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the coordinate of the current scalation center of the object.
@@ -123,8 +137,8 @@ namespace game {
         /// \return Current scalation center.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr const Vector3<FLOAT> &getScalationCenter() const noexcept { return this->scalationCenter; }
+        [[nodiscard]]
+        constexpr const Vector3<T> &getScalationCenter() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Move the object by a given offset.
@@ -138,9 +152,7 @@ namespace game {
         ///
         /// \param offset: Offset.
         ////////////////////////////////////////////////////////////
-        constexpr void move(const Vector3<FLOAT> &offset) noexcept {
-            this->position += offset;
-        }
+        constexpr void move(const Vector3<T> &offset) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Rotate the object.
@@ -155,30 +167,7 @@ namespace game {
         /// \param angle: Rotation angle in three dimensions, in degrees.
         ///
         ////////////////////////////////////////////////////////////
-        void rotate(Vector3<FLOAT> angle) noexcept {
-            angle = Vector3(std::fmod(angle.x, maxDegrees),
-                            std::fmod(angle.y, maxDegrees),
-                            std::fmod(angle.z, maxDegrees));
-            if (angle.x < 0.0F) [[unlikely]] {
-                angle.x += maxDegrees;
-            }
-            if (angle.y < 0.0F) [[unlikely]] {
-                angle.y += maxDegrees;
-            }
-            if (angle.z < 0.0F) [[unlikely]] {
-                angle.z += maxDegrees;
-            }
-            this->rotationAngle += angle;
-            if (this->rotationAngle.x >= maxDegrees) [[unlikely]] {
-                this->rotationAngle.x -= maxDegrees;
-            }
-            if (this->rotationAngle.y >= maxDegrees) [[unlikely]] {
-                this->rotationAngle.y -= maxDegrees;
-            }
-            if (this->rotationAngle.z >= maxDegrees) [[unlikely]] {
-                this->rotationAngle.z -= maxDegrees;
-            }
-        }
+        constexpr void rotate(const Angle3<T> &angle3) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Scale the object.
@@ -197,11 +186,7 @@ namespace game {
         /// \param factor: Scaling factor in three dimensions.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void scale(const Vector3<FLOAT> &factor) noexcept {
-            this->scalationFactor.x *= factor.x;
-            this->scalationFactor.y *= factor.y;
-            this->scalationFactor.z *= factor.z;
-        }
+        constexpr void scale(const Vector3<T> &factor) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the combined transform of the object.
@@ -209,21 +194,21 @@ namespace game {
         /// \return Transform combining the position/rotation/scalation of the object.
         ///
         ////////////////////////////////////////////////////////////
-        [[nodiscard("Use the return value of this method or remove this redundant statement!")]]
-        constexpr Transform getTransform() const { 
-            return Transform().translate(this->position)
-                .rotate(this->rotationAngle, this->rotationCenter)
-                .scale(this->scalationFactor, this->scalationCenter);
-        }
+        [[nodiscard]]
+        constexpr const Transform<T> &getTransform() const;
 
       private:
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Vector3<FLOAT> position = Vector3<FLOAT>::zero();        // Position of the object.
-        Vector3<FLOAT> rotationAngle = Vector3<FLOAT>::zero();   // Rotation angle of the object.
-        Vector3<FLOAT> rotationCenter = Vector3<FLOAT>::zero();  // Rotation center point of the object.
-        Vector3<FLOAT> scalationFactor = Vector3<FLOAT>::one();  // Scalation factor of the object.
-        Vector3<FLOAT> scalationCenter = Vector3<FLOAT>::zero(); // Scalation center point of the object.
+        Vector3<T> position = Vector3<T>::zero();        // Position of the object.
+        Angle3<T> rotationAngle3 = Angle3<T>::zero();    // Rotation angle of the object.
+        Vector3<T> rotationCenter = Vector3<T>::zero();  // Rotation center point of the object.
+        Vector3<T> scalationFactor = Vector3<T>::one();  // Scalation factor of the object.
+        Vector3<T> scalationCenter = Vector3<T>::zero(); // Scalation center point of the object.
+        mutable bool transformNeedUpdate = false;
+        mutable Transform<T> transform = Transform<T>();
     };
 }
+
+#include "Transformable.inl"

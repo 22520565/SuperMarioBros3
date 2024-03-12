@@ -36,7 +36,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     class Vector3 : public Vector2<T> {
       public:
         ////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator+(const Vector3<T> &left, const Vector3<T> &right) noexcept(
@@ -202,7 +202,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector3<T> &operator+=(Vector3<T> &left, const Vector3<T> &right) noexcept(
         noexcept(static_cast<Vector2<T> &>(left) += static_cast<const Vector2<T> &>(right))
             && noexcept(left.z += right.z));
@@ -216,7 +216,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator-(const Vector3<T> &right) noexcept(
@@ -232,7 +232,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator-(const Vector3<T> &left, const Vector3<T> &right) noexcept(
@@ -252,7 +252,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector3<T> &operator-=(Vector3<T> &left, const Vector3<T> &right) noexcept(
         noexcept(static_cast<Vector2<T> &>(left) -= static_cast<const Vector2<T> &>(right))
             && noexcept(left.z -= right.z));
@@ -267,7 +267,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator*(const Vector3<T> &left, const T right) noexcept(
@@ -283,7 +283,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator*(const T left, const Vector3<T> &right) noexcept(
@@ -301,7 +301,7 @@ namespace game {
     /// \return Reference to \a left.
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector3<T> &operator*=(Vector3<T> &left, const T right) noexcept(
         noexcept(static_cast<Vector2<T> &>(left) *= right) && noexcept(left.z *= right));
 
@@ -315,7 +315,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Vector3<T>
     operator/(const Vector3<T> &left, const T right) noexcept(
@@ -334,7 +334,7 @@ namespace game {
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector3<T> &operator/=(Vector3<T> &left, const T right) noexcept(
         noexcept(static_cast<Vector2<T> &>(left) /= right) && noexcept(left.z /= right));
 

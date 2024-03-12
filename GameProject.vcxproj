@@ -220,6 +220,8 @@
     <None Include="Angle3.inl" />
     <None Include="packages.config" />
     <None Include="stdfloat" />
+    <None Include="Transform.inl" />
+    <None Include="Transformable.inl" />
     <None Include="Vector2.inl" />
     <None Include="Vector3.inl" />
   </ItemGroup>

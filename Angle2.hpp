@@ -1,8 +1,10 @@
 #pragma once
 #include "Angle.hpp"
+#include "stdfloat"
+#include <concepts>
 
 namespace game {
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     class Angle2 {
       public:
         Angle<T> x = 0_deg;
@@ -75,6 +77,30 @@ namespace game {
         [[nodiscard]]
         friend constexpr bool
         operator==(const Angle2<T> &left, const Angle2<T> &right) = default;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Return the angle's value in degrees.
+        ///
+        /// \return Angle in degrees.
+        ///
+        /// \see asRadians.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Vector2<const T &> asDegrees() const noexcept(
+            noexcept(Vector2<const T &>(this->x.asDegrees(), this->y.asDegrees())));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Return the angle's value in radians
+        ///
+        /// \return Angle in radians
+        ///
+        /// \see asDegrees
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Vector2<T> asRadians() const noexcept(
+            noexcept(Vector2<T>(this->x.asRadians(), this->y.asRadians())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Wrap to a range such that -180° <= angle < 180°
@@ -183,7 +209,7 @@ namespace game {
     /// \return Memberwise addition of both angles.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator+(const Angle2<T> &left, const Angle2<T> &right) noexcept(
@@ -201,7 +227,7 @@ namespace game {
     /// \return Const-reference to \a left.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr const Angle2<T> &operator+=(Angle2<T> &left, const Angle2<T> &right) noexcept(
         noexcept(left.x += right.x) && noexcept(left.y += right.y));
 
@@ -213,7 +239,7 @@ namespace game {
     /// \return Memberwise opposite of the angle2.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator-(const Angle2<T> &right) noexcept(noexcept(Angle2<T>(-right.x, -right.y)));
@@ -227,7 +253,7 @@ namespace game {
     /// \return Memberwise subtraction of both angles.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator-(const Angle2<T> &left, const Angle2<T> &right) noexcept(
@@ -245,7 +271,7 @@ namespace game {
     /// \return Reference to \a left.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr const Angle2<T> &operator-=(Angle2<T> &left, const Angle2<T> &right) noexcept(
         noexcept(left.x -= right.x) && noexcept(left.y -= right.y));
 
@@ -258,7 +284,7 @@ namespace game {
     /// \return Memberwise multiplication by \a right.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator*(const Angle2<T> &left, const T right) noexcept(
@@ -273,7 +299,7 @@ namespace game {
     /// \return Memberwise multiplication by \a left.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator*(const T left, const Angle2<T> &right) noexcept(
@@ -291,7 +317,7 @@ namespace game {
     /// \return Reference to \a left.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr const Angle2<T> &operator*=(Angle2<T> &left, const T right) noexcept(
         noexcept(left.x *= right) && noexcept(left.y *= right));
 
@@ -306,7 +332,7 @@ namespace game {
     /// \return Memberwise division by \a right.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     [[nodiscard]]
     constexpr Angle2<T>
     operator/(const Angle2<T> &left, const T right) noexcept(
@@ -326,7 +352,7 @@ namespace game {
     /// \return Reference to \a left.
     ///
     ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
+    template <typename T> requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr const Angle2<T> &operator/=(Angle2<T> &left, const T right) noexcept(
         noexcept(left.x /= right) && noexcept(left.y /= right));
 

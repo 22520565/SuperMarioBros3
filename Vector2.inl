@@ -30,13 +30,13 @@
 namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T>::Vector2(const T x, const T y) noexcept(
         noexcept(T(x)) && noexcept(T(y))) : x(x), y(y) {}
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     template <typename U>
         requires std::is_arithmetic_v<U>
     constexpr Vector2<T>::Vector2(const Vector2<U> &vector2) noexcept(
@@ -45,7 +45,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     template <typename U>
         requires std::is_arithmetic_v<U>
     constexpr Vector2<T>::Vector2(Vector2<U> &&vector2) noexcept(
@@ -54,7 +54,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     consteval Vector2<T> Vector2<T>::zero() noexcept(
         noexcept(Vector2<T>(static_cast<T>(0), static_cast<T>(0)))) {
         return Vector2<T>(static_cast<T>(0), static_cast<T>(0));
@@ -62,7 +62,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     consteval Vector2<T> Vector2<T>::one() noexcept(
         noexcept(Vector2<T>(static_cast<T>(1), static_cast<T>(1)))) {
         return Vector2<T>(static_cast<T>(1), static_cast<T>(1));
@@ -70,7 +70,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     consteval Vector2<T> Vector2<T>::unitX() noexcept(
         noexcept(Vector2<T>(static_cast<T>(1), static_cast<T>(0)))) {
         return Vector2<T>(static_cast<T>(1), static_cast<T>(0));
@@ -78,7 +78,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     consteval Vector2<T> Vector2<T>::unitY() noexcept(
         noexcept(Vector2<T>(static_cast<T>(0), static_cast<T>(1)))) {
         return Vector2<T>(static_cast<T>(0), static_cast<T>(1));
@@ -86,7 +86,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator+(const Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(Vector2<T>(left.x + right.x, left.y + right.y))) {
         return Vector2<T>(left.x + right.x, left.y + right.y);
@@ -94,7 +94,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator+=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x += right.x) && noexcept(left.y += right.y)) {
         left.x += right.x;
@@ -104,14 +104,14 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator-(const Vector2<T> &right) noexcept(noexcept(Vector2<T>(-right.x, -right.y))) {
         return Vector2<T>(-right.x, -right.y);
     }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator-(const Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(Vector2<T>(left.x - right.x, left.y - right.y))) {
         return Vector2<T>(left.x - right.x, left.y - right.y);
@@ -119,7 +119,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator-=(Vector2<T> &left, const Vector2<T> &right) noexcept(
         noexcept(left.x -= right.x) && noexcept(left.y -= right.y)) {
         left.x -= right.x;
@@ -129,7 +129,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator*(const Vector2<T> &left, const T right) noexcept(
         noexcept(Vector2<T>(left.x * right, left.y *right))) {
         return Vector2<T>(left.x * right, left.y * right);
@@ -137,7 +137,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator*(const T left, const Vector2<T> &right) noexcept(
         noexcept(Vector2<T>(left * right.x, left *right.y))) {
         return Vector2<T>(left * right.x, left * right.y);
@@ -145,7 +145,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator*=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x *= right) && noexcept(left.y *= right)) {
         left.x *= right;
@@ -155,7 +155,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> operator/(const Vector2<T> &left, const T right) noexcept(
         noexcept(Vector2<T>(left.x / right, left.y / right))) {
         return Vector2<T>(left.x / right, left.y / right);
@@ -163,7 +163,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <typename T>
-        requires std::is_arithmetic_v<T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr const Vector2<T> &operator/=(Vector2<T> &left, const T right) noexcept(
         noexcept(left.x /= right) && noexcept(left.y /= right)) {
         left.x /= right;

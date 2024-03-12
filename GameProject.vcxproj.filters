@@ -230,6 +230,12 @@
     <None Include="Angle3.inl">
       <Filter>Inline Files</Filter>
     </None>
+    <None Include="Transform.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Transformable.inl">
+      <Filter>Inline Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc">

@@ -1,32 +1,34 @@
 #pragma once
+#include "Angle.hpp"
+#include "Angle3.hpp"
 #include "D3DX10math.h"
-#include "Vector3.hpp"
 #include <cmath>
 #include <minwindef.h>
-#include <numbers>
 
 namespace game {
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
     class Transform final {
       public:
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        FLOAT f00 = 1.0F; // Element (0, 0) of the matrix.
-        FLOAT f01 = 0.0F; // Element (0, 1) of the matrix.
-        FLOAT f02 = 0.0F; // Element (0, 2) of the matrix.
-        FLOAT f03 = 0.0F; // Element (0, 3) of the matrix.
-        FLOAT f10 = 0.0F; // Element (1, 0) of the matrix.
-        FLOAT f11 = 1.0F; // Element (1, 1) of the matrix.
-        FLOAT f12 = 0.0F; // Element (1, 2) of the matrix.
-        FLOAT f13 = 0.0F; // Element (1, 3) of the matrix.
-        FLOAT f20 = 0.0F; // Element (2, 0) of the matrix.
-        FLOAT f21 = 0.0F; // Element (2, 1) of the matrix.
-        FLOAT f22 = 1.0F; // Element (2, 2) of the matrix.
-        FLOAT f23 = 0.0F; // Element (2, 3) of the matrix.
-        FLOAT f30 = 0.0F; // Element (3, 0) of the matrix.
-        FLOAT f31 = 0.0F; // Element (3, 1) of the matrix.
-        FLOAT f32 = 0.0F; // Element (3, 2) of the matrix.
-        FLOAT f33 = 1.0F; // Element (3, 3) of the matrix.
+        T f00 = static_cast<T>(1.0); // Element (0, 0) of the matrix.
+        T f01 = static_cast<T>(0.0); // Element (0, 1) of the matrix.
+        T f02 = static_cast<T>(0.0); // Element (0, 2) of the matrix.
+        T f03 = static_cast<T>(0.0); // Element (0, 3) of the matrix.
+        T f10 = static_cast<T>(0.0); // Element (1, 0) of the matrix.
+        T f11 = static_cast<T>(1.0); // Element (1, 1) of the matrix.
+        T f12 = static_cast<T>(0.0); // Element (1, 2) of the matrix.
+        T f13 = static_cast<T>(0.0); // Element (1, 3) of the matrix.
+        T f20 = static_cast<T>(0.0); // Element (2, 0) of the matrix.
+        T f21 = static_cast<T>(0.0); // Element (2, 1) of the matrix.
+        T f22 = static_cast<T>(1.0); // Element (2, 2) of the matrix.
+        T f23 = static_cast<T>(0.0); // Element (2, 3) of the matrix.
+        T f30 = static_cast<T>(0.0); // Element (3, 0) of the matrix.
+        T f31 = static_cast<T>(0.0); // Element (3, 1) of the matrix.
+        T f32 = static_cast<T>(0.0); // Element (3, 2) of the matrix.
+        T f33 = static_cast<T>(1.0); // Element (3, 3) of the matrix.
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
@@ -57,33 +59,18 @@ namespace game {
         /// \param f33: Element (3, 3) of the matrix.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr Transform(const FLOAT f00, const FLOAT f01, const FLOAT f02, const FLOAT f03,
-                            const FLOAT f10, const FLOAT f11, const FLOAT f12, const FLOAT f13,
-                            const FLOAT f20, const FLOAT f21, const FLOAT f22, const FLOAT f23,
-                            const FLOAT f30, const FLOAT f31, const FLOAT f32, const FLOAT f33) noexcept
-            : f00(f00), f01(f01), f02(f02), f03(f03),
-              f10(f10), f11(f11), f12(f12), f13(f13),
-              f20(f20), f21(f21), f22(f22), f23(f23),
-              f30(f30), f31(f31), f32(f32), f33(f33) {}
+        constexpr Transform(const T f00, const T f01, const T f02, const T f03,
+                            const T f10, const T f11, const T f12, const T f13,
+                            const T f20, const T f21, const T f22, const T f23,
+                            const T f30, const T f31, const T f32, const T f33) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Convert to D3DXMATRIX.
         ///
-        /// \return D3DXMATRIX
+        /// \return D3DXMATRIX.
         ///
         ////////////////////////////////////////////////////////////
-        explicit(false) operator D3DXMATRIX() const {
-            /*return D3DXMATRIX(
-                f00, f01, f02, f03,
-                f10, f11, f12, f13,
-                f20, f21, f22, f23,
-                f30, f31, f32, f33);*/
-            return D3DXMATRIX(
-                f00, f10, f20, f30,
-                f01, f11, f21, f31,
-                f02, f12, f22, f32,
-                f03, f13, f23, f33);
-        }
+        explicit(false) operator D3DXMATRIX() const;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with another one.
@@ -94,25 +81,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform combine(const Transform &transform) const noexcept {
-            return Transform(
-                (this->f00 * transform.f00) + (this->f01 * transform.f10) + (this->f02 * transform.f20) + (this->f03 * transform.f30),
-                (this->f00 * transform.f01) + (this->f01 * transform.f11) + (this->f02 * transform.f21) + (this->f03 * transform.f31),
-                (this->f00 * transform.f02) + (this->f01 * transform.f12) + (this->f02 * transform.f22) + (this->f03 * transform.f32),
-                (this->f00 * transform.f03) + (this->f01 * transform.f13) + (this->f02 * transform.f23) + (this->f03 * transform.f33),
-                (this->f10 * transform.f00) + (this->f11 * transform.f10) + (this->f12 * transform.f20) + (this->f13 * transform.f30),
-                (this->f10 * transform.f01) + (this->f11 * transform.f11) + (this->f12 * transform.f21) + (this->f13 * transform.f31),
-                (this->f10 * transform.f02) + (this->f11 * transform.f12) + (this->f12 * transform.f22) + (this->f13 * transform.f32),
-                (this->f10 * transform.f03) + (this->f11 * transform.f13) + (this->f12 * transform.f23) + (this->f13 * transform.f33),
-                (this->f20 * transform.f00) + (this->f21 * transform.f10) + (this->f22 * transform.f20) + (this->f23 * transform.f30),
-                (this->f20 * transform.f01) + (this->f21 * transform.f11) + (this->f22 * transform.f21) + (this->f23 * transform.f31),
-                (this->f20 * transform.f02) + (this->f21 * transform.f12) + (this->f22 * transform.f22) + (this->f23 * transform.f32),
-                (this->f20 * transform.f03) + (this->f21 * transform.f13) + (this->f22 * transform.f23) + (this->f23 * transform.f33),
-                (this->f30 * transform.f00) + (this->f31 * transform.f10) + (this->f32 * transform.f20) + (this->f33 * transform.f30),
-                (this->f30 * transform.f01) + (this->f31 * transform.f11) + (this->f32 * transform.f21) + (this->f33 * transform.f31),
-                (this->f30 * transform.f02) + (this->f31 * transform.f12) + (this->f32 * transform.f22) + (this->f33 * transform.f32),
-                (this->f30 * transform.f03) + (this->f31 * transform.f13) + (this->f32 * transform.f23) + (this->f33 * transform.f33));
-        }
+        constexpr Transform<T> combine(const Transform<T> &transform) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a translation.
@@ -123,59 +92,32 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform translate(const Vector3<FLOAT> &offset) const noexcept {
-            const Transform translationTransform = Transform(
-                1.0F, 0.0F, 0.0F, offset.x,
-                0.0F, 1.0F, 0.0F, offset.y,
-                0.0F, 0.0F, 1.0F, offset.z,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            return this->combine(translationTransform);
-        }
+        constexpr Transform<T> translate(const Vector3<T> &offset) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with
         /// a center point of (0, 0, 0).
         ///
-        /// \param angle: Rotation angle in three dimensions, in degrees.
+        /// \param angle3: Rotation angle in three dimensions.
         ///
         /// \return The result of combination.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(Vector3<FLOAT> angle) const noexcept {
-            angle *= std::numbers::pi_v<FLOAT>/180.0F;
-            const Transform rotationX = Transform(
-                1.0F, 0.0F, 0.0F, 0.0F,
-                0.0F, std::cos(angle.x), -std::sin(angle.x), 0.0F,
-                0, std::sin(angle.x), std::cos(angle.x), 0.0F,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            const Transform rotationY = Transform(
-                std::cos(angle.y), 0.0F, std::sin(angle.y), 0.0F,
-                0.0F, 1.0F, 0.0F, 0.0F,
-                -std::sin(angle.y), 0.0F, std::cos(angle.y), 0.0F,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            const Transform rotationZ = Transform(
-                std::cos(angle.z), -std::sin(angle.z), 0.0F, 0.0F,
-                std::sin(angle.z), std::cos(angle.z), 0.0F, 0.0F,
-                0.0F, 0.0F, 1.0F, 0.0F,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            return this->combine(rotationX).combine(rotationY).combine(rotationZ);
-        }
+        Transform<T> rotate(const Angle3<T> &angle3) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with
         /// a specified center point.
         ///
-        /// \param angle: Rotation angle in three dimensions, in degrees.
+        /// \param angle3: Rotation angle in three dimensions.
         /// \param center: Coordinate of center point to rotate.
         ///
         /// \return The result of combination.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const Vector3<FLOAT> &angle, const Vector3<FLOAT> &center) const noexcept {
-            return this->translate(-center).rotate(angle).translate(center);
-        }
+        Transform rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with
@@ -188,29 +130,11 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const FLOAT angle, const Vector3<FLOAT> &axis) const noexcept {
-            const Transform rotationTransform = Transform(
-                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.x * axis.x),
-                ((1.0F - std::cos(angle)) * axis.x * axis.y) - (std::sin(angle) * axis.z),
-                ((1.0F - std::cos(angle)) * axis.x * axis.z) + (sin(angle) * axis.y),
-                0.0F,
-                ((1.0F - std::cos(angle)) * axis.x * axis.y) + (std::sin(angle) * axis.z),
-                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.y * axis.y),
-                ((1.0F - std::cos(angle)) * axis.y * axis.z) - (std::sin(angle) * axis.x),
-                0.0F,
-                ((1.0F - std::cos(angle)) * axis.x * axis.z) - (std::sin(angle) * axis.y),
-                ((1.0F - std::cos(angle)) * axis.y * axis.z) + (std::sin(angle) * axis.x),
-                std::cos(angle) + ((1.0F - std::cos(angle)) * axis.z * axis.z),
-                0.0F,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            return this->combine(rotationTransform);
-        }
+        constexpr Transform rotate(const Angle<T> angle, const Vector3<T> &axis) const noexcept;
 
         [[nodiscard]]
-        constexpr Transform rotate(const FLOAT angle, const Vector3<FLOAT> &axis,
-                                   const Vector3<FLOAT> &center) const noexcept {
-            return this->translate(-center).rotate(angle, axis).translate(center);
-        }
+        constexpr Transform rotate(const Angle<T> angle, const Vector3<T> &axis,
+                                   const Vector3<T> &center) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a scalation with
@@ -222,14 +146,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform scale(const Vector3<FLOAT> &factor) const noexcept {
-            const Transform scalingTransform = Transform(
-                factor.x, 0.0F, 0.0F, 0.0F,
-                0.0F, factor.y, 0.0F, 0.0F,
-                0.0F, 0.0F, factor.z, 0.0F,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            return this->combine(scalingTransform);
-        }
+        constexpr Transform scale(const Vector3f &factor) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a scalation with
@@ -242,13 +159,8 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform scale(const Vector3<FLOAT> &factor, const Vector3<FLOAT> &center) const noexcept {
-            const Transform scalingTransform = Transform(
-                factor.x, 0.0F, 0.0F, (1.0F - factor.x) * center.x,
-                0.0F, factor.y, 0.0F, (1.0F - factor.y) * center.y,
-                0.0F, 0.0F, factor.z, (1.0F - factor.z) * center.z,
-                0.0F, 0.0F, 0.0F, 1.0F);
-            return this->combine(scalingTransform);
-        }
+        constexpr Transform scale(const Vector3<T> &factor, const Vector3<T> &center) const noexcept;
     };
 }
+
+#include "Transform.inl"
