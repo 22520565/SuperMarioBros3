@@ -79,7 +79,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
         ///
-        /// This operator compares strict equality between two vectors.
+        /// This operator compares strict equality between two angles.
         ///
         /// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
         /// Thus, it's not necessary to define operator != and you can still use operator != normally.
@@ -151,83 +151,83 @@ namespace game {
             noexcept(Angle3<T>(Angle3<T>().Angle2<T>::wrapUnsigned(), z.wrapUnsigned())));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (0_deg, 0_deg, 0_deg).
+        /// \brief Get an Angle3 of (0_deg, 0_deg, 0_deg).
         ///
         /// It's equivalent to (0_rad, 0_rad, 0_rad).
         ///
-        /// \return A Angle3 of (0, 0, 0).
+        /// \return An Angle3 of (0, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> zero() noexcept(
             noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (1_deg, 1_deg, 1_deg).
+        /// \brief Get an Angle3 of (1_deg, 1_deg, 1_deg).
         ///
-        /// \return A Angle3 of (1_deg, 1_deg, 1_deg).
+        /// \return An Angle3 of (1_deg, 1_deg, 1_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_deg() noexcept(
             noexcept(Angle3<T>(Angle2<T>::one_deg(), static_cast<Angle<T>>(Angle<T>::one_deg()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (1_deg, 0_deg, 0_deg).
+        /// \brief Get an Angle3 of (1_deg, 0_deg, 0_deg).
         ///
-        /// \return A Angle3 of (1_deg, 0_deg, 0_deg).
+        /// \return An Angle3 of (1_deg, 0_deg, 0_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_deg() noexcept(
             noexcept(Angle3<T>(Angle2<T>::unitX_deg(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (0, 1, 0).
+        /// \brief Get an Angle3 of (0_deg, 1_deg, 0_deg).
         ///
-        /// \return A Angle3 of (0, 1, 0).
+        /// \return An Angle3 of (0_deg, 1_deg, 0_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_deg() noexcept(
             noexcept(Angle3<T>(Angle2<T>::unitY_deg(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (0, 0, 1).
+        /// \brief Get an Angle3 of (0_deg, 0_deg, 1_Deg).
         ///
-        /// \return A Angle3 of (0, 0, 1).
+        /// \return An Angle3 of (0_deg, 0_deg, 1_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_deg() noexcept(
             noexcept(Angle3<T>(Angle2<T>::zero(), static_cast<Angle<T>>(Angle<T>::one_deg()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (1_rad, 1_rad, 1_rad).
+        /// \brief Get an Angle3 of (1_rad, 1_rad, 1_rad).
         ///
-        /// \return A Angle3 of (1_rad, 1_rad, 1_rad).
+        /// \return An Angle3 of (1_rad, 1_rad, 1_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_rad() noexcept(
             noexcept(Angle3<T>(Angle2<T>::one_rad(), static_cast<Angle<T>>(Angle<T>::one_rad()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (1_rad, 0_rad, 0_rad).
+        /// \brief Get an Angle3 of (1_rad, 0_rad, 0_rad).
         ///
-        /// \return A Angle3 of (1_rad, 0_rad, 0_rad).
+        /// \return An Angle3 of (1_rad, 0_rad, 0_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_rad() noexcept(
             noexcept(Angle3<T>(Angle2<T>::unitX_rad(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (0, 1, 0).
+        /// \brief Get an Angle3 of (0_rad, 1_rad, 0_rad).
         ///
-        /// \return A Angle3 of (0, 1, 0).
+        /// \return An Angle3 of (0_rad, 1_rad, 0_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_rad() noexcept(
             noexcept(Angle3<T>(Angle2<T>::unitY_rad(), static_cast<Angle<T>>(Angle<T>::zero()))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a Angle3 of (0, 0, 1).
+        /// \brief Get an Angle3 of (0_rad, 0_rad, 1_rad).
         ///
-        /// \return A Angle3 of (0, 0, 1).
+        /// \return An Angle3 of (0, 0, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_rad() noexcept(

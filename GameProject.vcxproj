@@ -179,6 +179,8 @@
     <ClInclude Include="RenderTarget.hpp" />
     <ClInclude Include="RenderWindow.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Rotation2.hpp" />
+    <ClInclude Include="Rotation3.hpp" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Sprite.hpp" />
@@ -229,6 +231,7 @@
     <None Include="packages.config" />
     <None Include="Rect2.inl" />
     <None Include="Rect3.inl" />
+    <None Include="Rotation2.inl" />
     <None Include="stdfloat" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>

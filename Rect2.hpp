@@ -32,8 +32,6 @@ namespace game {
         T top = T();
         T width = T();
         T height = T();
-        const Vector2<T &> position = Vector2<T &>(left, top);
-        const Vector2<T &> size = Vector2<T &>(width, height);
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.

@@ -2,13 +2,13 @@
 
 namespace game {
     class NonCopyable {
-    public:
+      public:
         constexpr virtual ~NonCopyable() noexcept = default;
 
-    protected:
+      protected:
         constexpr NonCopyable() noexcept = default;
 
-    private:
+      private:
         constexpr NonCopyable(const NonCopyable &) noexcept = delete;
         constexpr NonCopyable(NonCopyable &&) noexcept = delete;
         constexpr NonCopyable &operator=(const NonCopyable &) noexcept = delete;

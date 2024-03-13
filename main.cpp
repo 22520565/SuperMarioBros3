@@ -174,7 +174,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     a.top = 2;
     auto b(a);
     // sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
-    sprite.setRotation(game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(b.position.y, 0.0F, 0.0F));
+    sprite.setRotation(game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(b.left, 0.0F, 0.0F));
     
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
@@ -203,6 +203,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
         }
      sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg)); 
       sprite.move(game::Vector3f::unitZ() * 0.00010F);
+      sizeof(a);
         window.clear();
         window.draw(sprite);
         window.display();

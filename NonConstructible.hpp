@@ -3,10 +3,10 @@
 
 namespace game {
     class NonConstructible : public NonCopyable {
-    public:
+      public:
         constexpr ~NonConstructible() noexcept override = default;
 
-    private:
+      private:
         constexpr NonConstructible() noexcept = delete;
     };
 }

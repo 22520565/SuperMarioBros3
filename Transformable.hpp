@@ -206,8 +206,8 @@ namespace game {
         Vector3<T> rotationCenter = Vector3<T>::zero();  // Rotation center point of the object.
         Vector3<T> scalationFactor = Vector3<T>::one();  // Scalation factor of the object.
         Vector3<T> scalationCenter = Vector3<T>::zero(); // Scalation center point of the object.
-        mutable bool transformNeedUpdate = false;
         mutable Transform<T> transform = Transform<T>();
+        mutable bool transformNeedUpdate = false;
     };
 }
 
