@@ -172,7 +172,7 @@
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
-    <ClInclude Include="Rect.hpp" />
+    <ClInclude Include="Rect2.hpp" />
     <ClInclude Include="Rect3.hpp" />
     <ClInclude Include="RenderTarget.hpp" />
     <ClInclude Include="RenderWindow.hpp" />
@@ -225,6 +225,8 @@
       <FileType>Document</FileType>
     </None>
     <None Include="packages.config" />
+    <None Include="Rect2.inl" />
+    <None Include="Rect3.inl" />
     <None Include="stdfloat" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>

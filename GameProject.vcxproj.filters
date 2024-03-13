@@ -105,7 +105,7 @@
     <ClInclude Include="DxResource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.hpp">
+    <ClInclude Include="Rect2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.hpp">
@@ -234,6 +234,12 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Vector3.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Rect2.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Rect3.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
