@@ -28,6 +28,10 @@ namespace game {
             requires std::is_arithmetic_v<std::remove_reference_t<U>>
         constexpr explicit Rect3(const Rect3<U> &rect3) noexcept(
             noexcept(Rect2<T>(rect3)) && noexcept(T(rect3.front)) && noexcept(T(rect3.depth)));
+
+        constexpr Vector3<T> getCenter() const noexcept {
+            return Vector3<T>(Rect2<T>::getCenter(), this->front + (this->depth / T(2)));
+        }
     };
 }
 

@@ -24,7 +24,7 @@ namespace game {
         /// \param rectangle Rectangular defining the zone to display.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Rect3<FLOAT> &rectangular);
+        constexpr explicit View(const Rect3<FLOAT> &rect3);
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the view from its center and size.

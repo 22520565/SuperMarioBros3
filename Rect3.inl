@@ -1,4 +1,7 @@
+#include "Rect2.hpp"
 #include "Rect3.hpp"
+#include "Vector3.hpp"
+#include <type_traits>
 
 namespace game {
     template <typename T>

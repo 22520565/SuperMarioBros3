@@ -106,12 +106,19 @@ namespace game {
 
             // Create the projection matrix using the values in the viewport
             D3DXMatrixOrthoOffCenterLH(
-                &matProjection,
-                static_cast<FLOAT>(viewPort.TopLeftX),
-                static_cast<FLOAT>(viewPort.Width),
-                static_cast<FLOAT>(viewPort.TopLeftY),
-                static_cast<FLOAT>(viewPort.Height),
-                0.0F, 10.0F);
+    &matProjection,
+    -750,
+    750,
+   -750,
+    750,
+    0.0F, 1000.0F);
+            //D3DXMatrixOrthoOffCenterLH(
+            //    &matProjection,
+            //    static_cast<FLOAT>(viewPort.TopLeftX),
+            //    static_cast<FLOAT>(viewPort.Width),
+            //    static_cast<FLOAT>(viewPort.TopLeftY),
+            //    static_cast<FLOAT>(viewPort.Height),
+            //    -1000.0F, 1000.0F);
             hr = spriteObject->SetProjectionTransform(&matProjection);
            
             // Initialize the blend state for alpha drawing
