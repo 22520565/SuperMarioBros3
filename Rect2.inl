@@ -5,8 +5,8 @@ namespace game {
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Rect2<T>::Rect2(const Vector2<T> &position, const Vector2<T> &size) noexcept(
-        noexcept(left(position.x)) && noexcept(top(position.y))
-            && noexcept(width(size.x)) && noexcept(height(size.y)))
+        noexcept(T(position.x)) && noexcept(T(position.y))
+            && noexcept(T(size.x)) && noexcept(T(size.y)))
         : left(position.x), top(position.y), width(size.x), height(size.y) {}
 
     ////////////////////////////////////////////////////////////
@@ -15,15 +15,15 @@ namespace game {
     template <typename U>
         requires std::is_arithmetic_v<std::remove_reference_t<U>>
     constexpr Rect2<T>::Rect2(const Rect2<U> &rect2) noexcept(
-        noexcept(left(rect2.left)) && noexcept(top(rect2.top))
-            && noexcept(width(rect2.width)) && noexcept(height(rect2.height)))
+        noexcept(T(rect2.left)) && noexcept(T(rect2.top))
+            && noexcept(T(rect2.width)) && noexcept(T(rect2.height)))
         : left(rect2.left), top(rect2.top), width(rect2.width), height(rect2.height) {}
 
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Vector2<T> Rect2<T>::getCenter() const noexcept(
-        noexcept(Vector2<T>(this->left + (this->width / T(2)), this->top - (this->height / T(2))))) {
+        noexcept(Vector2<T>(left + (width / T(2)), top - (height / T(2))))) {
         return Vector2<T>(this->left + (this->width / T(2)), this->top - (this->height / T(2)));
     }
 

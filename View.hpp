@@ -48,7 +48,7 @@ namespace game {
         /// \param viewport New viewport rectangular.
         ///
         ////////////////////////////////////////////////////////////
-        void setViewport(const Rect<FLOAT> &viewport);
+        void setViewport(const Rect2<FLOAT> &viewport);
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the center of the view
@@ -120,7 +120,7 @@ namespace game {
         Vector3f center; // Center of the view, in scene coordinates
         Vector3f size;   // Size of the view, in scene coordinates
         FLOAT rotation;        // Angle of rotation of the view rectangle, in degrees
-        Rect<FLOAT> viewport = // Viewport rectangle, expressed as a factor of the render-target's size
-            Rect<FLOAT>(Vector2<FLOAT>::zero(), Vector2<FLOAT>::one());
+        Rect2<FLOAT> viewport = // Viewport rectangle, expressed as a factor of the render-target's size
+            Rect2<FLOAT>(Vector2<FLOAT>::zero(), Vector2<FLOAT>::one());
     };
 }

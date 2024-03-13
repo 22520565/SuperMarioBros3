@@ -115,12 +115,14 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <WholeProgramOptimization>
+      </WholeProgramOptimization>
       <EnableModules>true</EnableModules>
       <BuildStlModules>true</BuildStlModules>
       <OmitDefaultLibName>
       </OmitDefaultLibName>
       <IntelJCCErratum>true</IntelJCCErratum>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

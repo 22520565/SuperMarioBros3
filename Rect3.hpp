@@ -1,18 +1,20 @@
 #pragma once
+#include "Rect2.hpp"
 #include "Vector3.hpp"
-#include "Rect.hpp"
 
 namespace game {
-template <typename T>
-class Rect3 {
-public:
-	Vector3<T> position = Vector3<T>::zero();
-	Vector3<T> size = Vector3<T>::zero();
-	constexpr Rect3<T>() = default;
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    class Rect3 : public Rect2<T> {
+      public:
+        T front = T();
+        T depth = T();
+        const Vector3<T &> position = Vector3<T &>(Rect2<T>::position, front);
+        const Vector3<T &> size = Vector3<T &>(Rect2<T>::size, depth);
+        constexpr Rect3<T>() = default;
 
-	constexpr explicit Rect3(const Vector3<T>& position, const Vector3<T>& size) noexcept(
-		noexcept(Vector3<T>(position)) && noexcept(Vector3<T>(size)))
-		: position(position), size(size) {}
+        constexpr explicit Rect3(const Vector3<T> &position, const Vector3<T> &size) noexcept(
+            noexcept(Rect2<T>(position, size)) && noexcept(T(position.z)) && noexcept(T(size.z)));
 
         /// \brief Construct the rectangular from another type of rectangular.
         ///
@@ -22,10 +24,11 @@ public:
         /// is not convertible to T.
         ///
         /// \param rec3: Rectangular to convert.
-    template <typename U>
-    constexpr explicit Rect3(const Rect3<U>& rect3) noexcept(
-        noexcept(Vector3<T>(static_cast<Vector3<T>>(rect3.position)))
-        && noexcept(Vector3<T>(static_cast<Vector3<T>>(rect3.size))))
-        : position(static_cast<Vector3<T>>(rect3.position)), size(static_cast<Vector3<T>>(rect3.size)) {}
-};
+        template <typename U>
+            requires std::is_arithmetic_v<std::remove_reference_t<U>>
+        constexpr explicit Rect3(const Rect3<U> &rect3) noexcept(
+            noexcept(Rect2<T>(rect3)) && noexcept(T(rect3.front)) && noexcept(T(rect3.depth)));
+    };
 }
+
+#include "Rect3.inl"

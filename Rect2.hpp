@@ -53,8 +53,8 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit(false) Rect2(const Vector2<T> &position, const Vector2<T> &size) noexcept(
-            noexcept(left(position.x)) && noexcept(top(position.y))
-                && noexcept(width(size.x)) && noexcept(height(size.y)));
+            noexcept(T(position.x)) && noexcept(T(position.y))
+                && noexcept(T(size.x)) && noexcept(T(size.y)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the rectangle from another type of rectangle
@@ -70,8 +70,8 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<std::remove_reference_t<U>>
         constexpr explicit Rect2(const Rect2<U> &rect2) noexcept(
-            noexcept(left(rect2.left)) && noexcept(top(rect2.top))
-                && noexcept(width(rect2.width)) && noexcept(height(rect2.height)));
+            noexcept(T(rect2.left)) && noexcept(T(rect2.top))
+                && noexcept(T(rect2.width)) && noexcept(T(rect2.height)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the position of the center of the rectangle.
@@ -80,7 +80,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr Vector2<T> getCenter() const noexcept(
-            noexcept(Vector2<T>(this->left + (this->width / T(2)), this->top - (this->height / T(2)))));
+            noexcept(Vector2<T>(left + (width / T(2)), top - (height / T(2)))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a copy of a rectangle that its size
@@ -107,3 +107,5 @@ namespace game {
             noexcept(wrapSizeUnsigned()));
     };
 }
+
+#include "Rect2.inl"
