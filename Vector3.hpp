@@ -66,6 +66,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Construct a vector3 from a vector2.
         ///
+        /// \param vector2: Vector2 to construct.
+        ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Vector3(const Vector2<T> &vector2) noexcept(
             noexcept(Vector2<T>(vector2)) && noexcept(z(T())));
@@ -73,12 +75,15 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Construct a vector3 from a vector2 with Z coordinate.
         ///
+        /// \param vector2: Vector2 to construct.
+        /// \param z: Z coordinate.
+        ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Vector3(const Vector2<T> &vector2, const T z) noexcept(
             noexcept(Vector2<T>(vector2)) && noexcept(T(z)));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
+        /// \brief Construct the vector3 from another type of vector3.
         ///
         /// This constructor doesn't replace the copy constructor,
         /// it's called only when U != T.
@@ -94,30 +99,15 @@ namespace game {
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
-        ///
-        /// This constructor doesn't replace the move constructor,
-        /// it's called only when U != T.
-        /// A call to this constructor will fail to compile if U
-        /// is not convertible to T.
-        ///
-        /// \param vector3: Vector3 to convert.
-        ////////////////////////////////////////////////////////////
-        template <typename U>
-            requires std::is_arithmetic_v<U>
-        constexpr explicit Vector3(Vector3<U> &&vector3) noexcept(
-            noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
-
-        ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
         ///
-        /// This operator compares strict equality between two vectors.
+        /// This operator compares strict equality between two vector3s.
         ///
         /// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
         /// Thus, it's not necessary to define operator != and you can still use operator != normally.
         ///
-        /// \param left: Left operand (a vector).
-        /// \param right: Right operand (a vector).
+        /// \param left: Left operand (a vector3).
+        /// \param right: Right operand (a vector3).
         ///
         /// \return True if \a left is equal to \a right.
         ///
@@ -129,7 +119,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector3 of (0, 0, 0).
         ///
-        /// \return A Vector3 of (0, 0, 0).
+        /// \return Vector3 of (0, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector3<T> zero() noexcept(
@@ -138,7 +128,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector3 of (1, 1, 1).
         ///
-        /// \return A Vector3 of (1, 1, 1).
+        /// \return Vector3 of (1, 1, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector3<T> one() noexcept(
@@ -147,7 +137,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector3 of (1, 0, 0).
         ///
-        /// \return A Vector3 of (1, 0, 0).
+        /// \return Vector3 of (1, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector3<T> unitX() noexcept(
@@ -156,7 +146,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector3 of (0, 1, 0).
         ///
-        /// \return A Vector3 of (0, 1, 0).
+        /// \return Vector3 of (0, 1, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector3<T> unitY() noexcept(
@@ -165,7 +155,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector3 of (0, 0, 1).
         ///
-        /// \return A Vector3 of (0, 0, 1).
+        /// \return Vector3 of (0, 0, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector3<T> unitZ() noexcept(
@@ -175,10 +165,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector3).
+    /// \param right: Right operand (a vector3).
     ///
-    /// \return Memberwise addition of both vectors.
+    /// \return Memberwise addition of both vector3s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -192,11 +182,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +=
     ///
-    /// This operator performs a memberwise addition of both vectors,
+    /// This operator performs a memberwise addition of both vector3s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector3).
+    /// \param right: Right operand (a vector3).
     ///
     /// \return Const-reference to \a left.
     ///
@@ -210,9 +200,9 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of unary operator -
     ///
-    /// \param right: Vector to negate.
+    /// \param right: Vector3 to negate.
     ///
-    /// \return Memberwise opposite of the vector.
+    /// \return Memberwise opposite of the vector3.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -225,10 +215,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector3).
+    /// \param right: Right operand (a vector3).
     ///
-    /// \return Memberwise subtraction of both vectors.
+    /// \return Memberwise subtraction of both vector3s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -242,11 +232,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -=
     ///
-    /// This operator performs a memberwise subtraction of both vectors,
+    /// This operator performs a memberwise subtraction of both vector3s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector3).
+    /// \param right: Right operand (a vector3).
     ///
     /// \return Reference to \a left.
     ///
@@ -260,7 +250,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator *
     ///
-    /// \param left: Left operand (a vector).
+    /// \param left: Left operand (a vector3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise multiplication by \a right.
@@ -277,7 +267,7 @@ namespace game {
     /// \brief Overload of binary operator *
     ///
     /// \param left: Left operand (a scalar value).
-    /// \param right: Right operand (a vector).
+    /// \param right: Right operand (a vector3).
     ///
     /// \return Memberwise multiplication by \a left.
     ///
@@ -295,7 +285,7 @@ namespace game {
     /// This operator performs a memberwise multiplication by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left:  Left operand (a vector).
+    /// \param left: Left operand (a vector3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.
@@ -308,7 +298,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator /
     ///
-    /// \param left:  Left operand (a vector).
+    /// \param left: Left operand (a vector3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise division by \a right.
@@ -327,7 +317,7 @@ namespace game {
     /// This operator performs a memberwise division by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left:  Left operand (a vector).
+    /// \param left: Left operand (a vector3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.

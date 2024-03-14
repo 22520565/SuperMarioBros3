@@ -1,12 +1,13 @@
 #pragma once
-#include "Angle.hpp"
+#include "Rotation3.hpp"
 #include "Transform.hpp"
 #include <cmath>
 #include <cstdint>
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    /// \brief Decomposed transform defined by a position, a rotation and a scale
+    /// \brief Decomposed transform defined by a position,
+    /// a rotation and a scalation.
     ///
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
@@ -16,13 +17,13 @@ namespace game {
         /// \brief Default constructor.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr Transformable() noexcept = default;
+        constexpr Transformable() = default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Virtual destructor
         ///
         ////////////////////////////////////////////////////////////
-        constexpr virtual ~Transformable() noexcept = default;
+        constexpr virtual ~Transformable() = default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the position of the object.
@@ -39,31 +40,15 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Set the rotation of the object.
         ///
-        /// This function completely overwrites the previous rotation
-        /// except the rotation center point.
-        /// See the rotate function to add an angle based on the previous rotation angles instead.
-        /// The default rotation angles of a transformable object is (0, 0, 0).
-        /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
-        ///
-        /// \param angle: Rotation angle in three dimensions, in degrees.
-        /// \param center: Coordinate of the center point to rotate.
-        ///
-        ////////////////////////////////////////////////////////////
-        constexpr void setRotation(const Angle3<T> &angle3) noexcept;
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Set the rotation of the object.
-        ///
         /// This function completely overwrites the previous rotation.
         /// See the rotate function to add an angle based on the previous rotation angles instead.
         /// The default rotation angles of a transformable object is (0, 0, 0).
         /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
         ///
-        /// \param angle: Rotation angle in three dimensions, in degrees.
-        /// \param center: Coordinate of the center point to rotate.
+        /// \param rotation: New rotation3.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setRotation(const Angle3<T> &angle3, const Vector3<T> &center) noexcept;
+        constexpr void setRotation(const Rotation3<T> &newRotation) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the scalation of the object.
@@ -104,23 +89,13 @@ namespace game {
         constexpr const Vector3<T> &getPosition() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get the rotation angle of the object.
-        /// The value of every angle is always in the range [0, 360).
+        /// \brief Get the rotation of the object.
         ///
-        /// \return Current rotation angle in three dimensions, in degrees.
-        ///
-        ////////////////////////////////////////////////////////////
-        [[nodiscard]]
-        constexpr const Angle3<T> &getRotationAngle() const noexcept;
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get the rotation center point of the object.
-        ///
-        /// \return Coordinate of the current rotation center point.
+        /// \return Current rotation.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr const Vector3<T> &getRotationCenter() const noexcept;
+        constexpr const Rotation3<T> &getRotation() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the current scalation factor of the object.
@@ -161,10 +136,11 @@ namespace game {
         /// unlike setRotation which overwrites it. The rotation center point stays remain.
         /// Thus, it is equivalent to the following code:
         /// \code
-        /// object.setRotation(object.getRotationAngle() + angle, object.getRotationCenter());
+        /// auto rotation = object.getRotation();
+        /// object.setRotation({rotation.getAngle() + angle, rotation.getCenter()});
         /// \endcode
         ///
-        /// \param angle: Rotation angle in three dimensions, in degrees.
+        /// \param angle3: Rotation angle.
         ///
         ////////////////////////////////////////////////////////////
         constexpr void rotate(const Angle3<T> &angle3) noexcept;
@@ -201,9 +177,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Vector3<T> position = Vector3<T>::zero();        // Position of the object.
-        Angle3<T> rotationAngle3 = Angle3<T>::zero();    // Rotation angle of the object.
-        Vector3<T> rotationCenter = Vector3<T>::zero();  // Rotation center point of the object.
+        Vector3<T> position = Vector3<T>::zero(); // Position of the object.
+        Rotation3<T> rotation = Rotation3<T>();
         Vector3<T> scalationFactor = Vector3<T>::one();  // Scalation factor of the object.
         Vector3<T> scalationCenter = Vector3<T>::zero(); // Scalation center point of the object.
         mutable Transform<T> transform = Transform<T>();

@@ -1,7 +1,8 @@
 #pragma once
 #include "Angle.hpp"
 #include "Angle3.hpp"
-#include "D3DX10math.h"
+#include "Rotation3.hpp"
+#include <D3DX10math.h>
 #include <cmath>
 #include <minwindef.h>
 
@@ -98,7 +99,7 @@ namespace game {
         /// \brief Combine the current transform with a rotation with
         /// a center point of (0, 0, 0).
         ///
-        /// \param angle3: Rotation angle in three dimensions.
+        /// \param angle3: Angle3 of the rotation.
         ///
         /// \return The result of combination.
         ///
@@ -110,14 +111,25 @@ namespace game {
         /// \brief Combine the current transform with a rotation with
         /// a specified center point.
         ///
-        /// \param angle3: Rotation angle in three dimensions.
+        /// \param angle3: Angle3 of the rotation.
         /// \param center: Coordinate of center point to rotate.
         ///
         /// \return The result of combination.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept;
+        constexpr Transform<T> rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a rotation.
+        ///
+        /// \param rotation3: Rotation to combine.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Transform<T> rotate(const Rotation3<T> &rotation3) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a rotation with

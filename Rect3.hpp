@@ -3,12 +3,26 @@
 #include "Vector3.hpp"
 
 namespace game {
+    ////////////////////////////////////////////////////////////
+    /// \brief Utility class for manipulating 3D axis aligned rectangulars.
+    ///
+    ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     class Rect3 : public Rect2<T> {
       public:
-        T front = T();
-        T depth = T();
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        T front = T(); // Front coordinate of the rect.
+        T depth = T(); // Depth of the rect.
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor.
+        /// Creates an empty rectangular (it is equivalent to calling
+        /// Rect3({0, 0, 0}, {0, 0, 0})).
+        ///
+        ////////////////////////////////////////////////////////////
         constexpr Rect3<T>() = default;
 
         ////////////////////////////////////////////////////////////
@@ -22,6 +36,27 @@ namespace game {
         ////////////////////////////////////////////////////////////
         constexpr explicit Rect3(const Vector3<T> &position, const Vector3<T> &size) noexcept(
             noexcept(Rect2<T>(position, size)) && noexcept(T(position.z)) && noexcept(T(size.z)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct a rectangular from a rectangle.
+        ///
+        /// \param rect2: Rectangle to construct.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr explicit Rect3(const Rect2<T> &rect2) noexcept(
+            noexcept(Rect2<T>(rect2)) && noexcept(T(T())));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct a rectangular from a rectangle with
+        /// its front coordinate and its depth.
+        ///
+        /// \param rect2: Rectangle to construct.
+        /// \param front: Position of the front.
+        /// \param depth: Size in depth.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr explicit Rect3(const Rect2<T> &rect2, const T front, const T depth) noexcept(
+            noexcept(Rect2<T>(rect2)) && noexcept(T(front)) && noexcept(T(depth)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the rectangular from another type of rectangular.
@@ -40,6 +75,26 @@ namespace game {
             noexcept(Rect2<T>(rect3)) && noexcept(T(rect3.front)) && noexcept(T(rect3.depth)));
 
         ////////////////////////////////////////////////////////////
+        /// \brief Get the position of the rectangular's top-left-front corner
+        ///
+        /// \return Position of rectangular
+        ///
+        /// \see getSize, getCenter
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Vector3<T> getPosition() const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the size of the rectangular
+        ///
+        /// \return Size of rectangle
+        ///
+        /// \see getPosition, getCenter
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Vector3<T> getSize() const noexcept;
+
+        ////////////////////////////////////////////////////////////
         /// \brief Get the position of the center of the rectangular.
         ///
         /// \return Center of rectangular.
@@ -48,6 +103,30 @@ namespace game {
         constexpr Vector3<T> getCenter() const noexcept {
             return Vector3<T>(Rect2<T>::getCenter(), this->front + (this->depth / T(2)));
         }
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get a copy of the rectangular that its size
+        /// is wrapped to unsigned.
+        ///
+        /// \return An unsigned-wrapped-size rectangular.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Rect3<T> wrapSizeUnsigned() const noexcept(
+            noexcept(Rect3<T>(Rect2<T>::wrapSizeUnsigned(), T(), T())));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Check if a point is inside the rectangular's area.
+        ///
+        /// This check is non-inclusive. If the point lies on the
+        /// edge of the rectangular, this function will return false.
+        ///
+        /// \param point: Point to test.
+        ///
+        /// \return True if the point is inside, false otherwise.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr bool contains(const Vector3<T> &point) const noexcept(
+            noexcept(wrapSizeUnsigned()) && noexcept(Rect2<T>::contains(point)));
     };
 }
 

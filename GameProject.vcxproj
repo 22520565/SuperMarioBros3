@@ -232,6 +232,7 @@
     <None Include="Rect2.inl" />
     <None Include="Rect3.inl" />
     <None Include="Rotation2.inl" />
+    <None Include="Rotation3.inl" />
     <None Include="stdfloat" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>
@@ -245,6 +246,7 @@
     <None Include="Vector3.inl">
       <FileType>Document</FileType>
     </None>
+    <None Include="View.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc" />

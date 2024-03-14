@@ -12,7 +12,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Angle<T> z = Angle<T>::zero();
+        Angle<T> z = Angle<T>::zero(); // Angle to the Z axis.
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
@@ -23,11 +23,11 @@ namespace game {
         constexpr Angle3() = default;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the angle3 from cartesian coordinates.
+        /// \brief Construct the angle3 from its angle.
         ///
-        /// \param x: X coordinate.
-        /// \param y: Y coordinate.
-        /// \param z: Z coordinate.
+        /// \param x: Angle to the X axis.
+        /// \param y: Angle to the Y axis.
+        /// \param z: Angle to the Z axis.
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit(false) Angle3(const Angle<T> x, const Angle<T> y, const Angle<T> z) noexcept(
@@ -35,6 +35,8 @@ namespace game {
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct an angle3 from an angle2.
+        ///
+        /// \param angle2: Angle2 to construct.
         ///
         ////////////////////////////////////////////////////////////
         constexpr explicit Angle3(const Angle2<T> &angle2) noexcept(
@@ -48,7 +50,7 @@ namespace game {
             noexcept(Angle2<T>(angle2)) && noexcept(Angle<T>(z)));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
+        /// \brief Construct the angle3 from another type of angle3.
         ///
         /// This constructor doesn't replace the copy constructor,
         /// it's called only when U != T.
@@ -63,20 +65,6 @@ namespace game {
             noexcept(Angle2<T>(angle3)) && noexcept(Angle<T>(static_cast<Angle<T>>(angle3.z))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
-        ///
-        /// This constructor doesn't replace the move constructor,
-        /// it's called only when U != T.
-        /// A call to this constructor will fail to compile if U
-        /// is not convertible to T.
-        ///
-        /// \param angle3: Angle3 to convert.
-        ////////////////////////////////////////////////////////////
-        template <std::floating_point U>
-        constexpr explicit Angle3(Angle3<U> &&angle3) noexcept(
-            noexcept(Angle2<T>(angle3)) && noexcept(Angle<T>(static_cast<Angle<T>>(angle3.z))));
-
-        ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
         ///
         /// This operator compares strict equality between two angles.
@@ -84,8 +72,8 @@ namespace game {
         /// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
         /// Thus, it's not necessary to define operator != and you can still use operator != normally.
         ///
-        /// \param left: Left operand (an angle).
-        /// \param right: Right operand (an angle).
+        /// \param left: Left operand (an angle3).
+        /// \param right: Right operand (an angle3).
         ///
         /// \return True if \a left is equal to \a right.
         ///
@@ -95,9 +83,10 @@ namespace game {
         operator==(const Angle3<T> &left, const Angle3<T> &right) = default;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the angle's value in degrees.
+        /// \brief Return a vector3 containing the value of
+        /// three corresponding angles in degrees.
         ///
-        /// \return Angle in degrees.
+        /// \return Vector3 of three angles in degrees.
         ///
         /// \see asRadians.
         ///
@@ -107,9 +96,10 @@ namespace game {
             noexcept(Vector3<const T &>(Angle3<T>().Angle2<T>::asDegrees(), z.asDegrees())));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the angle's value in radians
+        /// \brief Return a vector3 containing the value of
+        /// three corresponding angles in radians.
         ///
-        /// \return Angle in radians
+        /// \return Vector3 of three angles in radians.
         ///
         /// \see asDegrees
         ///
@@ -151,11 +141,9 @@ namespace game {
             noexcept(Angle3<T>(Angle3<T>().Angle2<T>::wrapUnsigned(), z.wrapUnsigned())));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get an Angle3 of (0_deg, 0_deg, 0_deg).
+        /// \brief Get an Angle3 of (0, 0, 0).
         ///
-        /// It's equivalent to (0_rad, 0_rad, 0_rad).
-        ///
-        /// \return An Angle3 of (0, 0, 0).
+        /// \return Angle3 of (0, 0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> zero() noexcept(
@@ -164,7 +152,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (1_deg, 1_deg, 1_deg).
         ///
-        /// \return An Angle3 of (1_deg, 1_deg, 1_deg).
+        /// \return Angle3 of (1_deg, 1_deg, 1_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_deg() noexcept(
@@ -173,7 +161,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (1_deg, 0_deg, 0_deg).
         ///
-        /// \return An Angle3 of (1_deg, 0_deg, 0_deg).
+        /// \return Angle3 of (1_deg, 0_deg, 0_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_deg() noexcept(
@@ -182,7 +170,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (0_deg, 1_deg, 0_deg).
         ///
-        /// \return An Angle3 of (0_deg, 1_deg, 0_deg).
+        /// \return Angle3 of (0_deg, 1_deg, 0_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_deg() noexcept(
@@ -191,7 +179,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (0_deg, 0_deg, 1_Deg).
         ///
-        /// \return An Angle3 of (0_deg, 0_deg, 1_deg).
+        /// \return Angle3 of (0_deg, 0_deg, 1_deg).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_deg() noexcept(
@@ -200,7 +188,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (1_rad, 1_rad, 1_rad).
         ///
-        /// \return An Angle3 of (1_rad, 1_rad, 1_rad).
+        /// \return Angle3 of (1_rad, 1_rad, 1_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> one_rad() noexcept(
@@ -209,7 +197,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (1_rad, 0_rad, 0_rad).
         ///
-        /// \return An Angle3 of (1_rad, 0_rad, 0_rad).
+        /// \return Angle3 of (1_rad, 0_rad, 0_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitX_rad() noexcept(
@@ -218,7 +206,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (0_rad, 1_rad, 0_rad).
         ///
-        /// \return An Angle3 of (0_rad, 1_rad, 0_rad).
+        /// \return Angle3 of (0_rad, 1_rad, 0_rad).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitY_rad() noexcept(
@@ -227,7 +215,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle3 of (0_rad, 0_rad, 1_rad).
         ///
-        /// \return An Angle3 of (0, 0, 1).
+        /// \return Angle3 of (0, 0, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Angle3<T> unitZ_rad() noexcept(
@@ -237,10 +225,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +
     ///
-    /// \param left: Left operand (an angle).
-    /// \param right: Right operand (an angle).
+    /// \param left: Left operand (an angle3).
+    /// \param right: Right operand (an angle3).
     ///
-    /// \return Memberwise addition of both vectors.
+    /// \return Memberwise addition of both angle3s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -254,11 +242,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +=
     ///
-    /// This operator performs a memberwise addition of both vectors,
+    /// This operator performs a memberwise addition of both angle3s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (an angle).
-    /// \param right: Right operand (an angle).
+    /// \param left: Left operand (an angle3).
+    /// \param right: Right operand (an angle3).
     ///
     /// \return Const-reference to \a left.
     ///
@@ -272,9 +260,9 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of unary operator -
     ///
-    /// \param right: Vector to negate.
+    /// \param right: Angle3 to negate.
     ///
-    /// \return Memberwise opposite of the vector.
+    /// \return Memberwise opposite of the angle3.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -287,10 +275,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -
     ///
-    /// \param left: Left operand (an angle).
-    /// \param right: Right operand (an angle).
+    /// \param left: Left operand (an angle3).
+    /// \param right: Right operand (an angle3).
     ///
-    /// \return Memberwise subtraction of both vectors.
+    /// \return Memberwise subtraction of both angle3s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -304,11 +292,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -=
     ///
-    /// This operator performs a memberwise subtraction of both vectors,
+    /// This operator performs a memberwise subtraction of both angle3s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (an angle).
-    /// \param right: Right operand (an angle).
+    /// \param left: Left operand (an angle3).
+    /// \param right: Right operand (an angle3).
     ///
     /// \return Reference to \a left.
     ///
@@ -322,7 +310,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator *
     ///
-    /// \param left: Left operand (an angle).
+    /// \param left: Left operand (an angle3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise multiplication by \a right.
@@ -339,7 +327,7 @@ namespace game {
     /// \brief Overload of binary operator *
     ///
     /// \param left: Left operand (a scalar value).
-    /// \param right: Right operand (an angle).
+    /// \param right: Right operand (an angle3).
     ///
     /// \return Memberwise multiplication by \a left.
     ///
@@ -357,7 +345,7 @@ namespace game {
     /// This operator performs a memberwise multiplication by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left:  Left operand (an angle).
+    /// \param left:  Left operand (an angle3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.
@@ -370,7 +358,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator /
     ///
-    /// \param left:  Left operand (an angle).
+    /// \param left:  Left operand (an angle3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise division by \a right.
@@ -389,7 +377,7 @@ namespace game {
     /// This operator performs a memberwise division by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left:  Left operand (an angle).
+    /// \param left:  Left operand (an angle3).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.

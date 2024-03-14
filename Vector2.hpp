@@ -63,7 +63,7 @@ namespace game {
             noexcept(T(x)) && noexcept(T(y)));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
+        /// \brief Construct the vector2 from another type of vector2.
         ///
         /// This constructor doesn't replace the copy constructor,
         /// it's called only when U != T.
@@ -79,22 +79,6 @@ namespace game {
             noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the vector from another type of vector.
-        ///
-        /// This constructor doesn't replace the move constructor,
-        /// it's called only when U != T.
-        /// A call to this constructor will fail to compile if U
-        /// is not convertible to T.
-        ///
-        /// \param vector2: Vector2 to convert.
-        ///
-        ////////////////////////////////////////////////////////////
-        template <typename U>
-            requires std::is_arithmetic_v<U>
-        constexpr explicit Vector2(Vector2<U> &&vector2) noexcept(
-            noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))));
-
-        ////////////////////////////////////////////////////////////
         /// \brief Overload of binary operator ==
         ///
         /// This operator compares strict equality between two vectors.
@@ -102,8 +86,8 @@ namespace game {
         /// \note Since C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
         /// Thus, it's not necessary to define operator != and you can still use operator != normally.
         ///
-        /// \param left: Left operand (a vector).
-        /// \param right: Right operand (a vector).
+        /// \param left: Left operand (a vector2).
+        /// \param right: Right operand (a vector2).
         ///
         /// \return True if \a left is equal to \a right.
         ///
@@ -115,7 +99,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector2 of (0, 0).
         ///
-        /// \return A Vector2 of (0, 0).
+        /// \return Vector2 of (0, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector2<T> zero() noexcept(
@@ -124,7 +108,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector2 of (1, 1).
         ///
-        /// \return A Vector2 of (1, 1).
+        /// \return Vector2 of (1, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector2<T> one() noexcept(
@@ -133,7 +117,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector2 of (1, 0).
         ///
-        /// \return A Vector2 of (1, 0).
+        /// \return Vector2 of (1, 0).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector2<T> unitX() noexcept(
@@ -142,7 +126,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get a Vector2 of (0, 1).
         ///
-        /// \return A Vector2 of (0, 1).
+        /// \return Vector2 of (0, 1).
         ///
         ////////////////////////////////////////////////////////////
         static consteval Vector2<T> unitY() noexcept(
@@ -152,10 +136,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector2).
+    /// \param right: Right operand (a vector2).
     ///
-    /// \return Memberwise addition of both vectors.
+    /// \return Memberwise addition of both vector2s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -168,11 +152,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator +=
     ///
-    /// This operator performs a memberwise addition of both vectors,
+    /// This operator performs a memberwise addition of both vector2s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector2).
+    /// \param right: Right operand (a vector2).
     ///
     /// \return Const-reference to \a left.
     ///
@@ -185,9 +169,9 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of unary operator -
     ///
-    /// \param right: Vector to negate.
+    /// \param right: Vector2 to negate.
     ///
-    /// \return Memberwise opposite of the vector.
+    /// \return Memberwise opposite of the vector2.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -199,10 +183,10 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector2).
+    /// \param right: Right operand (a vector2).
     ///
-    /// \return Memberwise subtraction of both vectors.
+    /// \return Memberwise subtraction of both vector2s.
     ///
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -215,11 +199,11 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator -=
     ///
-    /// This operator performs a memberwise subtraction of both vectors,
+    /// This operator performs a memberwise subtraction of both vector2s,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
-    /// \param right: Right operand (a vector).
+    /// \param left: Left operand (a vector2).
+    /// \param right: Right operand (a vector2).
     ///
     /// \return Reference to \a left.
     ///
@@ -232,7 +216,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     /// \brief Overload of binary operator *
     ///
-    /// \param left: Left operand (a vector).
+    /// \param left: Left operand (a vector2).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise multiplication by \a right.
@@ -249,7 +233,7 @@ namespace game {
     /// \brief Overload of binary operator *
     ///
     /// \param left: Left operand (a scalar value).
-    /// \param right: Right operand (a vector).
+    /// \param right: Right operand (a vector2).
     ///
     /// \return Memberwise multiplication by \a left.
     ///
@@ -267,7 +251,7 @@ namespace game {
     /// This operator performs a memberwise multiplication by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
+    /// \param left: Left operand (a vector2).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.
@@ -283,7 +267,7 @@ namespace game {
     ///
     /// \note Avoid 0 in the right operand.
     ///
-    /// \param left: Left operand (a vector).
+    /// \param left: Left operand (a vector2).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Memberwise division by \a right.
@@ -304,7 +288,7 @@ namespace game {
     /// This operator performs a memberwise division by \a right,
     /// and assigns the result to \a left.
     ///
-    /// \param left: Left operand (a vector).
+    /// \param left: Left operand (a vector2).
     /// \param right: Right operand (a scalar value).
     ///
     /// \return Reference to \a left.

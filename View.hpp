@@ -8,23 +8,23 @@ namespace game {
     /// \brief 3D camera that defines what region is shown on screen.
     ///
     ////////////////////////////////////////////////////////////
+    template <std::floating_point T>
     class View final {
       public:
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
         ///
-        /// This constructor creates a default view of (0, 0, 1000, 1000).
-        ///
         ////////////////////////////////////////////////////////////
-        constexpr View();
+        constexpr View() noexcept = default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the view from a rectangular.
         ///
-        /// \param rectangle Rectangular defining the zone to display.
+        /// \param rect3: Rectangular defining the zone to display.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Rect3<FLOAT> &rect3);
+        constexpr explicit View(const Rect3<T> &rect3) noexcept(
+            noexcept(Vector3<T>(rect3.getCenter())) && noexcept(Vector3<T>(rect3.getSize())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct the view from its center and size.
@@ -33,22 +33,8 @@ namespace game {
         /// \param size   Size of zone to display.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Vector3f &center, const Vector3f &size);
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Set the target viewport
-        ///
-        /// The viewport is the rectangle into which the contents of the
-        /// view are displayed, expressed as a factor (between 0 and 1)
-        /// of the size of the RenderTarget to which the view is applied.
-        /// For example, a view which takes the left side of the target would
-        /// be defined with View.setViewport(sf::FloatRect(0, 0, 0.5, 1)).
-        /// By default, a view has a viewport which covers the entire target.
-        ///
-        /// \param viewport New viewport rectangular.
-        ///
-        ////////////////////////////////////////////////////////////
-        void setViewport(const Rect2<FLOAT> &viewport);
+        constexpr explicit View(const Vector3<T> &center, const Vector3<T> &size) noexcept(
+            noexcept(Vector3<T>(center)) && noexcept(Vector3<T>(size)));
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the center of the view
@@ -103,24 +89,25 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         D3DXMATRIX getTransform() const noexcept {
-           const Vector3f position = this->center - (this->size) / 2.0F;
+            const Vector3f position = this->center - (this->size) / 2.0F;
             D3DXMATRIX matProjection = D3DXMATRIX();
             D3DXMatrixOrthoOffCenterLH(
                 &matProjection,
                 position.x,
-                position.x+size.x,
+                position.x + size.x,
                 position.y,
-                position.y+size.y,
+                position.y + size.y,
                 position.z,
-                position.z+size.z);
+                position.z + size.z);
             return matProjection;
         }
 
       private:
-        Vector3f center; // Center of the view, in scene coordinates
-        Vector3f size;   // Size of the view, in scene coordinates
-        FLOAT rotation;        // Angle of rotation of the view rectangle, in degrees
-        Rect2<FLOAT> viewport = // Viewport rectangle, expressed as a factor of the render-target's size
-            Rect2<FLOAT>(Vector2<FLOAT>::zero(), Vector2<FLOAT>::one());
+        Vector3<T> center = Vector3<T>::zero();          // Center of the view, in scene coordinates
+        Vector3<T> size = Vector3<T>::zero();            // Size of the view, in scene coordinates
+        Angle3<T> rotationAngle3 = Angle3<T>::zero();    // Angle of rotation of the view rectangular
+        Angle3<T> rotationCenter = Vector3<T>::zero();   // Center of rotation of the view rectangular
+        mutable Transform<T> transform = Transform<T>(); // Precomputed projection transform corresponding to the view
+        mutable bool transformNeedUpdate = false;        // Internal state telling if the transform needs to be updated
     };
 }

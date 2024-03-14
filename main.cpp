@@ -171,10 +171,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     texture.loadFromFile(L"textures/bbox.png", window.getDevice());
     game::Sprite sprite = game::Sprite(texture);
     game::Rect3<float> a = game::Rect3<float>({ 3.0F,4.0F,5.0F },{2.0F,4.0F,6.0F});
-    a.top = 2;
-    auto b(a);
     // sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
-    sprite.setRotation(game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(b.left, 0.0F, 0.0F));
+    sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(a.left, 0.0F, 0.0F) });
+    game::Vector2f c = a.getPosition();
     
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {

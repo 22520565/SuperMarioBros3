@@ -30,14 +30,6 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    template <std::floating_point U>
-    constexpr Angle3<T>::Angle3(Angle3<U> &&angle3) noexcept(
-        noexcept(Angle2<T>(angle3)) && noexcept(Angle<T>(static_cast<Angle<T>>(angle3.z))))
-        : Angle2<T>(angle3), z(static_cast<Angle<T>>(angle3.z)) {}
-
-    ////////////////////////////////////////////////////////////
-    template <typename T>
-        requires std::is_floating_point_v<std::remove_reference_t<T>>
     constexpr Vector3<const T &> Angle3<T>::asDegrees() const noexcept(
         noexcept(Vector3<const T &>(Angle3<T>().Angle2<T>::asDegrees(), z.asDegrees()))) {
         return Vector3<const T &>(this->Angle2<T>::asDegrees(), this->z.asDegrees());

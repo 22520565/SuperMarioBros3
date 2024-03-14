@@ -251,6 +251,12 @@
     <None Include="Rotation2.inl">
       <Filter>Inline Files</Filter>
     </None>
+    <None Include="View.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Rotation3.inl">
+      <Filter>Inline Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc">

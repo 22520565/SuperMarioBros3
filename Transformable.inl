@@ -10,16 +10,8 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
-    constexpr void Transformable<T>::setRotation(const Angle3<T> &angle3) noexcept {
-        this->rotationAngle3 = angle3.wrapUnsigned();
-        this->transformNeedUpdate = true;
-    }
-
-    ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
-    constexpr void Transformable<T>::setRotation(const Angle3<T> &angle3, const Vector3<T> &center) noexcept {
-        this->rotationAngle3 = angle3.wrapUnsigned();
-        this->rotationCenter = center;
+    constexpr void Transformable<T>::setRotation(const Rotation3<T> &newRotation) noexcept {
+        this->rotation = newRotation;
         this->transformNeedUpdate = true;
     }
 
@@ -44,11 +36,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
-    constexpr const Angle3<T> &Transformable<T>::getRotationAngle() const noexcept { return this->rotationAngle3; }
-
-    ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
-    constexpr const Vector3<T> &Transformable<T>::getRotationCenter() const noexcept { return this->rotationCenter; }
+    constexpr const Rotation3<T> &Transformable<T>::getRotation() const noexcept { return this->rotation; }
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
@@ -66,7 +54,9 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
     constexpr void Transformable<T>::rotate(const Angle3<T> &angle3) noexcept {
-        this->setRotation(this->rotationAngle3 + angle3);
+        this->setRotation(Rotation3<T>(
+            this->rotation.getAngle() + angle3,
+            this->rotation.getCenter()));
     }
 
     template <std::floating_point T>
@@ -80,12 +70,12 @@ namespace game {
     template <std::floating_point T>
     constexpr const Transform<T> &Transformable<T>::getTransform() const {
         if (this->transformNeedUpdate) [[likely]] {
-            const Vector3<T> rad = this->rotationAngle3.asRadians();
+        //    const Vector3<T> rad = this->rotationAngle3.asRadians();
 
             // TODO: calc this
             this->transform = Transform<T>()
                                   .translate(this->position)
-                                  .rotate(this->rotationAngle3, this->rotationCenter)
+                                  .rotate(this->rotation)
                                   .scale(this->scalationFactor, this->scalationCenter);
             this->transformNeedUpdate = false;
         }

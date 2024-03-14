@@ -209,7 +209,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle of 0.
         ///
-        /// \return An angle of 0.
+        /// \return Angle of 0.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
@@ -218,7 +218,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle of 1.0_deg.
         ///
-        /// \return An angle of 1.0_deg.
+        /// \return Angle of 1.0_deg.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
@@ -227,7 +227,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Get an Angle of 1.0_rad.
         ///
-        /// \return An angle of 1.0_rad.
+        /// \return Angle of 1.0_rad.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
@@ -252,7 +252,6 @@ namespace game {
     };
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary + operator to add two angle values.
     ///
     /// \param left: Left operand (an angle).
@@ -269,7 +268,6 @@ namespace game {
         noexcept(Angle<T>::degrees(left.asDegrees() + right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary += operator to add/assign two angle values.
     ///
     /// \param left: Left operand (an angle).
@@ -284,7 +282,6 @@ namespace game {
         noexcept(left = (left + right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of unary - operator to negate an angle value.
     ///
     /// Represents a rotation in the opposite direction.
@@ -301,7 +298,6 @@ namespace game {
     operator-(const Angle<T> right) noexcept(noexcept(Angle<T>::degrees(-right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary - operator to subtract two angle values.
     ///
     /// \param left: Left operand (an angle).
@@ -318,7 +314,6 @@ namespace game {
         noexcept(Angle<T>::degrees(left.asDegrees() - right.asDegrees())));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary -= operator to subtract/assign two angle values.
     ///
     /// \param left: Left operand (an angle).
@@ -333,7 +328,6 @@ namespace game {
         noexcept(left = (left - right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary * operator to scale an angle value.
     ///
     /// \param left: Left operand (an angle).
@@ -350,7 +344,6 @@ namespace game {
         noexcept(Angle<T>::degrees(left.asDegrees() * right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary * operator to scale an angle value.
     ///
     /// \param left: Left operand (a number).
@@ -366,7 +359,6 @@ namespace game {
     operator*(const T left, const Angle<T> right) noexcept(noexcept(right * left));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary *= operator to scale/assign an angle value.
     ///
     /// \param left: Left operand (an angle).
@@ -381,7 +373,6 @@ namespace game {
         noexcept(left = (left * right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary / operator to scale an angle value.
     ///
     /// \param left: Left operand (an angle).
@@ -398,7 +389,6 @@ namespace game {
         noexcept(Angle<T>::degrees(left.asDegrees() / right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary /= operator to scale/assign an angle value.
     ///
     /// \param left: Left operand (an angle).
@@ -413,7 +403,6 @@ namespace game {
         noexcept(left = (left / right)));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary / operator to compute the ratio of two angle values.
     ///
     /// \param left: Left operand (an angle).
@@ -430,7 +419,6 @@ namespace game {
         noexcept(left.asDegrees() / right.asDegrees()));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
     /// \brief Overload of binary % operator to compute modulo of an angle value.
     ///
     /// Right hand angle must be greater than zero.
@@ -455,8 +443,7 @@ namespace game {
         noexcept(Angle<T>::degrees(std::fmod(left.asDegrees(), right.asDegrees()))));
 
     ////////////////////////////////////////////////////////////
-    /// \relates Angle
-    /// \brief Overload of binary %= operator to compute/assign remainder of an angle value
+    /// \brief Overload of binary %= operator to compute/assign remainder of an angle value.
     ///
     /// \param left: Left operand (an angle)
     /// \param right: Right operand (an angle)
@@ -484,8 +471,7 @@ namespace game {
             noexcept(Angle<long double>::degrees(angle)));
 
         ////////////////////////////////////////////////////////////
-        /// \relates sf::Angle
-        /// \brief User defined literal for angles in degrees, e.g. 90_deg
+        /// \brief User defined literal for angles in degrees, e.g. 90_deg.
         ///
         /// \param angle Angle in degrees
         ///
@@ -511,8 +497,7 @@ namespace game {
             noexcept(Angle<long double>::radians(angle)));
 
         ////////////////////////////////////////////////////////////
-        /// \relates sf::Angle
-        /// \brief User defined literal for angles in radians, e.g. 2_rad
+        /// \brief User defined literal for angles in radians, e.g. 2_rad.
         ///
         /// \param angle Angle in radians
         ///

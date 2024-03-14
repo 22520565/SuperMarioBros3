@@ -17,11 +17,12 @@
 //    and must not be misrepresented as being the original software.
 //
 // 3. This notice may not be removed or altered from any source distribution.
-// * This inline file has been altered after copying from origin!
+//
+// *. This inline file has been altered after copying from origin!
 //
 ////////////////////////////////////////////////////////////
 #include "Rect2.hpp"
-#include "Vector2.hpp"
+#include "Vector2.hpp" W
 #include <type_traits>
 
 namespace game {
@@ -42,6 +43,20 @@ namespace game {
         noexcept(T(rect2.left)) && noexcept(T(rect2.top))
             && noexcept(T(rect2.width)) && noexcept(T(rect2.height)))
         : left(rect2.left), top(rect2.top), width(rect2.width), height(rect2.height) {}
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    constexpr Vector2<T> Rect2<T>::getPosition() const noexcept {
+        return Vector2<T>(this->left, this->top);
+    }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    constexpr Vector2<T> Rect2<T>::getSize() const noexcept {
+        return Vector2<T>(this->width, this->height);
+    }
 
     ////////////////////////////////////////////////////////////
     template <typename T>
@@ -71,6 +86,7 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
+
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr bool Rect2<T>::contains(const Vector2<T> &point) const noexcept(

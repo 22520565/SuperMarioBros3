@@ -24,14 +24,21 @@
 #include "Vector2.hpp"
 
 namespace game {
+    ////////////////////////////////////////////////////////////
+    /// \brief Utility class for manipulating 2D axis aligned rectangles.
+    ///
+    ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     class Rect2 {
       public:
-        T left = T();
-        T top = T();
-        T width = T();
-        T height = T();
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        T left = T();   // Left coordinate of the rect.
+        T top = T();    // Top coordinate of the rect.
+        T width = T();  // Width of the rect.
+        T height = T(); // Height of the rect.
 
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor.
@@ -72,16 +79,38 @@ namespace game {
                 && noexcept(T(rect2.width)) && noexcept(T(rect2.height)));
 
         ////////////////////////////////////////////////////////////
+        /// \brief Get the position of the rectangle's top-left corner
+        ///
+        /// \return Position of rectangle
+        ///
+        /// \see getSize, getCenter
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Vector2<T> getPosition() const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the size of the rectangle
+        ///
+        /// \return Size of rectangle
+        ///
+        /// \see getPosition, getCenter
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr Vector2<T> getSize() const noexcept;
+
+        ////////////////////////////////////////////////////////////
         /// \brief Get the position of the center of the rectangle.
         ///
         /// \return Center of rectangle.
+        ///
+        /// \see getPosition, getSize
         ///
         ////////////////////////////////////////////////////////////
         constexpr Vector2<T> getCenter() const noexcept(
             noexcept(Vector2<T>(left + (width / T(2)), top - (height / T(2)))));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get a copy of a rectangle that its size
+        /// \brief Get a copy of the rectangle that its size
         /// is wrapped to unsigned.
         ///
         /// \return An unsigned-wrapped-size rectangle.

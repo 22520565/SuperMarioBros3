@@ -68,7 +68,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-   constexpr Transform<T> Transform<T>::rotate(const Angle3<T> &angle3) const noexcept {
+    constexpr Transform<T> Transform<T>::rotate(const Angle3<T> &angle3) const noexcept {
         const Vector3<T> rad = angle3.asRadians();
         const T cosX = std::cos(rad.x);
         const T sinX = std::sin(rad.x);
@@ -104,7 +104,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    constexpr  Transform<T> Transform<T>::rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept {
+    constexpr Transform<T> Transform<T>::rotate(const Angle3<T> &angle3, const Vector3<T> &center) const noexcept {
         const Vector3<T> rad = angle3.asRadians();
         const T cosX = std::cos(rad.x);
         const T sinX = std::sin(rad.x);
@@ -129,6 +129,13 @@ namespace game {
             static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(1.0));
 
         return this->combine(rotation);
+    }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    constexpr Transform<T> Transform<T>::rotate(const Rotation3<T> &rotation3) const noexcept {
+        return this->rotate(rotation3.getAngle(), rotation3.getCenter());
     }
 
     ////////////////////////////////////////////////////////////
