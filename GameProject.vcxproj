@@ -182,6 +182,8 @@
     <ClInclude Include="Rotation2.hpp" />
     <ClInclude Include="Rotation3.hpp" />
     <ClInclude Include="SampleKeyEventHandler.hpp" />
+    <ClInclude Include="Scalation2.hpp" />
+    <ClInclude Include="Scalation3.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Sprites.hpp" />
@@ -233,6 +235,8 @@
     <None Include="Rect3.inl" />
     <None Include="Rotation2.inl" />
     <None Include="Rotation3.inl" />
+    <None Include="Scalation2.inl" />
+    <None Include="Scalation3.inl" />
     <None Include="stdfloat" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>

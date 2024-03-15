@@ -150,6 +150,12 @@
     <ClInclude Include="Rotation3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scalation3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scalation2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -255,6 +261,12 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Rotation3.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Scalation2.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Scalation3.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

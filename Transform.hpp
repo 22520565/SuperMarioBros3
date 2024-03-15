@@ -2,6 +2,7 @@
 #include "Angle.hpp"
 #include "Angle3.hpp"
 #include "Rotation3.hpp"
+#include "Scalation3.hpp"
 #include <D3DX10math.h>
 #include <cmath>
 #include <minwindef.h>
@@ -112,7 +113,7 @@ namespace game {
         /// a specified center point.
         ///
         /// \param angle3: Angle3 of the rotation.
-        /// \param center: Coordinate of center point to rotate.
+        /// \param center: Coordinate of the center point to rotate.
         ///
         /// \return The result of combination.
         ///
@@ -142,11 +143,22 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const Angle<T> angle, const Vector3<T> &axis) const noexcept;
+        constexpr Transform<T> rotate(const Angle<T> angle, const Vector3<T> &axis) const noexcept;
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a rotation with
+        /// a specified point.
+        ///
+        /// \param angle: Rotation angle, in degrees.
+        /// \param axis: Unit vector of the rotation axis.
+        /// \param center: Coordinate of the center point to rotate.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform rotate(const Angle<T> angle, const Vector3<T> &axis,
-                                   const Vector3<T> &center) const noexcept;
+        constexpr Transform<T> rotate(const Angle<T> angle, const Vector3<T> &axis,
+                                      const Vector3<T> &center) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a scalation with
@@ -158,7 +170,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform scale(const Vector3f &factor) const noexcept;
+        constexpr Transform<T> scale(const Vector3<T> &factor) const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Combine the current transform with a scalation with
@@ -171,7 +183,18 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr Transform scale(const Vector3<T> &factor, const Vector3<T> &center) const noexcept;
+        constexpr Transform<T> scale(const Vector3<T> &factor, const Vector3<T> &center) const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Combine the current transform with a scalation.
+        ///
+        /// \param scalation3: Scalation to combine.
+        ///
+        /// \return The result of combination.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Transform<T> scale(const Scalation3<T> &scalation3) const noexcept;
     };
 }
 

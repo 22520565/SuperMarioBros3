@@ -24,10 +24,11 @@ namespace game {
     template <std::floating_point T>
     template <std::floating_point U>
     constexpr Rotation2<T>::Rotation2(const Rotation2<U> &rotation2) noexcept(
-        noexcept(Angle<T>(rotation2.angleX)) && noexcept(Angle<T>(rotation2.angleY))
-            && noexcept(T(rotation2.centerX)) && noexcept(T(rotation2.centerY)))
-        : angleX(rotation2.angleX), angleY(rotation2.angleY),
-          centerX(rotation2.centerX), centerY(rotation2.centerY) {}
+        noexcept(Angle<T>(static_cast<Angle<T>>(rotation2.angleX)))
+            && noexcept(Angle<T>(static_cast<Angle<T>>(rotation2.angleY)))
+                && noexcept(T(static_cast<T>(rotation2.centerX))) && noexcept(T(static_cast<T>(rotation2.centerY))))
+        : angleX(static_cast<Angle<T>>(rotation2.angleX)), angleY(static_cast<Angle<T>>(rotation2.angleY)),
+          centerX(static_cast<T>(rotation2.centerX)), centerY(static_cast<T>(rotation2.centerY)) {}
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>

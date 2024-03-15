@@ -72,7 +72,24 @@ namespace game {
         template <typename U>
             requires std::is_arithmetic_v<std::remove_reference_t<U>>
         constexpr explicit Rect3(const Rect3<U> &rect3) noexcept(
-            noexcept(Rect2<T>(rect3)) && noexcept(T(rect3.front)) && noexcept(T(rect3.depth)));
+            noexcept(Rect2<T>(rect3)) && noexcept(T(static_cast<T>(rect3.front)))
+                && noexcept(T(static_cast<T>(rect3.depth))));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Default overload of binary operator ==
+        ///
+        /// \note Since C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
+        /// Thus, it's not necessary to define operator != and you can still use operator != normally.
+        ///
+        /// \param left: Left operand (a rect3).
+        /// \param right: Right operand (a rec3).
+        ///
+        /// \return True if \a left is equal to \a right.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        friend constexpr bool
+        operator==(const Rect3<T> &left, const Rect3<T> &right) = default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the position of the rectangular's top-left-front corner

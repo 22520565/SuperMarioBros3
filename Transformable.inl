@@ -17,16 +17,8 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
-    constexpr void Transformable<T>::setScalation(const Vector3<T> &factor) noexcept {
-        this->scalationFactor = factor;
-        this->transformNeedUpdate = true;
-    }
-
-    ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
-    constexpr void Transformable<T>::setScalation(const Vector3<T> &factor, const Vector3<T> &center) noexcept {
-        this->scalationFactor = factor;
-        this->scalationCenter = center;
+    constexpr void Transformable<T>::setScalation(const Scalation3<T> &newScalation) noexcept {
+        this->scalation = newScalation;
         this->transformNeedUpdate = true;
     }
 
@@ -40,11 +32,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
-    constexpr const Vector3<T> &Transformable<T>::getScalationFactor() const noexcept { return this->scalationFactor; }
-
-    ////////////////////////////////////////////////////////////
-    template <std::floating_point T>
-    constexpr const Vector3<T> &Transformable<T>::getScalationCenter() const noexcept { return this->scalationCenter; }
+    constexpr const Vector3<T> &Transformable<T>::getScalation() const noexcept { return this->scalation; }
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
@@ -59,24 +47,27 @@ namespace game {
             this->rotation.getCenter()));
     }
 
+    ////////////////////////////////////////////////////////////
     template <std::floating_point T>
     constexpr void Transformable<T>::scale(const Vector3<T> &factor) noexcept {
-        this->setScalation(Vector3<T>(this->scalationFactor.x * factor.x,
-                                      this->scalationFactor.y * factor.y,
-                                      this->scalationFactor.z * factor.z));
+        this->setScalation(Scalation3<T>(
+            Vector3<T>(this->scalation.factorX * factor.x,
+                       this->scalation.factorY * factor.y,
+                       this->scalation.factorZ * factor.z),
+            this->scalation.getCenter()));
     }
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
     constexpr const Transform<T> &Transformable<T>::getTransform() const {
         if (this->transformNeedUpdate) [[likely]] {
-        //    const Vector3<T> rad = this->rotationAngle3.asRadians();
+            //    const Vector3<T> rad = this->rotationAngle3.asRadians();
 
             // TODO: calc this
             this->transform = Transform<T>()
                                   .translate(this->position)
                                   .rotate(this->rotation)
-                                  .scale(this->scalationFactor, this->scalationCenter);
+                                  .scale(this->scalation);
             this->transformNeedUpdate = false;
         }
 

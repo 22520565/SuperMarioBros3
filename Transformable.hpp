@@ -1,5 +1,6 @@
 #pragma once
 #include "Rotation3.hpp"
+#include "Scalation3.hpp"
 #include "Transform.hpp"
 #include <cmath>
 #include <cstdint>
@@ -45,25 +46,10 @@ namespace game {
         /// The default rotation angles of a transformable object is (0, 0, 0).
         /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
         ///
-        /// \param rotation: New rotation3.
+        /// \param newRotation: New rotation3.
         ///
         ////////////////////////////////////////////////////////////
         constexpr void setRotation(const Rotation3<T> &newRotation) noexcept;
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Set the scalation of the object.
-        ///
-        /// This function completely overwrites the previous scalation
-        /// except the scalation center point.
-        /// See the scale function to add a factor based on the previous scale instead.
-        /// The default scalation factor of a transformable object is (1, 1, 1).
-        /// The default coordinate of scalation center point of a transformable object is (0, 0, 0).
-        ///
-        /// \param factor: Scaling factor in three dimensions.
-        /// \param center: Coordinate of the center point to scale.
-        ///
-        ////////////////////////////////////////////////////////////
-        constexpr void setScalation(const Vector3<T> &factor) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the scalation of the object.
@@ -73,11 +59,10 @@ namespace game {
         /// The default scalation factor of a transformable object is (1, 1, 1).
         /// The default coordinate of scalation center point of a transformable object is (0, 0, 0).
         ///
-        /// \param factor: Scaling factor in three dimensions.
-        /// \param center: Coordinate of the center point to scale.
+        /// \param newScalation: New scalation3.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setScalation(const Vector3<T> &factor, const Vector3<T> &center) noexcept;
+        constexpr void setScalation(const Scalation3<T> &newScalation) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the position of the object.
@@ -98,22 +83,13 @@ namespace game {
         constexpr const Rotation3<T> &getRotation() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get the current scalation factor of the object.
+        /// \brief Get the current scalation of the object.
         ///
-        /// \return Current scaling factor in three dimensions.
-        ///
-        ////////////////////////////////////////////////////////////
-        [[nodiscard]]
-        constexpr const Vector3<T> &getScalationFactor() const noexcept;
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get the coordinate of the current scalation center of the object.
-        ///
-        /// \return Current scalation center.
+        /// \return Current scaling.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr const Vector3<T> &getScalationCenter() const noexcept;
+        constexpr const Vector3<T> &getScalation() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Move the object by a given offset.
@@ -152,14 +128,14 @@ namespace game {
         /// unlike setScale which overwrites it. The scalation center point stays remain.
         /// Thus, it is equivalent to the following code:
         /// \code
-        /// auto scalationFactor = object.getScalationFactor();
-        /// scalationFactor.x*=factor.x;
-        /// scalationFactor.y*=factor.y;
-        /// scalationFactor.z*=factor.z;
-        /// object.setScalation(scalationFactor, object.getScalationCenter());
+        /// auto scalation = object.getScalation();
+        /// scalation.factorX*=factor.x;
+        /// scalation.factorY*=factor.y;
+        /// scalation.factorZ*=factor.z;
+        /// object.setScalation(scalation);
         /// \endcode
         ///
-        /// \param factor: Scaling factor in three dimensions.
+        /// \param factor: Scalation factor.
         ///
         ////////////////////////////////////////////////////////////
         constexpr void scale(const Vector3<T> &factor) noexcept;
@@ -177,10 +153,9 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Vector3<T> position = Vector3<T>::zero(); // Position of the object.
-        Rotation3<T> rotation = Rotation3<T>();
-        Vector3<T> scalationFactor = Vector3<T>::one();  // Scalation factor of the object.
-        Vector3<T> scalationCenter = Vector3<T>::zero(); // Scalation center point of the object.
+        Vector3<T> position = Vector3<T>::zero();  // Position of the object.
+        Rotation3<T> rotation = Rotation3<T>();    // Rotation of the object.
+        Scalation3<T> scalation = Scalation3<T>(); // Scalation of the object.
         mutable Transform<T> transform = Transform<T>();
         mutable bool transformNeedUpdate = false;
     };

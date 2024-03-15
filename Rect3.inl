@@ -31,8 +31,9 @@ namespace game {
     template <typename U>
         requires std::is_arithmetic_v<std::remove_reference_t<U>>
     constexpr Rect3<T>::Rect3(const Rect3<U> &rect3) noexcept(
-        noexcept(Rect2<T>(rect3)) && noexcept(T(rect3.front)) && noexcept(T(rect3.depth)))
-        : Rect2<T>(rect3), front(rect3.front), depth(rect3.depth) {}
+        noexcept(Rect2<T>(rect3)) && noexcept(T(static_cast<T>(rect3.front)))
+            && noexcept(T(static_cast<T>(rect3.depth))))
+        : Rect2<T>(rect3), front(static_cast<T>(rect3.front)), depth(static_cast<T>(rect3.depth)) {}
 
     ////////////////////////////////////////////////////////////
     template <typename T>

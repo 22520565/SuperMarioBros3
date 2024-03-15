@@ -108,8 +108,8 @@ namespace game {
         ////////////////////////////////////////////////////////////
         template <std::floating_point U>
         constexpr explicit Rotation3(const Rotation3<U> &rotation3) noexcept(
-            noexcept(Rotation2<T>(rotation3)) && noexcept(Angle<T>(rotation3.angleZ))
-                && noexcept(T(rotation3.centerZ)));
+            noexcept(Rotation2<T>(rotation3)) && noexcept(Angle<T>(static_cast<Angle<T>>(rotation3.angleZ)))
+                && noexcept(T(static_cast<T>(rotation3.centerZ))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Default overload of binary operator ==

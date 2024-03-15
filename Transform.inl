@@ -176,7 +176,7 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_floating_point_v<std::remove_reference_t<T>>
-    constexpr Transform<T> Transform<T>::scale(const Vector3f &factor) const noexcept {
+    constexpr Transform<T> Transform<T>::scale(const Vector3<T> &factor) const noexcept {
         const Transform<T> scalingTransform = Transform<T>(
             factor.x, static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(0.0),
             static_cast<T>(0.0), factor.y, static_cast<T>(0.0), static_cast<T>(0.0),
@@ -195,5 +195,12 @@ namespace game {
             static_cast<T>(0.0), static_cast<T>(0.0), factor.z, (static_cast<T>(1.0) - factor.z) * center.z,
             static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(1.0));
         return this->combine(scalingTransform);
+    }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_floating_point_v<std::remove_reference_t<T>>
+    constexpr Transform<T> Transform<T>::scale(const Scalation3<T> &scalation3) const noexcept {
+       return this->scale(scalation3.getFactor(), scalation3.getCenter());
     }
 }
