@@ -72,7 +72,7 @@ namespace game {
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Rect2<T> Rect2<T>::wrapSizeUnsigned() const noexcept(
         noexcept(Rect2<T>(Rect2<T>()))) {
-        const Rect2<T> newRect2 = *this;
+        Rect2<T> newRect2 = *this;
 
         if (newRect2.width < T()) [[unlikely]] {
             newRect2.left += newRect2.width;

@@ -36,10 +36,10 @@ namespace game {
         void clear() { this->clear(D3DXCOLOR(0.0F, 0.0F, 0.0F, 0.0F)); }
         void clear(D3DXCOLOR color) { pD3DDevice->ClearRenderTargetView(pRenderTargetView, color); }
         const D3D10_VIEWPORT& getViewPort() { return this->viewPort; }
-   /*     void setView(const View& view) {
-            auto transform = view.getTransform();
+       void setView(const View<float>& view) {
+            auto transform = view.getTransform().operator D3DXMATRIX();
             this->spriteObject->SetProjectionTransform(&transform);
-        }*/
+        }
         void draw(const Drawable& drawable) { drawable.draw(*this); }
 
         /// \brief Return the size of the rendering region of the target

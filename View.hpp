@@ -18,67 +18,46 @@ namespace game {
         constexpr View() noexcept = default;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the view from a rectangular.
+        /// \brief Construct the view from a rectangular and a rotation.
         ///
         /// \param rect3: Rectangular defining the zone to display.
+        /// \param rotation3: Rotation of the view.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Rect3<T> &rect3) noexcept(
-            noexcept(Vector3<T>(rect3.getCenter())) && noexcept(Vector3<T>(rect3.getSize())));
+        constexpr explicit View(const Rect3<T> &rect3, const Rotation3<T> &rotation3) noexcept(
+            noexcept(Rect3<T>(rect3)) && noexcept(Rotation3<T>(rotation3)));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct the view from its center and size.
+        /// \brief Set the rectangular of the view.
         ///
-        /// \param center Center of the zone to display.
-        /// \param size   Size of zone to display.
+        /// \param newRect3: New rectangular.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr explicit View(const Vector3<T> &center, const Vector3<T> &size) noexcept(
-            noexcept(Vector3<T>(center)) && noexcept(Vector3<T>(size)));
+        constexpr void setRect(const Rect3<T> &newRect3) noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Set the center of the view
+        /// \brief Set the rotation of the view.
         ///
-        /// \param newCenter New center
-        ///
-        /// \see setSize, getCenter
+        /// \param newRotation3: New rotation.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setCenter(const Vector3f &newCenter) noexcept {
-            this->center = newCenter;
-        }
+        constexpr void setRotation(const Rect3<T> &newRotation3) noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Set the size of the view
+        /// \brief Get the rectangular of the view.
         ///
-        /// \param newSize New size
-        ///
-        /// \see setCenter, getCenter
+        /// \return Rectangular of the view
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setSize(const Vector3f &newSize) noexcept {
-            this->size = newSize;
-        }
+        constexpr const Rect3<T> &getRect() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get the center of the view
+        /// \brief Get the rotation of the view.
         ///
-        /// \return Center of the view
-        ///
-        /// \see getSize, setCenter
+        /// \return Rotation of the view
         ///
         ////////////////////////////////////////////////////////////
-        constexpr const Vector3f &getCenter() const noexcept { return this->center; }
-
-        ////////////////////////////////////////////////////////////
-        /// \brief Get the size of the view
-        ///
-        /// \return Size of the view
-        ///
-        /// \see getCenter, setSize
-        ///
-        ////////////////////////////////////////////////////////////
-        constexpr const Vector3f &getSize() const noexcept { return this->size; }
+        constexpr const Rotation3<T> &getRotation() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the projection transform of the view.
@@ -88,26 +67,14 @@ namespace game {
         /// \return Projection transform defining the view.
         ///
         ////////////////////////////////////////////////////////////
-        D3DXMATRIX getTransform() const noexcept {
-            const Vector3f position = this->center - (this->size) / 2.0F;
-            D3DXMATRIX matProjection = D3DXMATRIX();
-            D3DXMatrixOrthoOffCenterLH(
-                &matProjection,
-                position.x,
-                position.x + size.x,
-                position.y,
-                position.y + size.y,
-                position.z,
-                position.z + size.z);
-            return matProjection;
-        }
+        constexpr const Transform<T> &getTransform() const noexcept;
 
       private:
-        Vector3<T> center = Vector3<T>::zero();          // Center of the view, in scene coordinates
-        Vector3<T> size = Vector3<T>::zero();            // Size of the view, in scene coordinates
-        Angle3<T> rotationAngle3 = Angle3<T>::zero();    // Angle of rotation of the view rectangular
-        Angle3<T> rotationCenter = Vector3<T>::zero();   // Center of rotation of the view rectangular
+        Rect3<T> rect3 = Rect3<T>();                     // View rectangular.
+        Rotation3<T> rotation3 = Rotation3<T>();         // View rotation.
         mutable Transform<T> transform = Transform<T>(); // Precomputed projection transform corresponding to the view
         mutable bool transformNeedUpdate = false;        // Internal state telling if the transform needs to be updated
     };
 }
+
+#include "View.inl"

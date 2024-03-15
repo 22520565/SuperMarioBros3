@@ -117,9 +117,8 @@ namespace game {
         /// \return Center of rectangular.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr Vector3<T> getCenter() const noexcept {
-            return Vector3<T>(Rect2<T>::getCenter(), this->front + (this->depth / T(2)));
-        }
+        constexpr Vector3<T> getCenter() const noexcept(
+            noexcept(Vector3<T>(Rect2<T>().getCenter(), T() + (T() / static_cast<T>(2)))));
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a copy of the rectangular that its size
@@ -129,7 +128,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         constexpr Rect3<T> wrapSizeUnsigned() const noexcept(
-            noexcept(Rect3<T>(Rect2<T>::wrapSizeUnsigned(), T(), T())));
+            noexcept(Rect3<T>(Rect2<T>().wrapSizeUnsigned(), T(), T())));
 
         ////////////////////////////////////////////////////////////
         /// \brief Check if a point is inside the rectangular's area.

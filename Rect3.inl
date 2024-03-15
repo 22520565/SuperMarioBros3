@@ -52,9 +52,17 @@ namespace game {
     ////////////////////////////////////////////////////////////
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    constexpr Vector3<T> Rect3<T>::getCenter() const noexcept(
+        noexcept(Vector3<T>(Rect2<T>().getCenter(), T() + (T() / static_cast<T>(2))))) {
+        return Vector3<T>(Rect2<T>::getCenter(), this->front + (this->depth / static_cast<T>(2)));
+    }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr Rect3<T> Rect3<T>::wrapSizeUnsigned() const noexcept(
-        noexcept(Rect3<T>(Rect2<T>::wrapSizeUnsigned(), T(), T()))) {
-        const Rect3<T> newRect3 = Rect3<T>(this->Rect2<T>::wrapSizeUnsigned(), this->front, this->depth);
+        noexcept(Rect3<T>(Rect2<T>().wrapSizeUnsigned(), T(), T()))) {
+        Rect3<T> newRect3 = Rect3<T>(this->Rect2<T>::wrapSizeUnsigned(), this->front, this->depth);
 
         if (newRect3.depth < T()) [[unlikely]] {
             newRect3.front += newRect3.depth;

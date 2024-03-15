@@ -105,13 +105,13 @@ namespace game {
             D3DXMATRIX matProjection = D3DXMATRIX();
 
             // Create the projection matrix using the values in the viewport
-            D3DXMatrixOrthoOffCenterLH(
+            D3DXMatrixPerspectiveOffCenterLH(
     &matProjection,
     -750,
     750,
    -750,
     750,
-    0.0F, 1000.0F);
+    0.10F, 1000.10F);
             //D3DXMatrixOrthoOffCenterLH(
             //    &matProjection,
             //    static_cast<FLOAT>(viewPort.TopLeftX),

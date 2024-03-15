@@ -174,6 +174,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     // sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
     sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(a.left, 0.0F, 0.0F) });
     game::Vector2f c = a.getPosition();
+    window.setView(game::View<float>(game::Rect3<float>({ -750,750,0.1 }, { 1500,1500,1000 }), game::Rotation3<float>(game::Angle3f::unitZ_deg()*45.0F)));
     
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
@@ -200,8 +201,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 break;
             }
         }
-     sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg)); 
-      sprite.move(game::Vector3f::unitZ() * 0.00010F);
+  //   sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg)); 
+      sprite.move(game::Vector3f::unitZ() * 0.0010F);
       sizeof(a);
         window.clear();
         window.draw(sprite);
