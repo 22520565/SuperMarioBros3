@@ -23,7 +23,7 @@ namespace game {
             if (const WNDCLASSEX wc = WNDCLASSEX{
                     .cbSize = sizeof(WNDCLASSEX),
                     .style = CS_HREDRAW | CS_VREDRAW,
-                    .lpfnWndProc = static_cast<WNDPROC>(winProc),
+                    .lpfnWndProc = winProc,
                     .cbClsExtra = 0,
                     .cbWndExtra = 0,
                     .hInstance = hInstance,

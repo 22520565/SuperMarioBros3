@@ -221,6 +221,9 @@
     <ClCompile Include="WindowBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -267,6 +270,9 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Scalation3.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="RenderTarget.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

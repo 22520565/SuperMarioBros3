@@ -212,6 +212,10 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <None Include="RenderTarget.inl">
+      <FileType>Document</FileType>
+    </None>
     <ClCompile Include="SampleKeyEventHandler.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />

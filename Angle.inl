@@ -245,6 +245,7 @@ namespace game {
             noexcept(Angle<long double>::degrees(angle))) {
             return Angle<long double>::degrees(angle);
         }
+
         ////////////////////////////////////////////////////////////
         consteval Angle<long double>
         operator""_rad(const long double angle) noexcept(
@@ -252,6 +253,7 @@ namespace game {
             return Angle<long double>::radians(angle);
         }
 
+        ////////////////////////////////////////////////////////////
         consteval Angle<long double>
         operator""_rad(const unsigned long long int angle) noexcept(
             noexcept(Angle<long double>::radians(angle))) {
