@@ -159,6 +159,12 @@
     <ClInclude Include="Scalation2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Clock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -201,6 +207,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,6 +292,12 @@
     </None>
     <None Include="SampleKeyEventHandler.cpp">
       <Filter>TempFIles</Filter>
+    </None>
+    <None Include="AnimationFrame.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Time.inl">
+      <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

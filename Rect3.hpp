@@ -144,6 +144,53 @@ namespace game {
         constexpr bool contains(const Vector3<T> &point) const noexcept(
             noexcept(wrapSizeUnsigned()) && noexcept(Rect2<T>::contains(point)));
     };
+
+    // Define common types.
+
+    using Rect3c = Rect3<char>;
+    using Rect3uc = Rect3<unsigned char>;
+    using Rect3s = Rect3<short>;
+    using Rect3us = Rect3<unsigned short>;
+    using Rect3i = Rect3<int>;
+    using Rect3u = Rect3<unsigned>;
+    using Rect3l = Rect3<long>;
+    using Rect3ul = Rect3<unsigned long>;
+    using Rect3ll = Rect3<long long>;
+    using Rect3ull = Rect3<unsigned long long>;
+
+    using Rect3i8 = Rect3<int8_t>;
+    using Rect3il8 = Rect3<int_least8_t>;
+    using Rect3if8 = Rect3<int_fast8_t>;
+    using Rect3u8 = Rect3<uint8_t>;
+    using Rect3ul8 = Rect3<uint_least8_t>;
+    using Rect3uf8 = Rect3<uint_fast8_t>;
+    using Rect3i16 = Rect3<int16_t>;
+    using Rect3il16 = Rect3<int_least16_t>;
+    using Rect3if16 = Rect3<int_fast16_t>;
+    using Rect3u16 = Rect3<uint16_t>;
+    using Rect3ul16 = Rect3<uint_least16_t>;
+    using Rect3uf16 = Rect3<uint_fast16_t>;
+    using Rect3i32 = Rect3<int32_t>;
+    using Rect3il32 = Rect3<int_least32_t>;
+    using Rect3if32 = Rect3<int_fast32_t>;
+    using Rect3u32 = Rect3<uint32_t>;
+    using Rect3ul32 = Rect3<uint_least32_t>;
+    using Rect3uf32 = Rect3<uint_fast32_t>;
+    using Rect3i64 = Rect3<int64_t>;
+    using Rect3il64 = Rect3<int_least64_t>;
+    using Rect3if64 = Rect3<int_fast64_t>;
+    using Rect3u64 = Rect3<uint64_t>;
+    using Rect3ul64 = Rect3<uint_least64_t>;
+    using Rect3uf64 = Rect3<uint_fast64_t>;
+
+    using Rect3f = Rect3<float>;
+    using Rect3d = Rect3<double>;
+    using Rect3ld = Rect3<long double>;
+    using Rect3f16 = Rect3<std::float16_t>;
+    using Rect3bf16 = Rect3<std::bfloat16_t>;
+    using Rect3f32 = Rect3<std::float32_t>;
+    using Rect3f64 = Rect3<std::float64_t>;
+    using Rect3f128 = Rect3<std::float128_t>;
 }
 
 #include "Rect3.inl"

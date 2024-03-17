@@ -159,6 +159,7 @@
     <ClInclude Include="Animations.hpp" />
     <ClInclude Include="AssetIDs.hpp" />
     <ClInclude Include="Brick.hpp" />
+    <ClInclude Include="Clock.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Drawable.hpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Sprites.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="TextureHolder.hpp" />
+    <ClInclude Include="Time.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Transformable.hpp" />
     <ClInclude Include="Utils.hpp" />
@@ -201,9 +203,11 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <None Include="AnimationFrame.inl" />
     <None Include="Game.cpp" />
     <None Include="GameObject.cpp" />
     <None Include="Goomba.cpp" />
@@ -244,6 +248,7 @@
     <None Include="stdfloat" />
     <None Include="Texture.inl" />
     <None Include="TextureHolder.inl" />
+    <None Include="Time.inl" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>
     </None>

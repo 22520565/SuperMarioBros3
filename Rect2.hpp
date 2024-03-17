@@ -149,6 +149,53 @@ namespace game {
         constexpr bool contains(const Vector2<T> &point) const noexcept(
             noexcept(wrapSizeUnsigned()));
     };
+
+    // Define common types.
+
+    using Rect2c = Rect2<char>;
+    using Rect2uc = Rect2<unsigned char>;
+    using Rect2s = Rect2<short>;
+    using Rect2us = Rect2<unsigned short>;
+    using Rect2i = Rect2<int>;
+    using Rect2u = Rect2<unsigned>;
+    using Rect2l = Rect2<long>;
+    using Rect2ul = Rect2<unsigned long>;
+    using Rect2ll = Rect2<long long>;
+    using Rect2ull = Rect2<unsigned long long>;
+
+    using Rect2i8 = Rect2<int8_t>;
+    using Rect2il8 = Rect2<int_least8_t>;
+    using Rect2if8 = Rect2<int_fast8_t>;
+    using Rect2u8 = Rect2<uint8_t>;
+    using Rect2ul8 = Rect2<uint_least8_t>;
+    using Rect2uf8 = Rect2<uint_fast8_t>;
+    using Rect2i16 = Rect2<int16_t>;
+    using Rect2il16 = Rect2<int_least16_t>;
+    using Rect2if16 = Rect2<int_fast16_t>;
+    using Rect2u16 = Rect2<uint16_t>;
+    using Rect2ul16 = Rect2<uint_least16_t>;
+    using Rect2uf16 = Rect2<uint_fast16_t>;
+    using Rect2i32 = Rect2<int32_t>;
+    using Rect2il32 = Rect2<int_least32_t>;
+    using Rect2if32 = Rect2<int_fast32_t>;
+    using Rect2u32 = Rect2<uint32_t>;
+    using Rect2ul32 = Rect2<uint_least32_t>;
+    using Rect2uf32 = Rect2<uint_fast32_t>;
+    using Rect2i64 = Rect2<int64_t>;
+    using Rect2il64 = Rect2<int_least64_t>;
+    using Rect2if64 = Rect2<int_fast64_t>;
+    using Rect2u64 = Rect2<uint64_t>;
+    using Rect2ul64 = Rect2<uint_least64_t>;
+    using Rect2uf64 = Rect2<uint_fast64_t>;
+
+    using Rect2f = Rect2<float>;
+    using Rect2d = Rect2<double>;
+    using Rect2ld = Rect2<long double>;
+    using Rect2f16 = Rect2<std::float16_t>;
+    using Rect2bf16 = Rect2<std::bfloat16_t>;
+    using Rect2f32 = Rect2<std::float32_t>;
+    using Rect2f64 = Rect2<std::float64_t>;
+    using Rect2f128 = Rect2<std::float128_t>;
 }
 
 #include "Rect2.inl"
