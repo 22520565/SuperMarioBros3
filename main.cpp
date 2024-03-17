@@ -170,12 +170,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
  //   game::RenderWindow window = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance, L"null");
     game::TextureHolder textureHolder = game::TextureHolder(window);
   auto texture= textureHolder.getTexture(L"textures/bbox.png");
-    game::Sprite sprite = game::Sprite(*texture);
-    game::Rect3<float> a = game::Rect3<float>({ 3.0F,4.0F,5.0F },{2.0F,4.0F,6.0F});
+    game::Sprite sprite = game::Sprite();
+    sprite.setTexture(*texture);
      sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
-    sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f(a.left, 0.0F, 0.0F) });
-    game::Vector2f c = a.getPosition();
-    window.setView(game::View<float>(game::Rect3<float>({ -750,750,0.1 }, { 1500,1500,1000 }), game::Rotation3<float>(game::Angle3f::unitZ_deg()*0.0F)));
+    sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
+    window.setView(game::View<float>(game::Rect3<float>({ -750,750,0.0 }, { 1500,1500,1000 }), 
+        game::Rotation3<float>(game::Angle3f::unitZ_deg()*0.0F)));
     
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {

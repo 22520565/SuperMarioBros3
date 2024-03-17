@@ -1,9 +1,10 @@
 #include "Sprite.hpp"
 
 namespace game {
-    Sprite::Sprite(const Texture& texture) : texture(&texture){ 
-        this->scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F));
-     this->move(Vector3f(300.0F,300.0F,0.0F));
+    Sprite::Sprite(const Texture& texture) : texture(&texture),
+        textureRect(Rect2<uint_fast32_t>(Vector2<uint_fast32_t>(), texture.getSize())){
+   //     this->scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F));
+   //  this->move(Vector3f(300.0F,300.0F,0.0F));
     }
 
     Sprite::Sprite(int id, int left, int top, int right, int bottom, const Texture* tex) {
@@ -37,7 +38,7 @@ namespace game {
 
     void Sprite::draw(RenderTarget& target) const {
         D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
-           .matWorld = static_cast<D3DXMATRIX>(this->getTransform()),
+           .matWorld = static_cast<D3DXMATRIX>(this->getTransform().scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F))),
            .TexCoord = D3DXVECTOR2(this->textureRect.left, this->textureRect.top),
            .TexSize = D3DXVECTOR2(this->textureRect.width,this->textureRect.height),
            .ColorModulate = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
