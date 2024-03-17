@@ -4,11 +4,11 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    RenderTarget::RenderTarget(const DXGI_SWAP_CHAIN_DESC& swapChainDesc) {
+    RenderTarget::RenderTarget(DXGI_SWAP_CHAIN_DESC swapChainDesc) {
         // Create the D3D device and the swap chain
         if (HRESULT hresult = ::D3D10CreateDeviceAndSwapChain(
                 nullptr, D3D10_DRIVER_TYPE_HARDWARE, nullptr,
-                0, D3D10_SDK_VERSION, const_cast<DXGI_SWAP_CHAIN_DESC *>( & swapChainDesc),
+                0, D3D10_SDK_VERSION, &swapChainDesc,
                 &pSwapChain, &pD3DDevice);
             hresult != S_OK) {
             DebugOut(L"[ERROR] D3D10CreateDeviceAndSwapChain has failed %s %d", _W(__FILE__), __LINE__);

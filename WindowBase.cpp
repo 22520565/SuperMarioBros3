@@ -32,12 +32,10 @@ namespace game {
                     .hCursor = LoadCursor(nullptr, IDC_ARROW),
                 .hbrBackground = nullptr,
                     .lpszMenuName = nullptr,
-                    .lpszClassName = title,
+                    .lpszClassName = className,
                     .hIconSm = nullptr,
                 };
                 RegisterClassEx(&wc) != 0) [[likely]] {
-                    this->className = className;
-                    this->hInstance = hInstance;
                 if (RECT windowRect = RECT{
                         .left = 0,
                         .top = 0,
@@ -46,13 +44,15 @@ namespace game {
                     };
                     ::AdjustWindowRectEx(&windowRect, WS_OVERLAPPEDWINDOW, false, 0) != 0) [[likely]] {
                     this->hWnd = CreateWindow(
-                        title, title, WS_OVERLAPPEDWINDOW, // WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+                        className, title, WS_OVERLAPPEDWINDOW, // WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
                         CW_USEDEFAULT, CW_USEDEFAULT,
                         windowRect.right - windowRect.left, windowRect.bottom - windowRect.top,
                         nullptr, nullptr, wc.hInstance, nullptr);
                     if (this->hWnd != nullptr) [[likely]] {
                         std::ignore = ::ShowWindow(hWnd, nCmdShow);
                         if (::UpdateWindow(hWnd) != 0) [[likely]] {
+                            this->className = className;
+                            this->hInstance = hInstance;
                             windowCreated = true;
                         } else [[unlikely]] {
                             std::ignore = this->close();

@@ -3,14 +3,14 @@
 #include "Sprite.hpp"
 #include "Sprites.hpp"
 #include "Game.hpp"
-#include "Textures.hpp"
+#include "TextureHolder.hpp"
 
 namespace game {
     void Platform::RenderBoundingBox() {
         D3DXVECTOR3 p(position.x, position.y, 0);
         RECT rect;
 
-        const Texture* bbox = Textures::getTexture(L"textures/bbox.png");
+        const Texture* bbox = TextureHolder::getTexture(L"textures/bbox.png");
 
         float l, t, r, b;
 

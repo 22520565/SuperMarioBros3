@@ -438,7 +438,7 @@ namespace game {
        const int texID = atoi(tokens[0].data());
         std::wstring path = ToWSTR(tokens[1]);
 
-        Textures::getTexture(path.data());
+        TextureHolder::getTexture(path.data());
     }
 
     Game::~Game() {

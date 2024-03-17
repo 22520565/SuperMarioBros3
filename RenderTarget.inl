@@ -9,6 +9,10 @@ namespace game {
         return this->spriteObject;
     }
 
+    constexpr const  CComPtr<IDXGISwapChain>& RenderTarget::getSwapChain()const noexcept {
+        return this->pSwapChain;
+    }
+
     ////////////////////////////////////////////////////////////
     inline void RenderTarget::clear() { this->clear(D3DXCOLOR(0.0F, 0.0F, 0.0F, 0.0F)); }
 

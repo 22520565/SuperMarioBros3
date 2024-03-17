@@ -11,8 +11,8 @@ namespace game {
             : Window(size, title, nCmdShow, hInstance, className),
             RenderTarget(DXGI_SWAP_CHAIN_DESC{
                    .BufferDesc = DXGI_MODE_DESC{
-                       .Width = backBufferSize.x,
-                       .Height = backBufferSize.y,
+                       .Width = static_cast<UINT>(size.x),
+                       .Height = static_cast<UINT>(size.y),
                        .RefreshRate = DXGI_RATIONAL{
                            .Numerator = 60,
                            .Denominator = 1,
@@ -35,6 +35,6 @@ namespace game {
 
      inline Vector2<int> getSize() const override { return WindowBase::getSize(); }
 
-	constexpr void display() const noexcept { pSwapChain->Present(1, 0); }
+	constexpr void display() const noexcept { this->getSwapChain()->Present(1, 0); }
 	};
 }

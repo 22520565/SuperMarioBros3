@@ -188,7 +188,7 @@
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Sprites.hpp" />
     <ClInclude Include="Texture.hpp" />
-    <ClInclude Include="Textures.hpp" />
+    <ClInclude Include="TextureHolder.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Transformable.hpp" />
     <ClInclude Include="Utils.hpp" />
@@ -204,22 +204,22 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Goomba.cpp" />
+    <None Include="Game.cpp" />
+    <None Include="GameObject.cpp" />
+    <None Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mario.cpp" />
-    <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="Portal.cpp" />
+    <None Include="Mario.cpp" />
+    <None Include="Platform.cpp" />
+    <None Include="PlayScene.cpp" />
+    <None Include="Portal.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <None Include="RenderTarget.inl">
       <FileType>Document</FileType>
     </None>
-    <ClCompile Include="SampleKeyEventHandler.cpp" />
+    <None Include="SampleKeyEventHandler.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector3.hpp" />
     <ClCompile Include="WindowBase.cpp" />
@@ -242,6 +242,8 @@
     <None Include="Scalation2.inl" />
     <None Include="Scalation3.inl" />
     <None Include="stdfloat" />
+    <None Include="Texture.inl" />
+    <None Include="TextureHolder.inl" />
     <None Include="Transform.inl">
       <FileType>Document</FileType>
     </None>

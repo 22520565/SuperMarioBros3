@@ -5,14 +5,14 @@
 #include "Game.hpp"
 #include "GameObject.hpp"
 #include "Sprites.hpp"
-#include "Textures.hpp"
+#include "TextureHolder.hpp"
 
 namespace game {
 	void GameObject::RenderBoundingBox() {
 		D3DXVECTOR3 p(this->position.x, this->position.y, 0);
 		RECT rect;
 
-		const Texture* bbox = Textures::getTexture(L"textures/bbox.png");
+		const Texture* bbox = TextureHolder::getTexture(L"textures/bbox.png");
 
 		float l, t, r, b;
 

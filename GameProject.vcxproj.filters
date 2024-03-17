@@ -19,6 +19,9 @@
     <Filter Include="Wrapper Files">
       <UniqueIdentifier>{d286bf56-8f36-4ab9-97db-89cf93a2902d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TempFIles">
+      <UniqueIdentifier>{be7a2f65-0a61-45db-adf1-b5454a620128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.hpp">
@@ -36,7 +39,7 @@
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Textures.hpp">
+    <ClInclude Include="TextureHolder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.hpp">
@@ -164,40 +167,13 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
@@ -219,6 +195,9 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="WindowBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
@@ -274,6 +253,36 @@
     </None>
     <None Include="RenderTarget.inl">
       <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Texture.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="TextureHolder.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Game.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Portal.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="GameObject.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Platform.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="PlayScene.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Goomba.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Mario.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="SampleKeyEventHandler.cpp">
+      <Filter>TempFIles</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

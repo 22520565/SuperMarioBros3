@@ -5,7 +5,7 @@
 #include "Goomba.hpp"
 #include "Mario.hpp"
 #include "Scene.hpp"
-#include "Textures.hpp"
+#include "TextureHolder.hpp"
 
 namespace game {
     class PlayScene : public Scene {

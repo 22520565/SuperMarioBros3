@@ -7,7 +7,7 @@
 #include "PlayScene.hpp"
 #include "Portal.hpp"
 #include "Sprites.hpp"
-#include "Textures.hpp"
+#include "TextureHolder.hpp"
 #include "Utils.hpp"
 
 #include "SampleKeyEventHandler.hpp"
@@ -53,7 +53,7 @@ namespace game {
             fileName = L"textures/misc.png";
         }
 
-        const Texture* tex = Textures::getTexture(fileName);
+        const Texture* tex = TextureHolder::getTexture(fileName);
 
         if (tex == NULL) {
             DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);

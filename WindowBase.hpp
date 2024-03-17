@@ -10,9 +10,9 @@
 #define WINDOW_ICON_PATH L"mario.ico"
 
 namespace game {
-    class WindowBase : public NonCopyable {
+    class WindowBase{
       public:
-          virtual ~WindowBase() noexcept;
+        ~WindowBase() noexcept;
 
         [[nodiscard]]
         bool isOpen() const noexcept;
@@ -44,5 +44,10 @@ namespace game {
         HWND hWnd = nullptr;
         const TCHAR* className = nullptr;
         MSG msg = MSG();
+
+        constexpr WindowBase(const WindowBase&) noexcept = delete;
+        constexpr WindowBase(WindowBase&&) noexcept = delete;
+        constexpr WindowBase& operator=(const WindowBase&) noexcept = delete;
+        constexpr WindowBase& operator=(WindowBase&&) noexcept = delete;
     };
 }

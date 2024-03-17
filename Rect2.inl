@@ -22,7 +22,7 @@
 //
 ////////////////////////////////////////////////////////////
 #include "Rect2.hpp"
-#include "Vector2.hpp" W
+#include "Vector2.hpp"
 #include <type_traits>
 
 namespace game {

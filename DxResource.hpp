@@ -18,12 +18,13 @@
 #define SCREEN_HEIGHT 240
 
 namespace game {
-    class DxResource : public NonCopyable {
+    class DxResource {
     public:
-      protected:
-        // Backbuffer width & height, will be set during Direct3D initialization
-        Vector2<uint_fast32_t> backBufferSize = Vector2<uint_fast32_t>();
+        const CComPtr<ID3D10Device>*const pD3DDevice = nullptr;
 
+        constexpr ~DxResource() noexcept = default;
+
+      protected:
      //   LPDIRECTINPUT8 di;         // The DirectInput object
        // LPDIRECTINPUTDEVICE8 didv; // The keyboard device
 
@@ -35,10 +36,16 @@ namespace game {
 //        Vector2<std::float32_t> cameraPosition = Vector2<std::float32_t>();
 
       //  std::unordered_map<int, LPSCENE> scenes;
-        int current_scene;
+        int current_scene=4;
         int next_scene = -1;
 
-          constexpr ~DxResource() noexcept override = default;
-          DxResource() = default;
+
+     constexpr explicit DxResource(const CComPtr<ID3D10Device>*const device) noexcept: pD3DDevice(device) {}
+    private:
+
+        constexpr DxResource(const DxResource&) noexcept = delete;
+        constexpr DxResource(DxResource&&) noexcept = delete;
+        constexpr DxResource& operator=(const DxResource&) noexcept = delete;
+        constexpr DxResource& operator=(DxResource&&) noexcept = delete;
     };
 }
