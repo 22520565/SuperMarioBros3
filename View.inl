@@ -34,25 +34,25 @@ namespace game {
     constexpr const Transform<T> &View<T>::getTransform() const noexcept {
         if (this->transformNeedUpdate) [[likely]] {
             const Rect3<T> sizeWrappedRect3 = this->rect3.wrapSizeUnsigned();
-            this->transform =
-                Transform<T>(
-                    (sizeWrappedRect3.front / sizeWrappedRect3.width) * static_cast<T>(2.0),
-                    static_cast<T>(0.0),
-                    ((sizeWrappedRect3.left * (static_cast<T>(-2.0))) / sizeWrappedRect3.width) - static_cast<T>(1.0),
-                    static_cast<T>(0.0),
-                    static_cast<T>(0.0),
-                    (sizeWrappedRect3.front / sizeWrappedRect3.height) * static_cast<T>(2.0),
-                    ((sizeWrappedRect3.top * static_cast<T>(-2.0)) / sizeWrappedRect3.height)+ static_cast<T>(1.0),
-                    static_cast<T>(0.0),
-                    static_cast<T>(0.0),
-                    static_cast<T>(0.0),
-                    (sizeWrappedRect3.front / sizeWrappedRect3.depth) + static_cast<T>(1.0),
-                    -sizeWrappedRect3.front * ((sizeWrappedRect3.front / sizeWrappedRect3.depth)+ static_cast<T>(1.0)),
-                    static_cast<T>(0.0),
-                    static_cast<T>(0.0),
-                    static_cast<T>(1.0),
-                    static_cast<T>(0.0))
-                    .rotate(this->rotation3);
+            //TODO: shorten this!
+            this->transform = Transform<T>(
+                (sizeWrappedRect3.front * static_cast<T>(2.0)) / sizeWrappedRect3.width,
+                static_cast<T>(0.0),
+                (sizeWrappedRect3.left * (static_cast<T>(2.0)) / sizeWrappedRect3.width) + static_cast<T>(1.0),
+                static_cast<T>(0.0),
+                static_cast<T>(0.0),
+                (sizeWrappedRect3.front * static_cast<T>(2.0)) / sizeWrappedRect3.height,
+                ((sizeWrappedRect3.top * static_cast<T>(2.0)) / sizeWrappedRect3.height )+static_cast<T>(1.0),
+                static_cast<T>(0.0),
+                static_cast<T>(0.0),
+                static_cast<T>(0.0),
+                (sizeWrappedRect3.front +sizeWrappedRect3.depth) / sizeWrappedRect3.depth,
+                -sizeWrappedRect3.front * ((sizeWrappedRect3.front / sizeWrappedRect3.depth) + static_cast<T>(1.0)),
+                static_cast<T>(0.0),
+                static_cast<T>(0.0),
+                static_cast<T>(1.0),
+                static_cast<T>(0.0))
+                .rotate(this->rotation3);
             this->transformNeedUpdate = false;
         }
         return this->transform;

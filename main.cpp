@@ -172,9 +172,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
   auto texture= textureHolder.getTexture(L"textures/bbox.png");
     game::Sprite sprite = game::Sprite();
     sprite.setTexture(*texture);
-     sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.0F));
+     sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.1F));
     sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
-    window.setView(game::View<float>(game::Rect3<float>({ -750,750,0.0 }, { 1500,1500,1000 }), 
+    window.setView(game::View<float>(game::Rect3<float>({ -500,-500,0.1}, { 1000,1000,1000 }), 
         game::Rotation3<float>(game::Angle3f::unitZ_deg()*0.0F)));
     
     while (window.isOpen()) {
@@ -196,6 +196,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 } else if (msg->wParam == 'S') {
                     sprite.move(game::Vector3f::unitY()*-10.0F);
                 }
+                else if (msg->wParam == 'Z') {
+                    sprite.move(game::Vector3f::unitZ() * 1.0F);
+                }
                 break;
 
             default:
@@ -203,7 +206,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
             }
         }
      sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg)); 
-      sprite.move(game::Vector3f::unitZ() * 0.010F);
+      sprite.move(game::Vector3f::unitZ() * 0.0010F);
         window.clear();
         window.draw(sprite);
         window.display();

@@ -36,6 +36,7 @@ namespace game {
         //D3DXMatrixScaling(&this->matScaling, (FLOAT)spriteWidth, (FLOAT)spriteHeight, 1.0f);
     }
 
+    //TODO: shorten the scale transform
     void Sprite::draw(RenderTarget& target) const {
         D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
            .matWorld = static_cast<D3DXMATRIX>(this->getTransform().scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F))),

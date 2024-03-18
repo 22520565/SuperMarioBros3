@@ -472,3 +472,5 @@ namespace game {
     ////////////////////////////////////////////////////////////
     constexpr Time &operator%=(Time &left, Time right);
 }
+
+#include "Time.inl"

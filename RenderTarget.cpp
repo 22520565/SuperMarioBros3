@@ -60,16 +60,16 @@ namespace game {
                     hresult != S_OK) {
                     DebugOut((wchar_t *)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
                 } else {
-                    D3DXMATRIX matProjection = D3DXMATRIX();
+                   // D3DXMATRIX matProjection = D3DXMATRIX();
 
                     // Create the projection matrix using the values in the viewport
-                    D3DXMatrixPerspectiveOffCenterLH(
+                   /* D3DXMatrixPerspectiveOffCenterLH(
                         &matProjection,
                         -750,
                         750,
                         -750,
                         750,
-                        0.10F, 1000.10F);
+                        0.10F, 1000.10F);*/
                     // D3DXMatrixOrthoOffCenterLH(
                     //     &matProjection,
                     //     static_cast<FLOAT>(viewPort.TopLeftX),
@@ -77,9 +77,9 @@ namespace game {
                     //     static_cast<FLOAT>(viewPort.TopLeftY),
                     //     static_cast<FLOAT>(viewPort.Height),
                     //     -1000.0F, 1000.0F);
-                    spriteObject->SetProjectionTransform(&matProjection);
+                   // spriteObject->SetProjectionTransform(&matProjection);
                     // Initialize the blend state for alpha drawing
-                    D3D10_BLEND_DESC stateDesc = D3D10_BLEND_DESC{
+                  const  D3D10_BLEND_DESC stateDesc = D3D10_BLEND_DESC{
                         .AlphaToCoverageEnable = false,
                         .BlendEnable = {true, false, false, false, false, false, false, false},
                         .SrcBlend = D3D10_BLEND_SRC_ALPHA,

@@ -33,7 +33,7 @@ namespace game {
                    .Flags = UINT(),
                 }) {}
 
-     inline Vector2<int> getSize() const override { return WindowBase::getSize(); }
+     inline Vector2<int> getSize() const override { return WindowBase::getSize();}
 
 	constexpr void display() const noexcept { this->getSwapChain()->Present(1, 0); }
 	};

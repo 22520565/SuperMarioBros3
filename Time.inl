@@ -65,7 +65,6 @@ namespace game {
         return m_microseconds;
     }
 
-
     ////////////////////////////////////////////////////////////
     template <typename Rep, typename Period>
     constexpr Time::operator std::chrono::duration<Rep, Period>() const

@@ -167,9 +167,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -186,15 +183,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.hpp">
@@ -298,6 +286,18 @@
     </None>
     <None Include="Time.inl">
       <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Animation.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Animations.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Brick.cpp">
+      <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Coin.cpp">
+      <Filter>TempFIles</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
