@@ -1,12 +1,6 @@
 #include "Sprite.hpp"
 
 namespace game {
-    Sprite::Sprite(const Texture& texture) : texture(&texture),
-        textureRect(Rect2<uint_fast32_t>(Vector2<uint_fast32_t>(), texture.getSize())){
-   //     this->scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F));
-   //  this->move(Vector3f(300.0F,300.0F,0.0F));
-    }
-
     Sprite::Sprite(int id, int left, int top, int right, int bottom, const Texture* tex) {
         //this->id = id;
         //this->left = left;
@@ -36,7 +30,7 @@ namespace game {
         //D3DXMatrixScaling(&this->matScaling, (FLOAT)spriteWidth, (FLOAT)spriteHeight, 1.0f);
     }
 
-    //TODO: shorten the scale transform
+    //TODO: shorten the scale transform. Optimize this draw function.
     void Sprite::draw(RenderTarget& target) const {
         D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
            .matWorld = static_cast<D3DXMATRIX>(this->getTransform().scale(Vector3f(this->textureRect.width, this->textureRect.height,1.0F))),

@@ -165,6 +165,9 @@
     <ClInclude Include="Time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimatedSprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -298,6 +301,9 @@
     </None>
     <None Include="Coin.cpp">
       <Filter>TempFIles</Filter>
+    </None>
+    <None Include="Sprite.inl">
+      <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

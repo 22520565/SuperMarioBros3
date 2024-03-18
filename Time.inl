@@ -28,10 +28,6 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    constexpr Time::Time() = default;
-
-
-    ////////////////////////////////////////////////////////////
     template <typename Rep, typename Period>
     constexpr Time::Time(const std::chrono::duration<Rep, Period>& duration) : m_microseconds(duration)
     {
@@ -275,5 +271,6 @@ namespace game {
 
     // Note: the 'inline' keyword here is technically not required, but VS2019 fails
     // to compile with a bogus "multiple definition" error if not explicitly used.
-    inline constexpr Time Time::Zero;
+
+    inline constexpr Time Time::zero=Time();
 }

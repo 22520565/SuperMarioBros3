@@ -26,6 +26,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #include "Sprite.hpp"
 #include <windows.h>
 #include "TextureHolder.hpp"
+#include "Time.hpp"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -176,7 +177,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
     window.setView(game::View<float>(game::Rect3<float>({ -500,-500,0.1}, { 1000,1000,1000 }), 
         game::Rotation3<float>(game::Angle3f::unitZ_deg()*0.0F)));
-    
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
             switch (msg->message) {

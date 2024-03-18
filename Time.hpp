@@ -39,7 +39,7 @@ namespace game {
         /// Sets the time value to zero.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr Time();
+        constexpr Time() =default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Construct from std::chrono::duration
@@ -99,7 +99,7 @@ namespace game {
         // Static member data
         ////////////////////////////////////////////////////////////
         // NOLINTNEXTLINE(readability-identifier-naming)
-        static const Time Zero; //!< Predefined "zero" time value
+        static const Time zero; // Predefined "zero" time value
 
       private:
         friend constexpr Time seconds(float amount);
@@ -109,7 +109,7 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        std::chrono::microseconds m_microseconds{}; //!< Time value stored as microseconds
+        std::chrono::microseconds m_microseconds = std::chrono::microseconds(); // Time value stored as microseconds.
     };
 
     ////////////////////////////////////////////////////////////

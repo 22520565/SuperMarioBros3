@@ -6,28 +6,36 @@
 #include "Texture.hpp"
 #include "Transformable.hpp"
 
+
+//TODO: Maybe we should create a StaticSprite?
 namespace game {
     class Sprite : public Drawable, public Transformable<float> {
         //   int id; // Sprite ID in the sprite database
         const Texture *texture=nullptr;
-        Rect2<uint_fast32_t> textureRect = Rect2 <uint_fast32_t> ();// Rect2<uint_fast32_t>(Vector2<uint_fast32_t>(), texture->getSize());
+        Rect2uf32 textureRect = Rect2uf32();
         void draw(RenderTarget &target) const override;
-
-        D3DXMATRIX matScaling;
 
       public:
         inline Sprite() = default;
-        Sprite(const Texture &texture);
+
+        Sprite(const Texture &texture)noexcept(
+            noexcept(Rect2uf32(Vector2uf32::zero(), texture.getSize())));
+
+        Sprite(const Texture& texture,const Rect2uf32& textureRect) noexcept;
 
         Sprite(int id, int left, int top, int right, int bottom, const Texture *tex);
 
         void Draw(float x, float y);
 
-        void setTexture(const Texture& texture) { 
-            this->texture = &texture; 
-            this->textureRect = Rect2<uint_fast32_t>(Vector2<uint_fast32_t>(), texture.getSize()); }
-        void setTextureRect();
+        void setTexture(const Texture& texture) noexcept(
+            noexcept(Rect2uf32(Vector2uf32::zero(), texture.getSize())));
+
+        void setTexture(const Texture& texture, const Rect2uf32& textureRect) noexcept;
+
+       constexpr void setTextureRect(const Rect2uf32& textureRect) noexcept;
     };
 
     typedef Sprite *LPSPRITE;
 }
+
+#include "Sprite.inl"
