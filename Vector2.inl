@@ -38,7 +38,7 @@ namespace game {
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     template <typename U>
-        requires std::is_arithmetic_v<U>
+        requires std::is_arithmetic_v<std::remove_reference_t<U>>
     constexpr Vector2<T>::Vector2(const Vector2<U> &vector2) noexcept(
         noexcept(T(static_cast<T>(vector2.x))) && noexcept(T(static_cast<T>(vector2.y))))
         : x(static_cast<T>(vector2.x)), y(static_cast<T>(vector2.y)) {}

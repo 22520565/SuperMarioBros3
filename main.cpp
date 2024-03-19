@@ -21,12 +21,13 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 ================================================================ */
 
+#include "AnimatedSprite.hpp"
 #include "Game.hpp"
 #include "RenderWindow.hpp"
 #include "Sprite.hpp"
-#include <windows.h>
 #include "TextureHolder.hpp"
 #include "Time.hpp"
+#include <windows.h>
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -53,14 +54,14 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     Update world status for this frame
     dt: time period between beginning of last frame and beginning of this frame
 */
-//void update(DWORD dt) {
-//    game::Game::GetInstance()->GetCurrentScene()->update(dt);
-//}
+// void update(DWORD dt) {
+//     game::Game::GetInstance()->GetCurrentScene()->update(dt);
+// }
 //
 ///*
 //    Render a frame
 //*/
-//void render() {
+// void render() {
 //    game::Game *g = game::Game::GetInstance();
 //
 //    ID3D10Device *pD3DDevice = g->GetDirect3DDevice();
@@ -81,7 +82,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //    pSwapChain->Present(0, 0);
 //}
 //
-//HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight) {
+// HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight) {
 //    WNDCLASSEX wc;
 //    wc.cbSize = sizeof(WNDCLASSEX);
 //
@@ -126,7 +127,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //    return hWnd;
 //}
 //
-//int Run() {
+// int Run() {
 //    MSG msg;
 //    int done = 0;
 //    ULONGLONG frameStart = GetTickCount64();
@@ -167,16 +168,31 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                    _In_ LPSTR lpCmdLine, _In_ int nCmdShow) {
     using game::operator""_deg;
-    game::RenderWindow window = game::RenderWindow(game::Vector2(600, 600), L"Test", SW_SHOWNORMAL, hInstance, L"Hello");
- //   game::RenderWindow window = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance, L"null");
+    game::RenderWindow window =
+        game::RenderWindow(game::Vector2(600, 600), L"Test",
+                           SW_SHOWNORMAL, hInstance, L"Hello");
+    //   game::RenderWindow window = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance, L"null");
     game::TextureHolder textureHolder = game::TextureHolder(window);
-  auto texture= textureHolder.getTexture(L"textures/bbox.png");
+    auto *texture = textureHolder.getTexture(L"textures/bbox.png");
     game::Sprite sprite = game::Sprite();
     sprite.setTexture(*texture);
-     sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.1F));
-    sprite.setRotation({ game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
-    window.setView(game::View<float>(game::Rect3<float>({ -500,-500,0.1}, { 1000,1000,1000 }), 
-        game::Rotation3<float>(game::Angle3f::unitZ_deg()*0.0F)));
+    sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.1F));
+    sprite.setRotation({game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
+    window.setView(game::View<float>(game::Rect3<float>({-500, -500, 0.1}, {1000, 1000, 1000}),
+                                     game::Rotation3<float>(game::Angle3f::unitZ_deg() * 0.0F)));
+    auto *t1 = textureHolder.getTexture(L"textures/OIP.jpg");
+    game::Vector2f t1s = static_cast<game::Vector2f>(t1->getSize());
+    game::AnimatedSprite a1 = game::AnimatedSprite(*t1);
+    for (auto i = 0; i < 6; ++i) {
+        std::ignore = a1.animationFrames.emplace_back(
+            game::Rect2f({t1s.x / 7 * i, 0}, {t1s.x / 7, t1s.y}),
+            game::milliseconds(200));
+    }
+    a1.setTextureRect(a1.animationFrames[0].textureRect);
+    a1.setPosition(game::Vector3f::unitZ() * 0.1F);
+    a1.scale(game::Vector3f(5, 5, 1));
+
+    game::Clock timeClock = game::Clock();
     while (window.isOpen()) {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
             switch (msg->message) {
@@ -188,15 +204,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 if (msg->wParam == VK_ESCAPE) {
                     window.close();
                 } else if (msg->wParam == 'A') {
-                    sprite.move(game::Vector3f::unitX()*-10.0F);
+                    sprite.move(game::Vector3f::unitX() * -10.0F);
                 } else if (msg->wParam == 'D') {
-                    sprite.move(game::Vector3f::unitX()*10.0F);
+                    sprite.move(game::Vector3f::unitX() * 10.0F);
                 } else if (msg->wParam == 'W') {
-                    sprite.move(game::Vector3f::unitY()*10.0F);
+                    sprite.move(game::Vector3f::unitY() * 10.0F);
                 } else if (msg->wParam == 'S') {
-                    sprite.move(game::Vector3f::unitY()*-10.0F);
-                }
-                else if (msg->wParam == 'Z') {
+                    sprite.move(game::Vector3f::unitY() * -10.0F);
+                } else if (msg->wParam == 'Z') {
                     sprite.move(game::Vector3f::unitZ() * 1.0F);
                 }
                 break;
@@ -205,10 +220,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                 break;
             }
         }
-     sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg)); 
-      sprite.move(game::Vector3f::unitZ() * 0.0010F);
+        auto dt = timeClock.restart();
+        a1.update(dt);
+        sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
+        sprite.move(game::Vector3f::unitZ() * 0.0010F);
         window.clear();
         window.draw(sprite);
+        window.draw(a1);
         window.display();
     }
     // auto hInstance = GetModuleHandle(nullptr);

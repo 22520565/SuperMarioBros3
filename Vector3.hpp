@@ -94,7 +94,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         template <typename U>
-            requires std::is_arithmetic_v<U>
+            requires std::is_arithmetic_v<std::remove_reference_t<U>>
         constexpr explicit Vector3(const Vector3<U> &vector3) noexcept(
             noexcept(Vector2<T>(vector3)) && noexcept(T(static_cast<T>(vector3.z))));
 

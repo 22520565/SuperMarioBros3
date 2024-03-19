@@ -8,10 +8,10 @@ namespace game {
     */
     struct AnimationFrame {
       public:
-          Rect2f textureRect = Rect2f();
-          Time time = Time::zero;
+        Rect2f textureRect = Rect2f();
+        Time frameTime = Time::zero;
 
-        explicit AnimationFrame(const Rect2f& textureRect, const Time time);
+        constexpr explicit AnimationFrame(const Rect2f &textureRect, const Time frameTime);
     };
 
     typedef AnimationFrame *LPANIMATION_FRAME;

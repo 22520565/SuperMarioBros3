@@ -9,7 +9,7 @@ namespace game {
         return this->spriteObject;
     }
 
-    constexpr const  CComPtr<IDXGISwapChain>& RenderTarget::getSwapChain()const noexcept {
+    constexpr const CComPtr<IDXGISwapChain> &RenderTarget::getSwapChain() const noexcept {
         return this->pSwapChain;
     }
 
@@ -20,11 +20,11 @@ namespace game {
     inline void RenderTarget::clear(D3DXCOLOR color) { pD3DDevice->ClearRenderTargetView(pRenderTargetView, color); }
 
     ////////////////////////////////////////////////////////////
-    inline void RenderTarget::setView(const View<float>& view) {
+    inline bool RenderTarget::setView(const View<float> &view) {
         D3DXMATRIX d3dxMatrix = static_cast<D3DXMATRIX>(view.getTransform());
-        this->spriteObject->SetProjectionTransform(&d3dxMatrix);
+        return this->spriteObject->SetProjectionTransform(&d3dxMatrix) == S_OK;
     }
 
     ////////////////////////////////////////////////////////////
-    inline void RenderTarget::draw(const Drawable& drawable) { drawable.draw(*this); }
+    inline bool RenderTarget::draw(const Drawable &drawable) { return drawable.draw(*this); }
 }

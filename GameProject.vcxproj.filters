@@ -168,12 +168,12 @@
     <ClInclude Include="AnimatedSprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StaticSprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
@@ -304,6 +304,12 @@
     </None>
     <None Include="Sprite.inl">
       <Filter>Inline Files</Filter>
+    </None>
+    <None Include="StaticSprite.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Sprites.cpp">
+      <Filter>TempFIles</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

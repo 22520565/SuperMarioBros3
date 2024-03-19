@@ -153,11 +153,11 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        Vector3<T> position = Vector3<T>::zero();  // Position of the object.
-        Rotation3<T> rotation = Rotation3<T>();    // Rotation of the object.
-        Scalation3<T> scalation = Scalation3<T>(); // Scalation of the object.
-        mutable Transform<T> transform = Transform<T>();
-        mutable bool transformNeedUpdate = false;
+        Vector3<T> position = Vector3<T>::zero();        // Position of the object.
+        Rotation3<T> rotation = Rotation3<T>();          // Rotation of the object.
+        Scalation3<T> scalation = Scalation3<T>();       // Scalation of the object.
+        mutable Transform<T> transform = Transform<T>(); // Transform of the object.
+        mutable bool transformNeedUpdate = false;        // Determinate whether the transform needs update or not.
     };
 }
 

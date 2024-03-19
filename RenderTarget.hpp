@@ -10,19 +10,18 @@
 #include <d3d10.h>
 
 namespace game {
-    class RenderTarget{
+    class RenderTarget {
       public:
         virtual ~RenderTarget() = default;
 
         [[nodiscard]]
         constexpr const CComPtr<ID3D10Device> &getDevice() const noexcept;
 
-
         [[nodiscard]]
         constexpr const CComPtr<ID3DX10Sprite> &getSpriteObject() const noexcept;
 
         [[nodiscard]]
-        constexpr const  CComPtr<IDXGISwapChain>& getSwapChain()const noexcept;
+        constexpr const CComPtr<IDXGISwapChain> &getSwapChain() const noexcept;
 
         void clear();
 
@@ -30,9 +29,9 @@ namespace game {
 
         //   const D3D10_VIEWPORT& getViewPort() { return this->viewPort; }
 
-        void setView(const View<float> &view);
+        bool setView(const View<float> &view);
 
-        inline void draw(const Drawable &drawable);
+        bool draw(const Drawable &drawable);
 
         /// \brief Return the size of the rendering region of the target.
         ///
@@ -43,18 +42,18 @@ namespace game {
         explicit RenderTarget(DXGI_SWAP_CHAIN_DESC swapChainDesc);
 
       private:
-          CComPtr<ID3D10Device> pD3DDevice = CComPtr<ID3D10Device>();
-          CComPtr<IDXGISwapChain> pSwapChain = CComPtr<IDXGISwapChain>();
+        CComPtr<ID3D10Device> pD3DDevice = CComPtr<ID3D10Device>();
+        CComPtr<IDXGISwapChain> pSwapChain = CComPtr<IDXGISwapChain>();
 
-          ID3D10RenderTargetView* pRenderTargetView = nullptr;
-          CComPtr<ID3DX10Sprite> spriteObject = CComPtr<ID3DX10Sprite>();
+        ID3D10RenderTargetView *pRenderTargetView = nullptr;
+        CComPtr<ID3DX10Sprite> spriteObject = CComPtr<ID3DX10Sprite>();
 
-          // create and set the viewport
-          D3D10_VIEWPORT viewPort = D3D10_VIEWPORT();
+        // create and set the viewport
+        D3D10_VIEWPORT viewPort = D3D10_VIEWPORT();
 
-          // To store alpha blending state
-          CComPtr<ID3D10BlendState> pBlendStateAlpha = CComPtr<ID3D10BlendState>();
-          CComPtr<ID3D10SamplerState> pPointSamplerState = CComPtr<ID3D10SamplerState>();
+        // To store alpha blending state
+        CComPtr<ID3D10BlendState> pBlendStateAlpha = CComPtr<ID3D10BlendState>();
+        CComPtr<ID3D10SamplerState> pPointSamplerState = CComPtr<ID3D10SamplerState>();
 
         constexpr RenderTarget(const RenderTarget &) noexcept = delete;
         constexpr RenderTarget(RenderTarget &&) noexcept = delete;

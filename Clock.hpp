@@ -57,7 +57,9 @@ namespace game {
 #if defined(SFML_SYSTEM_ANDROID) && defined(SFML_ANDROID_USE_SUSPEND_AWARE_CLOCK)
         using ClockImpl = SuspendAwareClock;
 #else
-        using ClockImpl = std::conditional_t<std::chrono::high_resolution_clock::is_steady, std::chrono::high_resolution_clock, std::chrono::steady_clock>;
+        using ClockImpl = std::conditional_t<std::chrono::high_resolution_clock::is_steady,
+                                             std::chrono::high_resolution_clock,
+                                             std::chrono::steady_clock>;
 #endif
 
         static_assert(ClockImpl::is_steady, "Provided implementation is not a monotonic clock");
@@ -68,6 +70,7 @@ namespace game {
     class Time;
 
     class Clock {
+      public:
         ////////////////////////////////////////////////////////////
         /// \brief Get the elapsed time
         ///

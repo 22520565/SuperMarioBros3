@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Collision.hpp""
-#include "stdfloat"
+#include "Collision.hpp"
 #include "Vector2.hpp"
+#include "stdfloat"
 #include <vector>
 #include <windows.h>
 
@@ -13,7 +13,7 @@ namespace game {
     class GameObject {
       public:
         constexpr GameObject() = default;
-        constexpr explicit GameObject(const Vector2<std::float32_t>& position) noexcept(
+        constexpr explicit GameObject(const Vector2<std::float32_t> &position) noexcept(
             noexcept(Vector2(position))) : position(position) {}
 
         constexpr const Vector2<std::float32_t> &getPosition() const noexcept { return this->position; }
@@ -40,7 +40,7 @@ namespace game {
         void RenderBoundingBox();
 
         virtual void getBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-        virtual void update(DWORD dt, std::vector< GameObject *> *coObjects = NULL){};
+        virtual void update(DWORD dt, std::vector<GameObject *> *coObjects = NULL){};
         virtual void render() = 0;
         virtual void SetState(int state) { this->state = state; }
 
@@ -58,7 +58,7 @@ namespace game {
         // Is this object blocking other object? If YES, collision framework will automatically push the other object
         virtual int IsBlocking() { return 1; }
 
-        static bool IsDeleted(const  GameObject * &o) { return o->isDeleted; }
+        static bool IsDeleted(const GameObject *&o) { return o->isDeleted; }
 
       protected:
         Vector2<std::float32_t> position = Vector2<std::float32_t>();

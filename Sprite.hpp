@@ -6,33 +6,44 @@
 #include "Texture.hpp"
 #include "Transformable.hpp"
 
-
-//TODO: Maybe we should create a StaticSprite?
+// TODO: Maybe we should create a StaticSprite?
 namespace game {
     class Sprite : public Drawable, public Transformable<float> {
-        //   int id; // Sprite ID in the sprite database
-        const Texture *texture=nullptr;
-        Rect2uf32 textureRect = Rect2uf32();
-        void draw(RenderTarget &target) const override;
-
       public:
-        inline Sprite() = default;
+        constexpr Sprite() = default;
 
-        Sprite(const Texture &texture)noexcept(
-            noexcept(Rect2uf32(Vector2uf32::zero(), texture.getSize())));
+        explicit Sprite(const Texture &texture) noexcept(
+            noexcept(Rect2f(Vector2f::zero(), static_cast<Vector2f>(texture.getSize()))));
 
-        Sprite(const Texture& texture,const Rect2uf32& textureRect) noexcept;
+        explicit Sprite(const Texture &texture, const Rect2f &textureRect) noexcept;
 
-        Sprite(int id, int left, int top, int right, int bottom, const Texture *tex);
+        const Texture *getTexture() const noexcept;
 
-        void Draw(float x, float y);
+       constexpr const Rect2f& getTextureRect() const noexcept;
 
-        void setTexture(const Texture& texture) noexcept(
-            noexcept(Rect2uf32(Vector2uf32::zero(), texture.getSize())));
+        void setTexture(const Texture &newTexture) noexcept(
+            noexcept(Rect2f(Vector2f::zero(), static_cast<Vector2f>(newTexture.getSize()))));
 
-        void setTexture(const Texture& texture, const Rect2uf32& textureRect) noexcept;
+        void setTexture(const Texture &newTexture, const Rect2f &newTextureRect) noexcept;
 
-       constexpr void setTextureRect(const Rect2uf32& textureRect) noexcept;
+        void setTextureRect(const Rect2f &newTextureRect) noexcept;
+
+      private:
+        //   int id; // Sprite ID in the sprite database
+        const Texture *texture = nullptr;
+
+       mutable D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
+            .matWorld = D3DXMATRIX(),
+            .TexCoord = D3DXVECTOR2(),
+            .TexSize = D3DXVECTOR2(),
+            .ColorModulate = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+            .pTexture = nullptr, // Set the sprite's shader resource view
+            .TextureIndex = 0U,
+        };
+
+        bool draw(const RenderTarget &target) const override;
+
+        Rect2f textureRect = Rect2f();
     };
 
     typedef Sprite *LPSPRITE;
