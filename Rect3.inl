@@ -82,4 +82,32 @@ namespace game {
                (point.z >= wrappedSizeRect3.front) &&
                (point.z < (wrappedSizeRect3.front + wrappedSizeRect3.depth));
     }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    constexpr std::optional<Rect3<T>> Rect3<T>::findIntersection(const Rect3<T> &rect3) const noexcept(
+        noexcept(Rect2<T>::findIntersection(rect3))) {
+        std::optional<Rect3<T>> result = std::nullopt;
+
+        if (const auto intersectionRect2 = this->Rect2<T>::findIntersection(rect3);
+            intersectionRect2.has_value()) [[unlikely]] {
+            // Compute the min and max of the both rectangulars on axes Z.
+            const T r1MinZ = (std::min)(this->front, this->front + this->depth);
+            const T r1MaxZ = (std::max)(this->front, this->front + this->depth);
+            const T r2MinZ = (std::min)(rect3.front, rect3.front + rect3.depth);
+            const T r2MaxZ = (std::max)(rect3.front, rect3.front + rect3.depth);
+
+            // Compute the intersection boundaries.
+            const T interFront = (std::max)(r1MinZ, r2MinZ);
+            const T interBack = (std::min)(r1MaxZ, r2MaxZ);
+
+            // If the intersection is valid (positive non zero area), then there is an intersection.
+            if (interFront < interBack) [[unlikely]] {
+                result = Rect3<T>(*intersectionRect2, interFront, interBack - interFront);
+            }
+        }
+
+        return result;
+    }
 }
