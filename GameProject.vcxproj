@@ -213,6 +213,7 @@
     <None Include="AnimationFrame.inl" />
     <None Include="Game.cpp" />
     <None Include="GameObject.cpp" />
+    <None Include="GameObject.inl" />
     <None Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="Mario.cpp" />

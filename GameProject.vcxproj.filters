@@ -314,6 +314,9 @@
     <None Include="AnimatedSprite.inl">
       <Filter>Inline Files</Filter>
     </None>
+    <None Include="GameObject.inl">
+      <Filter>Inline Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc">

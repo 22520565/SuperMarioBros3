@@ -8,7 +8,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     inline Sprite::Sprite(const Texture &texture, const Rect2uf32 &textureRect) noexcept
-        : texture(&texture),
+        : pTexture(&texture),
           dxSprite(D3DX10_SPRITE{
               .matWorld = D3DXMATRIX(),
               .TexCoord = D3DXVECTOR2(
@@ -23,7 +23,7 @@ namespace game {
           }) {}
 
     ////////////////////////////////////////////////////////////
-    inline const Texture *Sprite::getTexture() const noexcept { return this->texture; }
+    inline const Texture *Sprite::getTexture() const noexcept { return this->pTexture; }
 
     ////////////////////////////////////////////////////////////
     constexpr const Rect2uf32& Sprite::getTextureRect() const noexcept {
@@ -38,14 +38,14 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     inline void Sprite::setTexture(const Texture &newTexture, const Rect2uf32 &newTextureRect) noexcept {
-        this->texture = &newTexture;
+        this->pTexture = &newTexture;
         this->dxSprite.pTexture = newTexture.getShaderResourceView();
         this->setTextureRect(newTextureRect);
     }
 
     ////////////////////////////////////////////////////////////
     inline void Sprite::setTextureRect(const Rect2uf32 &newTextureRect) noexcept {
-        const auto& textureSize = this->texture->getSize();
+        const auto& textureSize = this->pTexture->getSize();
         this->textureRect = newTextureRect;
         this->dxSprite.TexCoord = D3DXVECTOR2(
             static_cast<FLOAT>(newTextureRect.left)/static_cast<FLOAT>(textureSize.x), 

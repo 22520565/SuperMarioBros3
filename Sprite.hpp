@@ -30,7 +30,7 @@ namespace game {
 
       private:
         //   int id; // Sprite ID in the sprite database
-        const Texture *texture = nullptr;
+        const Texture *pTexture = nullptr;
 
        mutable D3DX10_SPRITE dxSprite = D3DX10_SPRITE{
             .matWorld = D3DXMATRIX(),

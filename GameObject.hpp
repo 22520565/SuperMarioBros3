@@ -13,6 +13,7 @@ namespace game {
     class GameObject {
       public:
         constexpr GameObject() = default;
+
         constexpr explicit GameObject(const Vector2<std::float32_t> &position) noexcept(
             noexcept(Vector2(position))) : position(position) {}
 
