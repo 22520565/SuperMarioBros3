@@ -177,7 +177,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     game::Sprite sprite = game::Sprite();
     sprite.setTexture(*texture);
     sprite.setPosition(game::Vector3(0.0F, 0.0F, 0.1F));
-    sprite.setRotation({game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg), game::Vector3f::zero()});
+    sprite.setOrigin({ 100.0,100.0,0 });
+    sprite.setRotation(game::Angle3f(0.0_deg, 0.0_deg, 45.0_deg));
     window.setView(game::View<float>(game::Rect3<float>({-500, -500, 0.1}, {1000, 1000, 1000}),
                                      game::Rotation3<float>(game::Angle3f::unitZ_deg() * 0.0F)));
     auto *t1 = textureHolder.getTexture(L"textures/OIP.jpg");
@@ -221,9 +222,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
             }
         }
         auto dt = timeClock.restart();
+        auto u = sprite.getGlobalBounds();
+        auto t = sprite.getLocalBounds();
         a1.update(dt);
-        sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
-        sprite.move(game::Vector3f::unitZ() * 0.0010F);
+     //   sprite.rotate(game::Angle3f(0.0_deg, 0.0_deg, 1.0_deg));
+       // sprite.move(game::Vector3f::unitZ() * 0.0010F);
         window.clear();
         window.draw(sprite);
         window.draw(a1);

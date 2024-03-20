@@ -28,6 +28,34 @@ namespace game {
 
         void setTextureRect(const Rect2uf32 &newTextureRect) noexcept;
 
+        ////////////////////////////////////////////////////////////
+ /// \brief Get the local bounding rectangle of the entity.
+ ///
+ /// The returned rectangle is in local coordinates, which means
+ /// that it ignores the transformations (translation, rotation,
+ /// scale, ...) that are applied to the entity.
+ /// In other words, this function returns the bounds of the
+ /// entity in the entity's coordinate system.
+ ///
+ /// \return Local bounding rectangle of the entity.
+ ///
+ ////////////////////////////////////////////////////////////
+        constexpr Rect2f getLocalBounds() const noexcept;
+
+       ////////////////////////////////////////////////////////////
+   /// \brief Get the global bounding rectangle of the entity.
+   ///
+   /// The returned rectangle is in global coordinates, which means
+   /// that it takes into account the transformations (translation,
+   /// rotation, scale, ...) that are applied to the entity.
+   /// In other words, this function returns the bounds of the
+   /// sprite in the global 2D world's coordinate system.
+   ///
+   /// \return Global bounding rectangle of the entity.
+   ///
+   ////////////////////////////////////////////////////////////
+      constexpr Rect2f getGlobalBounds() const noexcept;
+
       private:
         //   int id; // Sprite ID in the sprite database
         const Texture *pTexture = nullptr;

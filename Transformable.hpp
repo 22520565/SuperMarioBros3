@@ -1,14 +1,9 @@
 #pragma once
-#include "Rotation3.hpp"
-#include "Scalation3.hpp"
 #include "Transform.hpp"
-#include <cmath>
-#include <cstdint>
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    /// \brief Decomposed transform defined by a position,
-    /// a rotation and a scalation.
+    /// \brief Decomposed transform defined by a position, a rotation and a scale.
     ///
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
@@ -39,30 +34,43 @@ namespace game {
         constexpr void setPosition(const Vector3<T> &newPosition) noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Set the rotation of the object.
+        /// \brief Set the orientation of the object.
         ///
         /// This function completely overwrites the previous rotation.
         /// See the rotate function to add an angle based on the previous rotation angles instead.
-        /// The default rotation angles of a transformable object is (0, 0, 0).
-        /// The default coordinate of rotation center point of a transformable object is (0, 0, 0).
+        /// The default rotation of a transformable object is (0, 0, 0).
         ///
-        /// \param newRotation: New rotation3.
+        /// \param newAngle3: New rotation.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setRotation(const Rotation3<T> &newRotation) noexcept;
+        constexpr void setRotation(const Angle3<T> &newAngle3) noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Set the scalation of the object.
+        /// \brief Set the scale factors of the object.
         ///
-        /// This function completely overwrites the previous scalation.
+        /// This function completely overwrites the previous scale.
         /// See the scale function to add a factor based on the previous scale instead.
-        /// The default scalation factor of a transformable object is (1, 1, 1).
-        /// The default coordinate of scalation center point of a transformable object is (0, 0, 0).
+        /// The default scale of a transformable object is (1, 1, 1).
         ///
-        /// \param newScalation: New scalation3.
+        /// \param newFactors: New scale factors
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void setScalation(const Scalation3<T> &newScalation) noexcept;
+        constexpr void setScale(const Vector3<T> &newFactors) noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Set the local origin of the object.
+        ///
+        /// The origin of an object defines the center point for
+        /// all transformations (position, scale, rotation).
+        /// The coordinates of this point must be relative to the
+        /// top-left corner of the object, and ignore all
+        /// transformations (position, scale, rotation).
+        /// The default origin of a transformable object is (0, 0, 0).
+        ///
+        /// \param newOrigin: New origin.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr void setOrigin(const Vector3<T> &newOrigin) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the position of the object.
@@ -74,22 +82,33 @@ namespace game {
         constexpr const Vector3<T> &getPosition() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get the rotation of the object.
+        /// \brief Get the orientation of the object.
+        ///
+        /// The rotation is always in the range [0, 360) degrees.
         ///
         /// \return Current rotation.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr const Rotation3<T> &getRotation() const noexcept;
+        constexpr const Angle3<T> &getRotation() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Get the current scalation of the object.
+        /// \brief Get the current scale of the object.
         ///
-        /// \return Current scaling.
+        /// \return Current scale factors.
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        constexpr const Vector3<T> &getScalation() const noexcept;
+        constexpr const Vector3<T> &getScale() const noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the local origin of the object.
+        ///
+        /// \return Current origin.
+        ///
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr const Vector3<T> &getOrigin() const noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Move the object by a given offset.
@@ -102,21 +121,21 @@ namespace game {
         /// \endcode
         ///
         /// \param offset: Offset.
+        ///
         ////////////////////////////////////////////////////////////
         constexpr void move(const Vector3<T> &offset) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Rotate the object.
         ///
-        /// This function adds angle to the current rotation angle of the object,
-        /// unlike setRotation which overwrites it. The rotation center point stays remain.
+        /// This function adds to the current rotation of the object,
+        /// unlike setRotation which overwrites it.
         /// Thus, it is equivalent to the following code:
         /// \code
-        /// auto rotation = object.getRotation();
-        /// object.setRotation({rotation.getAngle() + angle, rotation.getCenter()});
+        /// object.setRotation(object.getRotation() + angle3);
         /// \endcode
         ///
-        /// \param angle3: Rotation angle.
+        /// \param angle3 Angle of rotation.
         ///
         ////////////////////////////////////////////////////////////
         constexpr void rotate(const Angle3<T> &angle3) noexcept;
@@ -124,21 +143,18 @@ namespace game {
         ////////////////////////////////////////////////////////////
         /// \brief Scale the object.
         ///
-        /// This function multiplies factors with the current scale factors of the object,
-        /// unlike setScale which overwrites it. The scalation center point stays remain.
+        /// This function multiplies the current scale of the object,
+        /// unlike setScale which overwrites it.
         /// Thus, it is equivalent to the following code:
         /// \code
-        /// auto scalation = object.getScalation();
-        /// scalation.factorX*=factor.x;
-        /// scalation.factorY*=factor.y;
-        /// scalation.factorZ*=factor.z;
-        /// object.setScalation(scalation);
+        /// sf::Vector2f scale = object.getScale();
+        /// object.setScale(scale.x * factor.x, scale.y * factor.y);
         /// \endcode
         ///
-        /// \param factor: Scalation factor.
+        /// \param factor Scale factors.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr void scale(const Vector3<T> &factor) noexcept;
+        constexpr void scale(const Vector3<T> &factors) noexcept;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get the combined transform of the object.
@@ -153,11 +169,12 @@ namespace game {
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
+        Vector3<T> origin = Vector3<T>::zero();          // Origin of translation/rotation/scaling of the object.
         Vector3<T> position = Vector3<T>::zero();        // Position of the object.
-        Rotation3<T> rotation = Rotation3<T>();          // Rotation of the object.
-        Scalation3<T> scalation = Scalation3<T>();       // Scalation of the object.
-        mutable Transform<T> transform = Transform<T>(); // Transform of the object.
-        mutable bool transformNeedUpdate = false;        // Determinate whether the transform needs update or not.
+        Angle3<T> rotation = Angle3<T>::zero();          // Orientation of the object.
+        Vector3<T> scaleFactors = Vector3<T>::one();     // Scale factors of the object.
+        mutable Transform<T> transform = Transform<T>(); // Combined transformation of the object.
+        mutable bool transformNeedUpdate = false;        // Determinate whether the transform need to be recomputed or not.
     };
 }
 

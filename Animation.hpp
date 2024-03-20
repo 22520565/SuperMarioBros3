@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <vector>
 #include <windows.h>
-
-#include "AnimationFrame.hpp"
 #include "Sprites.hpp"
 
 namespace game {

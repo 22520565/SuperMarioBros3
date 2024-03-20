@@ -203,7 +203,7 @@ namespace game {
         ///
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
-        friend constexpr std::partial_ordering
+        friend constexpr auto
         operator<=>(Angle<T> left, Angle<T> right) = default;
 
         ////////////////////////////////////////////////////////////

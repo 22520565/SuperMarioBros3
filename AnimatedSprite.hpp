@@ -1,7 +1,7 @@
 #pragma once
-#include "AnimationFrame.hpp"
 #include "Clock.hpp"
 #include "Sprite.hpp"
+#include "Time.hpp"
 #include <vector>
 
 namespace game {

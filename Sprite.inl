@@ -56,6 +56,17 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
+    constexpr Rect2f Sprite::getLocalBounds() const noexcept {
+        return Rect2f(static_cast<Vector2f>(Vector2uf32::unitY()* this->textureRect.getSize().y),
+                    static_cast<Vector2f>(this->textureRect.getSize()));
+   }
+
+    ////////////////////////////////////////////////////////////
+    constexpr Rect2f Sprite::getGlobalBounds() const noexcept {
+        return this->getTransform().transformRect(Rect3f(this->getLocalBounds()));
+    }
+
+    ////////////////////////////////////////////////////////////
     inline bool Sprite::draw(const RenderTarget &target) const {
         bool drawn = false;
 

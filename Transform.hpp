@@ -1,3 +1,29 @@
+////////////////////////////////////////////////////////////
+//
+// SFML - Simple and Fast Multimedia Library
+// Copyright (C) 2007-2024 Laurent Gomila (laurent@sfml-dev.org)
+//
+// This software is provided 'as-is', without any express or implied warranty.
+// In no event will the authors be held liable for any damages arising from the use of this software.
+//
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it freely,
+// subject to the following restrictions:
+//
+// 1. The origin of this software must not be misrepresented;
+//    you must not claim that you wrote the original software.
+//    If you use this software in a product, an acknowledgment
+//    in the product documentation would be appreciated but is not required.
+//
+// 2. Altered source versions must be plainly marked as such,
+//    and must not be misrepresented as being the original software.
+//
+// 3. This notice may not be removed or altered from any source distribution.
+// 
+// *. This header file has been altered after copying from origin!
+//
+////////////////////////////////////////////////////////////
+
 #pragma once
 #include "Angle.hpp"
 #include "Angle3.hpp"
@@ -65,6 +91,25 @@ namespace game {
                             const T f10, const T f11, const T f12, const T f13,
                             const T f20, const T f21, const T f22, const T f23,
                             const T f30, const T f31, const T f32, const T f33) noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Default overload of binary operator == to compare two transforms.
+        ///
+        /// Performs an element-wise comparison of the elements of the
+        /// left transform with the elements of the right transform.
+        /// 
+        /// \note Since C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
+        /// Thus, it's not necessary to define operator != and you can still use operator != normally.
+        ///
+        /// \param left: Left operand (the first transform).
+        /// \param right: Right operand (the second transform).
+        ///
+        /// \return true if the transforms are equal, false otherwise.
+        /// 
+        ////////////////////////////////////////////////////////////
+        [[nodiscard]] 
+        friend constexpr bool
+        operator==(const Transform<T>& left, const Transform<T>& right) = default;
 
         ////////////////////////////////////////////////////////////
         /// \brief Convert to D3DXMATRIX.
@@ -195,6 +240,34 @@ namespace game {
         ////////////////////////////////////////////////////////////
         [[nodiscard]]
         constexpr Transform<T> scale(const Scalation3<T> &scalation3) const noexcept;
+
+        ////////////////////////////////////////////////////////////
+   /// \brief Transform a point.
+   /// 
+   /// \param point: Point to transform.
+   ///
+   /// \return Transformed point.
+   ///
+   ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Vector3<T> transformPoint(const Vector3<T>& point) const noexcept;
+
+        ////////////////////////////////////////////////////////////
+    /// \brief Transform a rectangle.
+    ///
+    /// Since oriented rectangles isn't provided support for,
+    /// the result of this function is always an axis-aligned
+    /// rectangle. Which means that if the transform contains a
+    /// rotation, the bounding rectangle of the transformed rectangle
+    /// is returned.
+    ///
+    /// \param rect3: Rectangle to transform.
+    ///
+    /// \return Transformed rectangle.
+    ///
+    ////////////////////////////////////////////////////////////
+        [[nodiscard]]
+        constexpr Rect3<T> transformRect(const Rect3<T>& rect3) const noexcept;
     };
 }
 
