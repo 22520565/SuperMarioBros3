@@ -202,6 +202,7 @@
     <ClInclude Include="WindowBase.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AnimatedSprite.inl" />
     <None Include="Animation.cpp" />
     <None Include="Animations.cpp" />
     <None Include="Brick.cpp" />

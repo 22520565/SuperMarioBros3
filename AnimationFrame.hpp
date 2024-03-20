@@ -3,18 +3,13 @@
 #include "Time.hpp"
 
 namespace game {
-    /*
-        Sprite animation
-    */
     struct AnimationFrame {
       public:
-        Rect2f textureRect = Rect2f();
+        Rect2uf32 textureRect = Rect2uf32();
         Time frameTime = Time::zero;
 
-        constexpr explicit AnimationFrame(const Rect2f &textureRect, const Time frameTime);
+        constexpr explicit AnimationFrame(const Rect2uf32 &textureRect, const Time frameTime) noexcept;
     };
-
-    typedef AnimationFrame *LPANIMATION_FRAME;
 }
 
 #include "AnimationFrame.inl"

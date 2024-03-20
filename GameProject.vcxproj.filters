@@ -311,6 +311,9 @@
     <None Include="Sprites.cpp">
       <Filter>TempFIles</Filter>
     </None>
+    <None Include="AnimatedSprite.inl">
+      <Filter>Inline Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc">

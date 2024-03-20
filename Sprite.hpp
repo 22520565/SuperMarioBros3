@@ -13,20 +13,20 @@ namespace game {
         constexpr Sprite() = default;
 
         explicit Sprite(const Texture &texture) noexcept(
-            noexcept(Rect2f(Vector2f::zero(), static_cast<Vector2f>(texture.getSize()))));
+            noexcept(Rect2uf32(Vector2uf32::zero(), texture.getSize())));
 
-        explicit Sprite(const Texture &texture, const Rect2f &textureRect) noexcept;
+        explicit Sprite(const Texture &texture, const Rect2uf32 &textureRect) noexcept;
 
         const Texture *getTexture() const noexcept;
 
-       constexpr const Rect2f& getTextureRect() const noexcept;
+       constexpr const Rect2uf32& getTextureRect() const noexcept;
 
         void setTexture(const Texture &newTexture) noexcept(
-            noexcept(Rect2f(Vector2f::zero(), static_cast<Vector2f>(newTexture.getSize()))));
+            noexcept(Rect2uf32(Vector2uf32::zero(), newTexture.getSize())));
 
-        void setTexture(const Texture &newTexture, const Rect2f &newTextureRect) noexcept;
+        void setTexture(const Texture &newTexture, const Rect2uf32 &newTextureRect) noexcept;
 
-        void setTextureRect(const Rect2f &newTextureRect) noexcept;
+        void setTextureRect(const Rect2uf32 &newTextureRect) noexcept;
 
       private:
         //   int id; // Sprite ID in the sprite database
@@ -43,7 +43,7 @@ namespace game {
 
         bool draw(const RenderTarget &target) const override;
 
-        Rect2f textureRect = Rect2f();
+        Rect2uf32 textureRect = Rect2uf32();
     };
 
     typedef Sprite *LPSPRITE;
