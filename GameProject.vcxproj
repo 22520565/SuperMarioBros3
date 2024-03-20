@@ -156,7 +156,6 @@
     <ClInclude Include="Angle3.hpp" />
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
-    <ClInclude Include="AnimationFrame.hpp" />
     <ClInclude Include="Animations.hpp" />
     <ClInclude Include="AssetIDs.hpp" />
     <ClInclude Include="Brick.hpp" />
@@ -210,7 +209,6 @@
     <None Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
-    <None Include="AnimationFrame.inl" />
     <None Include="Game.cpp" />
     <None Include="GameObject.cpp" />
     <None Include="GameObject.inl" />

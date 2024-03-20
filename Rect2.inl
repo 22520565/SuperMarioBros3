@@ -23,6 +23,7 @@
 ////////////////////////////////////////////////////////////
 #include "Rect2.hpp"
 #include "Vector2.hpp"
+#include <optional>
 #include <type_traits>
 
 namespace game {
@@ -87,7 +88,6 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-
     template <typename T>
         requires std::is_arithmetic_v<std::remove_reference_t<T>>
     constexpr bool Rect2<T>::contains(const Vector2<T> &point) const noexcept(
@@ -97,5 +97,30 @@ namespace game {
                (point.x < (wrappedSizeRect2.left + wrappedSizeRect2.width)) &&
                (point.y <= wrappedSizeRect2.top) &&
                (point.y > (wrappedSizeRect2.top - wrappedSizeRect2.height));
+    }
+
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+        requires std::is_arithmetic_v<std::remove_reference_t<T>>
+    constexpr std::optional<Rect2<T>> Rect2<T>::findIntersection(const Rect2<T> &rect2) const noexcept(
+        noexcept(wrapSizeUnsigned())) {
+        std::optional<Rect2<T>> result = std::nullopt;
+
+        // Get size-wrapped rect2.
+        const Rect2<T> r1SizeWrapped = this->wrapSizeUnsigned();
+        const Rect2<T> r2SizeWrapped = rect2->wrapSizeUnsigned();
+
+        // Compute the intersection boundaries.
+        const T interLeft = (std::max)(r1SizeWrapped.left, r2SizeWrapped.left);
+        const T interTop = (std::min)(r1SizeWrapped.top, r2SizeWrapped.left);
+        const T interRight = (std::min)(r1SizeWrapped.left + r1SizeWrapped.width, r2SizeWrapped.left + r2SizeWrapped.width);
+        const T interBottom = (std::max)(r1SizeWrapped.top - r1SizeWrapped.height, r2SizeWrapped.top - r2SizeWrapped.height);
+
+        // If the intersection is valid (positive non zero area), then there is an intersection
+        if ((interLeft < interRight) && (interTop > interBottom)) [[unlikely]] {
+            result = Rect2<T>(Vector2<T>(interLeft, interTop), Vector2<T>(interRight - interLeft, interTop - interBottom));
+        }
+
+        return result;
     }
 }

@@ -17,11 +17,13 @@
 //    and must not be misrepresented as being the original software.
 //
 // 3. This notice may not be removed or altered from any source distribution.
+//
 // * This header file has been altered after copying from origin!
 //
 ////////////////////////////////////////////////////////////
 #pragma once
 #include "Vector2.hpp"
+#include <optional>
 
 namespace game {
     ////////////////////////////////////////////////////////////
@@ -141,12 +143,23 @@ namespace game {
         /// This check is non-inclusive. If the point lies on the
         /// edge of the rectangle, this function will return false.
         ///
-        /// \param point: Point to test
+        /// \param point: Point to test.
         ///
         /// \return True if the point is inside, false otherwise.
         ///
         ////////////////////////////////////////////////////////////
         constexpr bool contains(const Vector2<T> &point) const noexcept(
+            noexcept(wrapSizeUnsigned()));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Check the intersection between two rectangles
+        ///
+        /// \param rect2: Rectangle to test.
+        ///
+        /// \return Intersection rectangle if intersecting, std::nullopt otherwise.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr std::optional<Rect2<T>> findIntersection(const Rect2<T> &rect2) const noexcept(
             noexcept(wrapSizeUnsigned()));
     };
 

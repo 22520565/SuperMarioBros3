@@ -143,6 +143,17 @@ namespace game {
         ////////////////////////////////////////////////////////////
         constexpr bool contains(const Vector3<T> &point) const noexcept(
             noexcept(wrapSizeUnsigned()) && noexcept(Rect2<T>::contains(point)));
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Check the intersection between two rectangulars
+        ///
+        /// \param rect3: Rectangular to test.
+        ///
+        /// \return Intersection rectangular if intersecting, std::nullopt otherwise.
+        ///
+        ////////////////////////////////////////////////////////////
+        constexpr std::optional<Rect3<T>> findIntersection(const Rect3<T> &rect3) const noexcept(
+            noexcept(Rect2<T>::findIntersection(rect3)));
     };
 
     // Define common types.
