@@ -63,6 +63,7 @@ namespace game {
 
       protected:
         Vector2<std::float32_t> position = Vector2<std::float32_t>();
+
         Vector2<std::float32_t> speed = Vector2<std::float32_t>();
 
         int_fast32_t nx = 1;

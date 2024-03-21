@@ -16,7 +16,7 @@ namespace game {
      [[nodiscard]]const Texture * getTexture(const TCHAR *const &fileName);
 
       private:
-        const  RenderTarget*const pRenderTarget=nullptr;
+        const RenderTarget*const pRenderTarget=nullptr;
         std::unordered_map<const TCHAR *, Texture> textures =
             std::unordered_map<const TCHAR *, Texture>();
 

@@ -156,6 +156,7 @@
     <ClInclude Include="Angle3.hpp" />
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="AnimationFrame.hpp" />
     <ClInclude Include="Animations.hpp" />
     <ClInclude Include="AssetIDs.hpp" />
     <ClInclude Include="Brick.hpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Mario.hpp" />
     <ClInclude Include="NonConstructible.hpp" />
     <ClInclude Include="NonCopyable.hpp" />
+    <ClInclude Include="Object.hpp" />
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
@@ -203,6 +205,7 @@
   <ItemGroup>
     <None Include="AnimatedSprite.inl" />
     <None Include="Animation.cpp" />
+    <None Include="AnimationFrame.inl" />
     <None Include="Animations.cpp" />
     <None Include="Brick.cpp" />
     <ClCompile Include="Clock.cpp" />

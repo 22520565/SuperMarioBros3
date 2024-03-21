@@ -189,7 +189,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
         std::ignore = a1.textureRects.emplace_back(
             game::Rect2uf32({t1s.x / 7 * i, 0}, {t1s.x / 7, t1s.y}));
     }
-    //a1.restart();
     a1.setPosition(game::Vector3f::unitZ() * 0.1F);
     a1.scale(game::Vector3f(5, 5, 1));
 

@@ -16,7 +16,7 @@ namespace game {
                                           const std::vector<Rect2uf32> &textureRects) noexcept(noexcept(Sprite(texture)))
         : Sprite(texture), textureRectTime(textureRectTime), textureRects(textureRects) {
         if (!textureRects.empty()) [[likely]] {
-            this->setTextureRect(*textureRects.begin());
+            this->setTextureRect(*textureRects.cbegin());
         }
     }
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "Rect3.hpp"
 #include "Transform.hpp"
-#include <D3DX10.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

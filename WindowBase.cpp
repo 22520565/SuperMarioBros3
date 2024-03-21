@@ -85,7 +85,8 @@ namespace game {
     }
 
     Vector2<int> WindowBase::getSize()const noexcept
-    {RECT rect = RECT();
+    {
+        RECT rect = RECT();
     GetClientRect(hWnd, &rect);
     return Vector2<int>(rect.right, rect.bottom);
     }

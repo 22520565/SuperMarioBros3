@@ -63,7 +63,7 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     constexpr Rect2f Sprite::getGlobalBounds() const noexcept {
-        return this->getTransform().transformRect(Rect3f(this->getLocalBounds()));
+        return static_cast<Rect2f>(this->getTransform().transformRect(Rect3f(this->getLocalBounds())));
     }
 
     ////////////////////////////////////////////////////////////

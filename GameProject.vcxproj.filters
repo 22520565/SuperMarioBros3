@@ -19,7 +19,7 @@
     <Filter Include="Wrapper Files">
       <UniqueIdentifier>{d286bf56-8f36-4ab9-97db-89cf93a2902d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TempFIles">
+    <Filter Include="Temp FIles">
       <UniqueIdentifier>{be7a2f65-0a61-45db-adf1-b5454a620128}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -168,6 +168,12 @@
     <ClInclude Include="StaticSprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -258,43 +264,43 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Game.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Portal.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="GameObject.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Platform.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="PlayScene.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Goomba.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Mario.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="SampleKeyEventHandler.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Time.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Animation.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Animations.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Brick.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Coin.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="Sprite.inl">
       <Filter>Inline Files</Filter>
@@ -303,12 +309,15 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Sprites.cpp">
-      <Filter>TempFIles</Filter>
+      <Filter>Temp FIles</Filter>
     </None>
     <None Include="AnimatedSprite.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="GameObject.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="AnimationFrame.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
