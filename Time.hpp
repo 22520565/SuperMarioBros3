@@ -20,6 +20,8 @@
 //
 // 3. This notice may not be removed or altered from any source distribution.
 //
+// *. This header file has been altered after copying from origin!
+//
 ////////////////////////////////////////////////////////////
 
 #pragma once
@@ -28,449 +30,414 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    /// \brief Represents a time value
+    /// \brief Represents a time value.
     ///
     ////////////////////////////////////////////////////////////
     class Time {
       public:
         ////////////////////////////////////////////////////////////
-        /// \brief Default constructor
+        /// \brief Default constructor.
         ///
         /// Sets the time value to zero.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr Time() =default;
+        constexpr Time() = default;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Construct from std::chrono::duration
+        /// \brief Construct from std::chrono::duration.
         ///
         ////////////////////////////////////////////////////////////
         template <typename Rep, typename Period>
-        constexpr explicit(false) Time(const std::chrono::duration<Rep, Period> &duration);
+        constexpr explicit(false) Time(const std::chrono::duration<Rep, Period> &duration) noexcept(
+            noexcept(std::chrono::microseconds(std::chrono::duration<Rep, Period>())));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the time value as a number of seconds
+        /// \brief Return the time value as a number of seconds.
         ///
-        /// \return Time in seconds
+        /// \return Time in seconds.
         ///
-        /// \see asMilliseconds, asMicroseconds
+        /// \see asMilliseconds, asMicroseconds.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr float asSeconds() const;
+        [[nodiscard]]
+        constexpr float asSeconds() const noexcept(
+            noexcept(std::chrono::duration<float>().count()));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the time value as a number of milliseconds
+        /// \brief Return the time value as a number of milliseconds.
         ///
-        /// \return Time in milliseconds
+        /// \return Time in milliseconds.
         ///
-        /// \see asSeconds, asMicroseconds
+        /// \see asSeconds, asMicroseconds.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr std::int32_t asMilliseconds() const;
+        [[nodiscard]]
+        constexpr std::int32_t asMilliseconds() const noexcept(
+            noexcept(std::chrono::duration_cast<std::chrono::duration<std::int32_t, std::milli>>(std::chrono::microseconds()).count()));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the time value as a number of microseconds
+        /// \brief Return the time value as a number of microseconds.
         ///
-        /// \return Time in microseconds
+        /// \return Time in microseconds.
         ///
-        /// \see asSeconds, asMilliseconds
+        /// \see asSeconds, asMilliseconds.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr std::int64_t asMicroseconds() const;
+        [[nodiscard]]
+        constexpr std::int64_t asMicroseconds() const noexcept(
+            noexcept(std::chrono::microseconds().count()));
 
         ////////////////////////////////////////////////////////////
-        /// \brief Return the time value as a std::chorono::duration
+        /// \brief Return the time value as a std::chorono::duration.
         ///
-        /// \return Time in microseconds
+        /// \return Time in microseconds.
         ///
         ////////////////////////////////////////////////////////////
-        constexpr std::chrono::microseconds toDuration() const;
+        [[nodiscard]]
+        constexpr const std::chrono::microseconds &toDuration() const noexcept;
 
         ////////////////////////////////////////////////////////////
-        /// \brief Implicit conversion to std::chrono::duration
+        /// \brief Implicit conversion to std::chrono::duration.
         ///
-        /// \return Duration in microseconds
+        /// \return Duration in microseconds.
         ///
         ////////////////////////////////////////////////////////////
         template <typename Rep, typename Period>
-        constexpr explicit(false) operator std::chrono::duration<Rep, Period>() const;
+        [[nodiscard]] constexpr explicit(false) operator std::chrono::duration<Rep, Period>() const noexcept;
 
         ////////////////////////////////////////////////////////////
         // Static member data
         ////////////////////////////////////////////////////////////
         // NOLINTNEXTLINE(readability-identifier-naming)
-        static const Time zero; // Predefined "zero" time value
+        static const Time zero; // Predefined "zero" time value.
 
       private:
-        friend constexpr Time seconds(float amount);
-        friend constexpr Time milliseconds(std::int32_t amount);
-        friend constexpr Time microseconds(std::int64_t amount);
+        friend constexpr Time seconds(const float amount) noexcept(
+            noexcept(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::duration<float>(amount))));
+        friend constexpr Time milliseconds(const std::int32_t amount) noexcept(
+            noexcept(std::chrono::milliseconds(amount)));
+        friend constexpr Time microseconds(const std::int64_t amount) noexcept(
+            noexcept(std::chrono::microseconds(amount)));
 
         ////////////////////////////////////////////////////////////
         // Member data
         ////////////////////////////////////////////////////////////
-        std::chrono::microseconds m_microseconds = std::chrono::microseconds(); // Time value stored as microseconds.
+        std::chrono::microseconds microsecondsAmount = std::chrono::microseconds(); // Time value stored as microseconds.
     };
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Construct a time value from a number of seconds
+    /// \brief Construct a time value from a number of seconds.
     ///
-    /// \param amount Number of seconds
+    /// \param amount: Number of seconds.
     ///
-    /// \return Time value constructed from the amount of seconds
+    /// \return Time value constructed from the amount of seconds.
     ///
-    /// \see milliseconds, microseconds
-    ///
-    ////////////////////////////////////////////////////////////
-    constexpr Time seconds(float amount);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Construct a time value from a number of milliseconds
-    ///
-    /// \param amount Number of milliseconds
-    ///
-    /// \return Time value constructed from the amount of milliseconds
-    ///
-    /// \see seconds, microseconds
-    ///
-    ////////////////////////////////////////////////////////////
-    constexpr Time milliseconds(std::int32_t amount);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Construct a time value from a number of microseconds
-    ///
-    /// \param amount Number of microseconds
-    ///
-    /// \return Time value constructed from the amount of microseconds
-    ///
-    /// \see seconds, milliseconds
-    ///
-    ////////////////////////////////////////////////////////////
-    constexpr Time microseconds(std::int64_t amount);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Overload of == operator to compare two time values
-    ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
-    ///
-    /// \return True if both time values are equal
+    /// \see milliseconds, microseconds.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
-    constexpr bool
-    operator==(Time left, Time right);
+    constexpr Time seconds(const float amount) noexcept(
+        noexcept(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::duration<float>(amount))));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of != operator to compare two time values
+    /// \brief Construct a time value from a number of milliseconds.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param amount: Number of milliseconds.
     ///
-    /// \return True if both time values are different
+    /// \return Time value constructed from the amount of milliseconds.
+    ///
+    /// \see seconds, microseconds.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
-    constexpr bool
-    operator!=(Time left, Time right);
+    constexpr Time milliseconds(const std::int32_t amount) noexcept(
+        noexcept(std::chrono::milliseconds(amount)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of < operator to compare two time values
+    /// \brief Construct a time value from a number of microseconds.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param amount: Number of microseconds.
     ///
-    /// \return True if \a left is lesser than \a right
+    /// \return Time value constructed from the amount of microseconds.
+    ///
+    /// \see seconds, milliseconds.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
-    constexpr bool
-    operator<(Time left, Time right);
+    constexpr Time microseconds(const std::int64_t amount) noexcept(
+        noexcept(std::chrono::microseconds(amount)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of > operator to compare two time values
+    /// \brief Overload of <=> operator to compare two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
-    ///
-    /// \return True if \a left is greater than \a right
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
-    constexpr bool
-    operator>(Time left, Time right);
+    constexpr auto
+    operator<=>(const Time left, const Time right) noexcept(
+        noexcept(left.asMicroseconds() <=> right.asMicroseconds()));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of <= operator to compare two time values
+    /// \brief Overload of unary - operator to negate a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param right: Right operand (a time).
     ///
-    /// \return True if \a left is lesser or equal than \a right
-    ///
-    ////////////////////////////////////////////////////////////
-    [[nodiscard]]
-    constexpr bool
-    operator<=(Time left, Time right);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Overload of >= operator to compare two time values
-    ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
-    ///
-    /// \return True if \a left is greater or equal than \a right
-    ///
-    ////////////////////////////////////////////////////////////
-    [[nodiscard]]
-    constexpr bool
-    operator>=(Time left, Time right);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Overload of unary - operator to negate a time value
-    ///
-    /// \param right Right operand (a time)
-    ///
-    /// \return Opposite of the time value
+    /// \return Opposite of the time value.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator-(Time right);
+    operator-(const Time right) noexcept(
+        noexcept(microseconds(-right.asMicroseconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary + operator to add two time values
+    /// \brief Overload of binary + operator to add two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return Sum of the two times values
+    /// \return Sum of the two times values.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator+(Time left, Time right);
+    operator+(const Time left, const Time right) noexcept(
+        noexcept(microseconds(left.asMicroseconds() + right.asMicroseconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary += operator to add/assign two time values
+    /// \brief Overload of binary += operator to add/assign two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return Sum of the two times values
+    /// \return Sum of the two times values.
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator+=(Time &left, Time right);
+    constexpr Time &operator+=(Time &left, const Time right) noexcept(
+        noexcept(left = (left + right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary - operator to subtract two time values
+    /// \brief Overload of binary - operator to subtract two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return Difference of the two times values
+    /// \return Difference of the two times values.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator-(Time left, Time right);
+    operator-(const Time left, const Time right) noexcept(
+        noexcept(microseconds(left.asMicroseconds() - right.asMicroseconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary -= operator to subtract/assign two time values
+    /// \brief Overload of binary -= operator to subtract/assign two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return Difference of the two times values
+    /// \return Difference of the two times values.
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator-=(Time &left, Time right);
+    constexpr Time &operator-=(Time &left, const Time right) noexcept(
+        noexcept(left = (left - right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary * operator to scale a time value
+    /// \brief Overload of binary * operator to scale a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator*(Time left, float right);
+    operator*(const Time left, const float right) noexcept(
+        noexcept(seconds(left.asSeconds() * right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary * operator to scale a time value
+    /// \brief Overload of binary * operator to scale a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator*(Time left, std::int64_t right);
+    operator*(Time left, std::int64_t right) noexcept(
+        noexcept(microseconds(left.asMicroseconds() * right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary * operator to scale a time value
+    /// \brief Overload of binary * operator to scale a time value.
     ///
-    /// \param left  Left operand (a number)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a number).
+    /// \param right: Right operand (a time).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator*(float left, Time right);
+    operator*(const float left, const Time right) noexcept(
+        noexcept(seconds(left * right.asSeconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary * operator to scale a time value
+    /// \brief Overload of binary * operator to scale a time value.
     ///
-    /// \param left  Left operand (a number)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a number).
+    /// \param right: Right operand (a time).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator*(std::int64_t left, Time right);
+    operator*(const std::int64_t left, const Time right) noexcept(
+        noexcept(microseconds(left * right.asMicroseconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary *= operator to scale/assign a time value
+    /// \brief Overload of binary *= operator to scale/assign a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator*=(Time &left, float right);
+    constexpr Time &
+    operator*=(Time &left, const float right) noexcept(
+        noexcept(left = (left * right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary *= operator to scale/assign a time value
+    /// \brief Overload of binary *= operator to scale/assign a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left multiplied by \a right
+    /// \return \a left multiplied by \a right.
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator*=(Time &left, std::int64_t right);
+    constexpr Time &operator*=(Time &left, const std::int64_t right) noexcept(
+        noexcept(left = (left * right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary / operator to scale a time value
+    /// \brief Overload of binary / operator to scale a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left divided by \a right
+    /// \return \a left divided by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator/(Time left, float right);
+    operator/(const Time left, const float right) noexcept(
+        noexcept(seconds(left.asSeconds() / right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary / operator to scale a time value
+    /// \brief Overload of binary / operator to scale a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
     ///
-    /// \return \a left divided by \a right
+    /// \return \a left divided by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator/(Time left, std::int64_t right);
+    operator/(const Time left, const std::int64_t right) noexcept(
+        noexcept(microseconds(left.asMicroseconds() / right)));
+
+    ////////////////////////////////////////////////////////////
+    /// \relates Time
+    /// \brief Overload of binary /= operator to scale/assign a time value.
+    ///
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a number).
+    ///
+    /// \return \a left divided by \a right.
+    ///
+    ////////////////////////////////////////////////////////////
+    constexpr Time &operator/=(Time &left, const float right) noexcept(
+        noexcept(left = (left / right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
     /// \brief Overload of binary /= operator to scale/assign a time value
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time)
+    /// \param right: Right operand (a number)
     ///
     /// \return \a left divided by \a right
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator/=(Time &left, float right);
+    constexpr Time &operator/=(Time &left, const std::int64_t right) noexcept(
+        noexcept(left = (left / right)));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary /= operator to scale/assign a time value
+    /// \brief Overload of binary / operator to compute the ratio of two time values.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a number)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return \a left divided by \a right
-    ///
-    ////////////////////////////////////////////////////////////
-    constexpr Time &operator/=(Time &left, std::int64_t right);
-
-    ////////////////////////////////////////////////////////////
-    /// \relates Time
-    /// \brief Overload of binary / operator to compute the ratio of two time values
-    ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
-    ///
-    /// \return \a left divided by \a right
+    /// \return \a left divided by \a right.
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr float
-    operator/(Time left, Time right);
+    operator/(const Time left, const Time right) noexcept(
+        noexcept(left.asSeconds() / right.asSeconds()));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
     /// \brief Overload of binary % operator to compute remainder of a time value
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time)
+    /// \param right: Right operand (a time)
     ///
     /// \return \a left modulo \a right
     ///
     ////////////////////////////////////////////////////////////
     [[nodiscard]]
     constexpr Time
-    operator%(Time left, Time right);
+    operator%(const Time left, const Time right) noexcept(
+        noexcept(microseconds(left.asMicroseconds() % right.asMicroseconds())));
 
     ////////////////////////////////////////////////////////////
     /// \relates Time
-    /// \brief Overload of binary %= operator to compute/assign remainder of a time value
+    /// \brief Overload of binary %= operator to compute/assign remainder of a time value.
     ///
-    /// \param left  Left operand (a time)
-    /// \param right Right operand (a time)
+    /// \param left: Left operand (a time).
+    /// \param right: Right operand (a time).
     ///
-    /// \return \a left modulo \a right
+    /// \return \a left modulo \a right.
     ///
     ////////////////////////////////////////////////////////////
-    constexpr Time &operator%=(Time &left, Time right);
+    constexpr Time &operator%=(Time &left, const Time right) noexcept(
+        noexcept(left = (left % right)));
 }
 
 #include "Time.inl"
