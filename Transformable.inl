@@ -68,12 +68,12 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     template <std::floating_point T>
-    constexpr const Transform<T> &Transformable<T>::getTransform() const {
+    constexpr const Transform<T> &Transformable<T>::getTransform() const noexcept {
         if (this->transformNeedUpdate) [[likely]] {
             this->transform = Transform<T>()
-                .translate(this->position - this->origin)
-                .rotate(this->rotation,this->origin)
-                .scale(this->scaleFactors,this->origin);
+                                  .translate(this->position - this->origin)
+                                  .rotate(this->rotation, this->origin)
+                                  .scale(this->scaleFactors, this->origin);
             this->transformNeedUpdate = false;
         }
 

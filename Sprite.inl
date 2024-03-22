@@ -12,11 +12,11 @@ namespace game {
           dxSprite(D3DX10_SPRITE{
               .matWorld = D3DXMATRIX(),
               .TexCoord = D3DXVECTOR2(
-            static_cast<FLOAT>(textureRect.left) / static_cast<FLOAT>(texture.getSize().x),
-            static_cast<FLOAT>(textureRect.top) / static_cast<FLOAT>(texture.getSize().y)),
+                  static_cast<FLOAT>(textureRect.left) / static_cast<FLOAT>(texture.getSize().x),
+                  static_cast<FLOAT>(textureRect.top) / static_cast<FLOAT>(texture.getSize().y)),
               .TexSize = D3DXVECTOR2(
-            static_cast<FLOAT>(textureRect.width) / static_cast<FLOAT>(texture.getSize().x),
-            static_cast<FLOAT>(textureRect.height) / static_cast<FLOAT>(texture.getSize().y)),
+                  static_cast<FLOAT>(textureRect.width) / static_cast<FLOAT>(texture.getSize().x),
+                  static_cast<FLOAT>(textureRect.height) / static_cast<FLOAT>(texture.getSize().y)),
               .ColorModulate = D3DXCOLOR(1.0F, 1.0F, 1.0F, 1.0F),
               .pTexture = texture.getShaderResourceView(),
               .TextureIndex = 0U,
@@ -26,7 +26,7 @@ namespace game {
     inline const Texture *Sprite::getTexture() const noexcept { return this->pTexture; }
 
     ////////////////////////////////////////////////////////////
-    constexpr const Rect2uf32& Sprite::getTextureRect() const noexcept {
+    constexpr const Rect2uf32 &Sprite::getTextureRect() const noexcept {
         return this->textureRect;
     }
 
@@ -45,21 +45,21 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     inline void Sprite::setTextureRect(const Rect2uf32 &newTextureRect) noexcept {
-        const auto& textureSize = this->pTexture->getSize();
+        const auto &textureSize = this->pTexture->getSize();
         this->textureRect = newTextureRect;
         this->dxSprite.TexCoord = D3DXVECTOR2(
-            static_cast<FLOAT>(newTextureRect.left)/static_cast<FLOAT>(textureSize.x), 
-            static_cast<FLOAT>(newTextureRect.top)/static_cast<FLOAT>(textureSize.y));
+            static_cast<FLOAT>(newTextureRect.left) / static_cast<FLOAT>(textureSize.x),
+            static_cast<FLOAT>(newTextureRect.top) / static_cast<FLOAT>(textureSize.y));
         this->dxSprite.TexSize = D3DXVECTOR2(
-            static_cast<FLOAT>(newTextureRect.width)/static_cast<FLOAT>(textureSize.x),
-            static_cast<FLOAT>(newTextureRect.height)/static_cast<FLOAT>(textureSize.y));
+            static_cast<FLOAT>(newTextureRect.width) / static_cast<FLOAT>(textureSize.x),
+            static_cast<FLOAT>(newTextureRect.height) / static_cast<FLOAT>(textureSize.y));
     }
 
     ////////////////////////////////////////////////////////////
     constexpr Rect2f Sprite::getLocalBounds() const noexcept {
-        return Rect2f(static_cast<Vector2f>(Vector2uf32::unitY()* this->textureRect.getSize().y),
-                    static_cast<Vector2f>(this->textureRect.getSize()));
-   }
+        return Rect2f(static_cast<Vector2f>(Vector2uf32::unitY() * this->textureRect.getSize().y),
+                      static_cast<Vector2f>(this->textureRect.getSize()));
+    }
 
     ////////////////////////////////////////////////////////////
     constexpr Rect2f Sprite::getGlobalBounds() const noexcept {
@@ -67,17 +67,17 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    inline bool Sprite::draw(const RenderTarget &target) const {
+    inline bool Sprite::draw(const RenderTarget &target) const noexcept {
         bool drawn = false;
 
-        const CComPtr<ID3DX10Sprite>& spriteObject = target.getSpriteObject();
+        const CComPtr<ID3DX10Sprite> &spriteObject = target.getSpriteObject();
         dxSprite.matWorld = static_cast<D3DXMATRIX>(
             this->getTransform().scale(Vector3f(this->textureRect.width, this->textureRect.height, 1.0F)));
 
         if (HRESULT hresult = spriteObject->Begin(0);
-           SUCCEEDED(hresult)) [[likely]] {
+            SUCCEEDED(hresult)) [[likely]] {
             if (hresult = spriteObject->DrawSpritesImmediate(&dxSprite, 1, 0, 0);
-               SUCCEEDED(hresult)) [[likely]] {
+                SUCCEEDED(hresult)) [[likely]] {
                 drawn = true;
             }
         }

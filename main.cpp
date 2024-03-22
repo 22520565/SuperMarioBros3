@@ -170,7 +170,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     using game::operator""_deg;
     game::RenderWindow window =
         game::RenderWindow(game::Vector2(600, 600), L"Test",
-                           SW_SHOWNORMAL, hInstance, L"Hello");
+                         L"mario.ico", L"Hello", hInstance, nCmdShow);
     //   game::RenderWindow window = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance, L"null");
     game::TextureHolder textureHolder = game::TextureHolder(window);
     auto *texture = textureHolder.getTexture(L"textures/bbox.png");

@@ -103,7 +103,7 @@ namespace game {
         ///
         /// This operator compares strict equality between two vector3s.
         ///
-        /// \note In C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
+        /// \note Since C++20, if operator == is defined, a!=b can be implicitly rewritten !(a==b).
         /// Thus, it's not necessary to define operator != and you can still use operator != normally.
         ///
         /// \param left: Left operand (a vector3).
