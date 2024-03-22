@@ -17,14 +17,19 @@ namespace game {
     inline void RenderTarget::clear() { this->clear(D3DXCOLOR(0.0F, 0.0F, 0.0F, 0.0F)); }
 
     ////////////////////////////////////////////////////////////
-    inline void RenderTarget::clear(D3DXCOLOR color) { pD3DDevice->ClearRenderTargetView(pRenderTargetView, color); }
+    inline void RenderTarget::clear(const D3DXCOLOR color) { pD3DDevice->ClearRenderTargetView(pRenderTargetView, color); }
 
     ////////////////////////////////////////////////////////////
-    inline bool RenderTarget::setView(const View<float> &view) {
-       D3DXMATRIX d3dxMatrix = static_cast<D3DXMATRIX>(view.getTransform());
+    inline bool RenderTarget::setView(const View<float> &view) noexcept {
+        D3DXMATRIX d3dxMatrix = static_cast<D3DXMATRIX>(view.getTransform());
         return SUCCEEDED(this->spriteObject->SetProjectionTransform(&d3dxMatrix));
     }
 
     ////////////////////////////////////////////////////////////
-    inline bool RenderTarget::draw(const Drawable &drawable) { return drawable.draw(*this); }
+    inline bool RenderTarget::draw(const Drawable &drawable) const noexcept { return drawable.draw(*this); }
+
+    ////////////////////////////////////////////////////////////
+    constexpr bool RenderTarget::display() const noexcept {
+        return SUCCEEDED(this->pSwapChain->Present(1, 0));
+    }
 }

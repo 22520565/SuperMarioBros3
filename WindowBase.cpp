@@ -3,19 +3,9 @@
 #include <tuple>
 
 namespace game {
-    WindowBase::WindowBase(const Vector2<int> &size, const TCHAR *const title, const int nCmdShow, 
-        HINSTANCE hInstance,const TCHAR* const className) noexcept {
-        this->create(size, title, nCmdShow,hInstance,className);
-    }
-
-    WindowBase::~WindowBase() noexcept {
-        if ((!this->isOpen()) || this->close()) [[likely]] {
-            std::ignore = UnregisterClass(this->className, this->hInstance);
-            }
-    }
-
-    bool WindowBase::create(const Vector2<int> &size, const TCHAR *const title, const int nCmdShow, 
-        HINSTANCE hInstance, const TCHAR* const className) noexcept {
+    ////////////////////////////////////////////////////////////
+    bool WindowBase::create(const Vector2<int> &size, const TCHAR *const title, const TCHAR *const iconPath,
+                            const TCHAR *const className, const HINSTANCE hInstance, const int nCmdShow) noexcept {
         bool windowCreated = false;
 
         if ((!this->isOpen()) || this->close()) [[likely]] {
@@ -28,9 +18,9 @@ namespace game {
                     .cbWndExtra = 0,
                     .hInstance = hInstance,
                     .hIcon = static_cast<HICON>(
-                        LoadImage(hInstance, WINDOW_ICON_PATH, IMAGE_ICON, 0, 0, LR_LOADFROMFILE)),
+                        LoadImage(hInstance, iconPath, IMAGE_ICON, 0, 0, LR_LOADFROMFILE)),
                     .hCursor = LoadCursor(nullptr, IDC_ARROW),
-                .hbrBackground = nullptr,
+                    .hbrBackground = nullptr,
                     .lpszMenuName = nullptr,
                     .lpszClassName = className,
                     .hIconSm = nullptr,
@@ -63,31 +53,5 @@ namespace game {
         }
 
         return windowCreated;
-    }
-    
-    LRESULT CALLBACK WindowBase::winProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept
-    {
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-
-    inline bool WindowBase::close() const noexcept { return ::DestroyWindow(hWnd); }
-
-    inline bool WindowBase::isOpen() const noexcept { return ::IsWindow(this->hWnd); }
-
-    const MSG *WindowBase::pollMsg() noexcept {
-        const MSG *result = nullptr;
-        if (PeekMessage(&(this->msg), hWnd, 0U, 0U, PM_REMOVE) != 0) [[likely]] {
-            std::ignore = ::TranslateMessage(&(this->msg));
-            std::ignore = ::DispatchMessage(&(this->msg));
-            result = &(this->msg);
-        }
-        return result;
-    }
-
-    Vector2<int> WindowBase::getSize()const noexcept
-    {
-        RECT rect = RECT();
-    GetClientRect(hWnd, &rect);
-    return Vector2<int>(rect.right, rect.bottom);
     }
 }

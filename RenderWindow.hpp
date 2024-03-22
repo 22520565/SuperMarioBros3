@@ -1,40 +1,16 @@
 #pragma once
-#include "Window.hpp"
 #include "RenderTarget.hpp"
+#include "Window.hpp"
 
 namespace game {
-	class RenderWindow final : public Window, public RenderTarget {
-	private:
-	public:
-        RenderWindow(const Vector2<int>& size, const TCHAR* const title, int nCmdShow,
-            HINSTANCE hInstance, const TCHAR* const className)
-            : Window(size, title, nCmdShow, hInstance, className),
-            RenderTarget(DXGI_SWAP_CHAIN_DESC{
-                   .BufferDesc = DXGI_MODE_DESC{
-                       .Width = static_cast<UINT>(size.x),
-                       .Height = static_cast<UINT>(size.y),
-                       .RefreshRate = DXGI_RATIONAL{
-                           .Numerator = 60,
-                           .Denominator = 1,
-                       },
-                       .Format = DXGI_FORMAT_R8G8B8A8_UNORM,
-                       .ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER(),
-                       .Scaling = DXGI_MODE_SCALING(),
-                   },
-                   .SampleDesc = DXGI_SAMPLE_DESC{
-                       .Count = 1,
-                       .Quality = 0,
-                   },
-                   .BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
-                   .BufferCount = 1,
-                   .OutputWindow = this->getWindowHandler(),
-                   .Windowed = true,
-                   .SwapEffect = DXGI_SWAP_EFFECT(),
-                   .Flags = UINT(),
-                }) {}
+    class RenderWindow final : public Window, public RenderTarget {
+      private:
+      public:
+         explicit RenderWindow(const Vector2<int>& size, const TCHAR* const title, const TCHAR* const className,
+              const TCHAR* const iconPath, const HINSTANCE hInstance, const int nCmdShow) noexcept;
 
-     inline Vector2<int> getSize() const override { return WindowBase::getSize();}
-
-	constexpr void display() const noexcept { this->getSwapChain()->Present(1, 0); }
-	};
+        Vector2<int> getSize() const noexcept override;
+    };
 }
+
+#include "RenderWindow.inl"

@@ -25,18 +25,20 @@ namespace game {
 
         void clear();
 
-        void clear(D3DXCOLOR color);
+        void clear(const D3DXCOLOR color);
 
         //   const D3D10_VIEWPORT& getViewPort() { return this->viewPort; }
 
-        bool setView(const View<float> &view);
+        bool setView(const View<float> &view) noexcept;
 
-        bool draw(const Drawable &drawable);
+        bool draw(const Drawable &drawable) const noexcept;
+
+        constexpr bool display() const noexcept;
 
         /// \brief Return the size of the rendering region of the target.
         ///
         /// \return Size in pixels
-        virtual Vector2<int> getSize() const = 0;
+        virtual Vector2<int> getSize() const noexcept = 0;
 
       protected:
         explicit RenderTarget(DXGI_SWAP_CHAIN_DESC swapChainDesc);
