@@ -30,7 +30,7 @@ namespace game {
         /// Be careful, the last parameter is the size,
         /// not the bottom-right-back corner!
         ///
-        /// \param position: Position of the top-left corner of the rectangular.
+        /// \param position: Position of the top-left-front corner of the rectangular.
         /// \param size: Size of the rectangular.
         ///
         ////////////////////////////////////////////////////////////

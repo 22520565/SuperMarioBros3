@@ -174,7 +174,7 @@ namespace game {
         Angle3<T> rotation = Angle3<T>::zero();          // Orientation of the object.
         Vector3<T> scaleFactors = Vector3<T>::one();     // Scale factors of the object.
         mutable Transform<T> transform = Transform<T>(); // Combined transformation of the object.
-        mutable bool transformNeedUpdate = false;        // Determinate whether the transform need to be recomputed or not.
+        mutable bool transformNeedUpdate = false;         // Internal state telling if the transform needs to be updated.
     };
 }
 

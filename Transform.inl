@@ -152,7 +152,7 @@ namespace game {
 		const Transform<T> rotation = Transform<T>(
 			t1, t2, sinY, (center.x * (t1 - static_cast<T>(1.0))) + (center.y * t2) + (center.z * sinY),
 			t3, t4, t5, (center.x * t3) + (center.y * (t4 - static_cast<T>(1.0))) + (center.z * t5),
-			t6, t7, t8, (center.x * t6) + (center.y * t7) + (center.z * (t8 + static_cast<T>(1.0))),
+			t6, t7, t8, (center.x * t6) + (center.y * t7) + (center.z * (t8 - static_cast<T>(1.0))),
 			static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(0.0), static_cast<T>(1.0));
 
 		return this->combine(rotation);

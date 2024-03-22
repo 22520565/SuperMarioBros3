@@ -21,6 +21,7 @@
 // *. This inline file has been altered after copying from origin!
 //
 ////////////////////////////////////////////////////////////
+
 #include "Rect2.hpp"
 #include "Vector2.hpp"
 #include <optional>

@@ -1,4 +1,4 @@
-#include "RenderTarget.hpp"
+﻿#include "RenderTarget.hpp"
 
 namespace game {
     ////////////////////////////////////////////////////////////
@@ -21,8 +21,8 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     inline bool RenderTarget::setView(const View<float> &view) {
-        D3DXMATRIX d3dxMatrix = static_cast<D3DXMATRIX>(view.getTransform());
-        return this->spriteObject->SetProjectionTransform(&d3dxMatrix) == S_OK;
+       D3DXMATRIX d3dxMatrix = static_cast<D3DXMATRIX>(view.getTransform());
+        return SUCCEEDED(this->spriteObject->SetProjectionTransform(&d3dxMatrix));
     }
 
     ////////////////////////////////////////////////////////////
