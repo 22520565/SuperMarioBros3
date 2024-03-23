@@ -7,7 +7,7 @@ namespace game {
         : Animation(texture, std::vector<AnimationFrame>()) {}
 
     inline Animation::Animation(const Texture &texture, const std::vector<AnimationFrame> &animationFrames) noexcept(
-        noexcept(Sprite(texture))) : animationFrames(animationFrames) {}
+        noexcept(Sprite(texture))) : Sprite(texture), animationFrames(animationFrames) {}
 
     ////////////////////////////////////////////////////////////
     inline void Animation::update(const Time deltaTime) noexcept {

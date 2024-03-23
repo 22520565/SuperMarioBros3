@@ -162,7 +162,6 @@
     <ClInclude Include="Angle3.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationFrame.hpp" />
-    <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Animations.hpp" />
     <ClInclude Include="AssetIDs.hpp" />
     <ClInclude Include="Brick.hpp" />
