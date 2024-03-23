@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -70,9 +67,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="debug.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Coin.hpp">
@@ -165,13 +159,22 @@
     <ClInclude Include="AnimatedSprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StaticSprite.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.hpp">
+    <ClInclude Include="GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnimationFrame.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fallable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collidable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,9 +191,6 @@
     <ClCompile Include="debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vector3.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -203,7 +203,7 @@
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Clock.cpp">
+    <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,7 +269,7 @@
     <None Include="Portal.cpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="GameObject.cpp">
+    <None Include="GameObject.cc">
       <Filter>Temp FIles</Filter>
     </None>
     <None Include="Platform.cpp">
@@ -319,6 +319,39 @@
     </None>
     <None Include="AnimationFrame.inl">
       <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Engine.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="RenderWindow.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Window.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="WindowBase.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Clock.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Movable.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Fallable.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Collidable.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="GameObject.h">
+      <Filter>Temp FIles</Filter>
+    </None>
+    <None Include="Collision.cpp">
+      <Filter>Temp FIles</Filter>
+    </None>
+    <None Include="Collision.hpp">
+      <Filter>Temp FIles</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
