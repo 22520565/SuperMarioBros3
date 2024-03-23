@@ -3,53 +3,25 @@
 namespace game {
     ////////////////////////////////////////////////////////////
     inline AnimatedSprite::AnimatedSprite(const Texture &texture) noexcept(
-        noexcept(AnimatedSprite(texture, Time::zero)))
-        : AnimatedSprite(texture, Time::zero) {}
+        noexcept(AnimatedSprite(texture, std::vector<AnimationFrame>())))
+        : AnimatedSprite(texture, std::vector<AnimationFrame>()) {}
 
-    ////////////////////////////////////////////////////////////
-    inline AnimatedSprite::AnimatedSprite(const Texture &texture, const Time textureRectTime) noexcept(
-        noexcept(AnimatedSprite(texture, textureRectTime, std::vector<Rect2uf32>())))
-        : AnimatedSprite(texture, textureRectTime, std::vector<Rect2uf32>()) {}
-
-    ////////////////////////////////////////////////////////////
-    inline AnimatedSprite::AnimatedSprite(const Texture &texture, const Time textureRectTime,
-                                          const std::vector<Rect2uf32> &textureRects) noexcept(noexcept(Sprite(texture)))
-        : Sprite(texture), textureRectTime(textureRectTime), textureRects(textureRects) {
-        if (!textureRects.empty()) [[likely]] {
-            this->setTextureRect(*textureRects.cbegin());
-        }
-    }
+    inline AnimatedSprite::AnimatedSprite(const Texture &texture, const std::vector<AnimationFrame> &animationFrames) noexcept(
+        noexcept(Sprite(texture))) : animationFrames(animationFrames) {}
 
     ////////////////////////////////////////////////////////////
     inline void AnimatedSprite::update(const Time deltaTime) noexcept {
-        // if (this->textureRects.empty()) [[unlikely]] {
-        //     this->restart();
-        // } else [[likely]] {
-        //     if (this->currentFrame > (this->textureRects.size() - 1UL)) {
-        //         this->restart();
-        //     } else if (this->timeElaspedFrame += deltaTime;
-        //                this->timeElaspedFrame >= this->textureRectTime) [[unlikely]] {
-        //         ++(this->currentFrame);
-        //         this->currentFrame %= this->textureRects.size();
-        //         this->timeElaspedFrame = Time::zero;
-        //         this->setTextureRect(this->textureRects[this->currentFrame]);
-        //     } else [[likely]] {
-        //         // Frame stays remain!
-        //     }
-        // }
-
-        if (this->textureRects.empty() || (this->itCurrentTextureRect._Ptr == nullptr) ||
-            (this->itCurrentTextureRect >= this->textureRects.cend()) ||
-            (this->itCurrentTextureRect < this->textureRects.cbegin())) [[unlikely]] {
+        if (this->animationFrames.empty() ||
+            (this->currentFrame > (this->animationFrames.size() - 1UL))) [[unlikely]] {
             this->restart();
-        } else if (this->timeElaspedCurrentTextureRect += deltaTime;
-                   this->timeElaspedCurrentTextureRect >= this->textureRectTime) [[unlikely]] {
-            if (++(this->itCurrentTextureRect);
-                this->itCurrentTextureRect >= this->textureRects.cend()) [[unlikely]] {
-                this->itCurrentTextureRect = this->textureRects.cbegin();
+        } else if (this->timeElaspedFrame += deltaTime;
+                   this->timeElaspedFrame >= this->animationFrames[this->currentFrame].frameTime) [[unlikely]] {
+            if (++(this->currentFrame);
+                this->currentFrame >= this->animationFrames.size()) [[unlikely]] {
+                this->currentFrame = 0UL;
             }
-            this->timeElaspedCurrentTextureRect = Time::zero;
-            this->setTextureRect(*this->itCurrentTextureRect);
+            this->timeElaspedFrame = Time::zero;
+            this->setTextureRect(this->animationFrames[this->currentFrame].textureRect);
         } else [[likely]] {
             // Frame stays remain!
         }
@@ -57,16 +29,12 @@ namespace game {
 
     ////////////////////////////////////////////////////////////
     constexpr void AnimatedSprite::restart() noexcept {
-        // this->currentFrame = 0UL;
-        // this->timeElaspedFrame = Time::zero;
-        // if (!textureRects.empty()) [[likely]] {
-        //     this->setTextureRect(*textureRects.begin());
-        // }
-
-        this->itCurrentTextureRect = this->textureRects.cbegin();
-        this->timeElaspedCurrentTextureRect = Time::zero;
-        if (!textureRects.empty()) [[likely]] {
-            this->setTextureRect(*this->itCurrentTextureRect);
+        this->currentFrame = 0UL;
+        this->timeElaspedFrame = Time::zero;
+        if (!this->animationFrames.empty()) [[likely]] {
+            this->setTextureRect((*this->animationFrames.cbegin()).textureRect);
+        } else [[unlikely]] {
+            this->setTextureRect(Rect2uf32());
         }
     }
 }
