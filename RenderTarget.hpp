@@ -3,7 +3,6 @@
 #include "D3DX10math.h"
 #include "Drawable.hpp"
 #include "DxResource.hpp"
-#include "NonCopyable.hpp"
 #include "Vector2.hpp"
 #include "View.hpp"
 #include <atlcomcli.h>

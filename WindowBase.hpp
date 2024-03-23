@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "NonCopyable.hpp"
 #include "Vector2.hpp"
 #include <D3DX10.h>
 #include <d3d10.h>

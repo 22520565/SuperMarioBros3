@@ -1,5 +1,4 @@
 #pragma once
-#include "NonConstructible.hpp"
 #include "RenderWindow.hpp"
 #include "Texture.hpp"
 #include <mutex>

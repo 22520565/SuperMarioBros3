@@ -1,6 +1,5 @@
 #pragma once
 #include "KeyEventHandler.hpp"
-#include "NonCopyable.hpp"
 #include "stdfloat"
 #include "Vector2.hpp"
 #include <atlcomcli.h>

@@ -179,8 +179,6 @@
     <ClInclude Include="Goomba.hpp" />
     <ClInclude Include="KeyEventHandler.hpp" />
     <ClInclude Include="Mario.hpp" />
-    <ClInclude Include="NonConstructible.hpp" />
-    <ClInclude Include="NonCopyable.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="PlayScene.hpp" />
