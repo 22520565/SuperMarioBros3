@@ -160,7 +160,6 @@
     <ClInclude Include="Angle.hpp" />
     <ClInclude Include="Angle2.hpp" />
     <ClInclude Include="Angle3.hpp" />
-    <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationFrame.hpp" />
     <ClInclude Include="Animations.hpp" />
@@ -211,7 +210,7 @@
     <ClInclude Include="WindowBase.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AnimatedSprite.inl" />
+    <None Include="Animation.inl" />
     <None Include="Animation.cpp" />
     <None Include="AnimationFrame.inl" />
     <None Include="Animations.cpp" />

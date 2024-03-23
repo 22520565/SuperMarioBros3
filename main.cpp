@@ -21,7 +21,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 ================================================================ */
 
-#include "AnimatedSprite.hpp"
+#include "Animation.hpp"
 #include "Game.hpp"
 #include "RenderWindow.hpp"
 #include "Sprite.hpp"
@@ -182,11 +182,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     window.setView(game::View<float>(game::Rect3f({-500, 500, 0.1}, {1000, 1000, 1000}),game::Angle3f::zero()));
     auto *t1 = textureHolder.getTexture(L"textures/OIP.jpg");
     game::Vector2uf32 t1s = t1->getSize();
-    game::AnimatedSprite a1 = game::AnimatedSprite(*t1);
-    a1.textureRectTime = game::milliseconds(50);
+    game::Animation a1 = game::Animation(*t1);
     for (auto i = 0; i < 6; ++i) {
-        std::ignore = a1.textureRects.emplace_back(
-            game::Rect2uf32({t1s.x / 7 * i, 0}, {t1s.x / 7, t1s.y}));
+        std::ignore = a1.animationFrames.emplace_back(
+            game::Rect2uf32({t1s.x / 7 * i, 0}, {t1s.x / 7, t1s.y}),
+            game::milliseconds(50));
     }
     a1.setPosition(game::Vector3f::unitZ() * .1F);
     a1.scale(game::Vector3f(5, 5, 1));

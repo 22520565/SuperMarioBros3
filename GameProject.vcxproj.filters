@@ -81,7 +81,7 @@
     <ClInclude Include="Animations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.hpp">
+    <ClInclude Include="AnimationFrame.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.hpp">
@@ -156,13 +156,13 @@
     <ClInclude Include="Time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnimatedSprite.hpp">
+    <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationFrame.hpp">
+    <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine.hpp">
@@ -311,7 +311,7 @@
     <None Include="Sprites.cpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="AnimatedSprite.inl">
+    <None Include="Animation.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="GameObject.inl">
