@@ -1,16 +1,16 @@
-#include "AnimatedSprite.hpp"
+#include "Animation.hpp"
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    inline AnimatedSprite::AnimatedSprite(const Texture &texture) noexcept(
-        noexcept(AnimatedSprite(texture, std::vector<AnimationFrame>())))
-        : AnimatedSprite(texture, std::vector<AnimationFrame>()) {}
+    inline Animation::Animation(const Texture &texture) noexcept(
+        noexcept(Animation(texture, std::vector<AnimationFrame>())))
+        : Animation(texture, std::vector<AnimationFrame>()) {}
 
-    inline AnimatedSprite::AnimatedSprite(const Texture &texture, const std::vector<AnimationFrame> &animationFrames) noexcept(
+    inline Animation::Animation(const Texture &texture, const std::vector<AnimationFrame> &animationFrames) noexcept(
         noexcept(Sprite(texture))) : animationFrames(animationFrames) {}
 
     ////////////////////////////////////////////////////////////
-    inline void AnimatedSprite::update(const Time deltaTime) noexcept {
+    inline void Animation::update(const Time deltaTime) noexcept {
         if (this->animationFrames.empty() ||
             (this->currentFrame > (this->animationFrames.size() - 1UL))) [[unlikely]] {
             this->restart();
@@ -28,7 +28,7 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    constexpr void AnimatedSprite::restart() noexcept {
+    constexpr void Animation::restart() noexcept {
         this->currentFrame = 0UL;
         this->timeElaspedFrame = Time::zero;
         if (!this->animationFrames.empty()) [[likely]] {

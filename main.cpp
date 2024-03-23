@@ -182,7 +182,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     window.setView(game::View<float>(game::Rect3f({-500, 500, 0.1}, {1000, 1000, 1000}),game::Angle3f::zero()));
     auto *t1 = textureHolder.getTexture(L"textures/OIP.jpg");
     game::Vector2uf32 t1s = t1->getSize();
-    game::AnimatedSprite a1 = game::AnimatedSprite(*t1);
+    game::Animation a1 = game::Animation(*t1);
     a1.textureRectTime = game::milliseconds(50);
     for (auto i = 0; i < 6; ++i) {
         std::ignore = a1.textureRects.emplace_back(
