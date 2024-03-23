@@ -56,14 +56,14 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    constexpr Rect2f Sprite::getLocalBounds() const noexcept {
-        return Rect2f(static_cast<Vector2f>(Vector2uf32::unitY() * this->textureRect.getSize().y),
-                      static_cast<Vector2f>(this->textureRect.getSize()));
+    constexpr Rect3f Sprite::getLocalBounds() const noexcept {
+        return Rect3f(Vector3f(static_cast<Vector2f>(Vector2uf32::unitY() * this->textureRect.getSize().y)),
+                      Vector3f(static_cast<Vector2f>(this->textureRect.getSize())));
     }
 
     ////////////////////////////////////////////////////////////
-    constexpr Rect2f Sprite::getGlobalBounds() const noexcept {
-        return static_cast<Rect2f>(this->getTransform().transformRect(Rect3f(this->getLocalBounds())));
+    constexpr Rect3f Sprite::getGlobalBounds() const noexcept {
+        return this->getTransform().transformRect(this->getLocalBounds());
     }
 
     ////////////////////////////////////////////////////////////
