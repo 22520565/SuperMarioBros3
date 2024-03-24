@@ -162,7 +162,6 @@
     <ClInclude Include="Angle3.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationFrame.hpp" />
-    <ClInclude Include="Animations.hpp" />
     <ClInclude Include="AssetIDs.hpp" />
     <ClInclude Include="Brick.hpp" />
     <ClInclude Include="Clock.hpp" />
@@ -177,12 +176,12 @@
     <ClInclude Include="Game.hpp" />
     <None Include="GameObject.h" />
     <ClInclude Include="Goomba.hpp" />
-    <ClInclude Include="Jumpable.hpp" />
+    <ClInclude Include="InputBase.hpp" />
+    <ClInclude Include="Keyboard.hpp" />
     <ClInclude Include="KeyEventHandler.hpp" />
     <ClInclude Include="Mario.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="Platform.hpp" />
-    <ClInclude Include="PlayableCharacter.hpp" />
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="Portal.hpp" />
     <ClInclude Include="Rect2.hpp" />
@@ -221,7 +220,6 @@
     <None Include="Clock.inl" />
     <None Include="Coin.cpp" />
     <None Include="Collision.cpp" />
-    <ClInclude Include="AnimationObject.hpp" />
     <ClCompile Include="debug.cpp" />
     <None Include="Collidable.inl" />
     <None Include="Engine.inl" />
@@ -231,18 +229,16 @@
     <None Include="GameObject.inl" />
     <None Include="Goomba.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
-    <None Include="Jumpable.inl" />
+    <None Include="InputBase.inl" />
+    <None Include="Keyboard.inl" />
     <None Include="Mario.cpp" />
     <None Include="Movable.inl" />
     <None Include="Platform.cpp" />
-    <None Include="Playable.inl" />
-    <None Include="PlayableCharacter.inl" />
     <None Include="PlayScene.cpp" />
     <None Include="Portal.cpp" />
     <ClInclude Include="Movable.hpp" />
-    <ClInclude Include="Playable.hpp" />
-    <ClCompile Include="PlayableCharacter.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <None Include="RenderTarget.inl">
       <FileType>Document</FileType>
