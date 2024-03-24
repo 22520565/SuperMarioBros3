@@ -192,6 +192,12 @@
     <ClInclude Include="PlayableCharacter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InputBase.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -222,6 +228,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayableCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -371,13 +380,19 @@
     <None Include="Collision.hpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="Jumpable.inl">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="Playable.inl">
       <Filter>Header Files</Filter>
     </None>
     <None Include="PlayableCharacter.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="InputBase.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Keyboard.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Jumpable.inl">
       <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>

@@ -177,7 +177,9 @@
     <ClInclude Include="Game.hpp" />
     <None Include="GameObject.h" />
     <ClInclude Include="Goomba.hpp" />
+    <ClInclude Include="InputBase.hpp" />
     <ClInclude Include="Jumpable.hpp" />
+    <ClInclude Include="Keyboard.hpp" />
     <ClInclude Include="KeyEventHandler.hpp" />
     <ClInclude Include="Mario.hpp" />
     <ClInclude Include="GameObject.hpp" />
@@ -231,8 +233,11 @@
     <None Include="GameObject.inl" />
     <None Include="Goomba.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
+    <None Include="InputBase.inl" />
     <None Include="Jumpable.inl" />
+    <None Include="Keyboard.inl" />
     <None Include="Mario.cpp" />
     <None Include="Movable.inl" />
     <None Include="Platform.cpp" />
