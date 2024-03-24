@@ -4,7 +4,7 @@
 #include <mutex>
 #include <optional>
 #include <unordered_map>
-#include <winnt.h>
+#include "tchar.hpp"
 
 namespace game {
     // Manage textures' database
@@ -12,12 +12,12 @@ namespace game {
       public:
        explicit TextureHolder(const RenderTarget& renderTarget) noexcept;
 
-     [[nodiscard]]const Texture * getTexture(const TCHAR *const &fileName);
+     [[nodiscard]]const Texture * getTexture(const tchar *const &fileName) const noexcept;
 
       private:
         const RenderTarget*const pRenderTarget=nullptr;
-        std::unordered_map<const TCHAR *, Texture> textures =
-            std::unordered_map<const TCHAR *, Texture>();
+       mutable std::unordered_map<const tchar *, Texture> textures =
+            std::unordered_map<const tchar *, Texture>();
 
         constexpr TextureHolder(const TextureHolder &) noexcept = delete;
         constexpr TextureHolder(TextureHolder &&) noexcept = delete;

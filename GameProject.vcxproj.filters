@@ -87,12 +87,6 @@
     <ClInclude Include="Vector2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NonConstructible.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NonCopyable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -177,6 +171,27 @@
     <ClInclude Include="Collidable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Jumpable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tchar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tstream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tstring.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Playable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayableCharacter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -204,6 +219,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayableCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -352,6 +370,15 @@
     </None>
     <None Include="Collision.hpp">
       <Filter>Temp FIles</Filter>
+    </None>
+    <None Include="Jumpable.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Playable.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="PlayableCharacter.inl">
+      <Filter>Inline Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

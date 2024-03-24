@@ -1,7 +1,7 @@
 #include "Texture.hpp"
 
 namespace game {
-    bool Texture::loadFromFile(const TCHAR *const &fileName) noexcept {
+    bool Texture::loadFromFile(const tchar *const &fileName) noexcept {
         bool fileLoaded = false;
 
         // Retrieve image information first

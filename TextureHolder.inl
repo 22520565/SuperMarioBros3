@@ -8,7 +8,7 @@ namespace game {
          : pRenderTarget(&renderTarget) {}
 
     ////////////////////////////////////////////////////////////
-    inline const Texture *TextureHolder::getTexture(const TCHAR *const &fileName) {
+    inline const Texture *TextureHolder::getTexture(const tchar *const &fileName) const noexcept {
        const Texture * textureToGet = nullptr;
 
         if (const auto [itTexture, newTextureAdded] = textures.try_emplace(fileName, *this->pRenderTarget);

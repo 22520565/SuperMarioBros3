@@ -3,6 +3,7 @@
 #include "debug.hpp"
 #include <D3DX10.h>
 #include <cstdint>
+#include "tchar.hpp"
 
 namespace game {
     class RenderTarget;
@@ -14,10 +15,10 @@ namespace game {
       public:
         explicit Texture(const RenderTarget &renderTarget) noexcept;
 
-        explicit Texture(const RenderTarget& renderTarget, const TCHAR* const& fileName)noexcept(
+        explicit Texture(const RenderTarget& renderTarget, const tchar* const& fileName)noexcept(
             noexcept(Texture(renderTarget).loadFromFile(fileName)));
 
-        bool loadFromFile(const TCHAR *const &fileName) noexcept;
+        bool loadFromFile(const tchar *const &fileName) noexcept;
 
         [[nodiscard]]
         constexpr const Vector2uf32 &getSize() const noexcept;

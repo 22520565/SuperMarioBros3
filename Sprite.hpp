@@ -72,8 +72,6 @@ namespace game {
 
         Rect2uf32 textureRect = Rect2uf32();
     };
-
-    typedef Sprite *LPSPRITE;
 }
 
 #include "Sprite.inl"

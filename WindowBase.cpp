@@ -4,8 +4,8 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    bool WindowBase::create(const Vector2<int> &size, const TCHAR *const title, const TCHAR *const iconPath,
-                            const TCHAR *const className, const HINSTANCE hInstance, const int nCmdShow) noexcept {
+    bool WindowBase::create(const Vector2<int> &size, const tchar *const title, const tchar *const iconPath,
+                            const tchar *const className, const HINSTANCE hInstance, const int nCmdShow) noexcept {
         bool windowCreated = false;
 
         if ((!this->isOpen()) || this->close()) [[likely]] {

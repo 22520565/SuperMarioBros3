@@ -8,7 +8,7 @@ namespace game {
         :DxResource(&renderTarget.getDevice()) {}
 
     ////////////////////////////////////////////////////////////
-    inline Texture::Texture(const RenderTarget &renderTarget, const TCHAR *const &fileName) noexcept(
+    inline Texture::Texture(const RenderTarget &renderTarget, const tchar *const &fileName) noexcept(
         noexcept(Texture(renderTarget).loadFromFile(fileName)))
         : Texture(renderTarget) {
         std::ignore = this->loadFromFile(fileName);

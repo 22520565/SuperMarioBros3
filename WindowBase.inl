@@ -2,8 +2,8 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    inline WindowBase::WindowBase(const Vector2<int> &size, const TCHAR *const title, const TCHAR *const iconPath,
-                                  const TCHAR *const className, const HINSTANCE hInstance, const int nCmdShow) noexcept {
+    inline WindowBase::WindowBase(const Vector2<int> &size, const tchar *const title, const tchar *const iconPath,
+                                  const tchar *const className, const HINSTANCE hInstance, const int nCmdShow) noexcept {
         std::ignore = this->create(size, title, iconPath, className, hInstance, nCmdShow);
     }
 
