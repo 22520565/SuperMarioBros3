@@ -2,6 +2,8 @@
 #include "Clock.hpp"
 #include "RenderWindow.hpp"
 #include "TextureHolder.hpp"
+#include "Keyboard.hpp"
+#include "Mario.hpp"
 
 namespace game {
     class Engine final {
@@ -12,6 +14,11 @@ namespace game {
         void run();
 
       private:
+        InputBase inputBase = InputBase(GetModuleHandle(nullptr));
+        Keyboard keyboard = Keyboard(inputBase);
+
+        Mario mario = Mario();
+
         RenderWindow window = RenderWindow(Vector2i(800, 600), L"Mario", nullptr,
                                            L"GameWindow", GetModuleHandle(nullptr), SW_SHOWNORMAL);
         TextureHolder textureHolder = TextureHolder(window);
