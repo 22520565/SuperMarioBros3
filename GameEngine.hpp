@@ -6,9 +6,9 @@
 #include "Mario.hpp"
 
 namespace game {
-    class Engine final {
+    class GameEngine final {
       public:
-        explicit Engine(const WindowSettings& windowSettings) noexcept;
+        explicit GameEngine(const WindowSettings& windowSettings) noexcept;
         void run();
 
       private:
@@ -25,4 +25,4 @@ namespace game {
     };
 }
 
-#include "Engine.inl"
+#include "GameEngine.inl"

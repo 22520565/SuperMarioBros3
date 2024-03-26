@@ -1,8 +1,8 @@
-#include "Engine.hpp"
+#include "GameEngine.hpp"
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    void Engine::input() {
+    void GameEngine::input() {
         for (const MSG *msg = window.pollMsg(); msg != nullptr; msg = window.pollMsg()) {
             switch (msg->message) {
             case WM_QUIT:
@@ -16,7 +16,7 @@ namespace game {
     }
 
     ////////////////////////////////////////////////////////////
-    void Engine::draw() {
+    void GameEngine::draw() {
         this->window.clear();
         std::ignore = this->window.display();
     }

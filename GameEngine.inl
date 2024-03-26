@@ -1,14 +1,14 @@
 #include "Clock.hpp"
-#include "Engine.hpp"
+#include "GameEngine.hpp"
 #include "Time.hpp"
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    inline Engine::Engine(const WindowSettings& windowSettings) noexcept
+    inline GameEngine::GameEngine(const WindowSettings& windowSettings) noexcept
         : window(windowSettings) {}
 
     ////////////////////////////////////////////////////////////
-    inline void Engine::run() {
+    inline void GameEngine::run() {
         Clock timeClock = Clock();
 
         while (this->window.isOpen()) {
