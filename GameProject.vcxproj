@@ -167,15 +167,20 @@
     <ClInclude Include="Clock.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="Collidable.hpp" />
+    <None Include="ColliderComponent.inl" />
     <None Include="Collision.hpp" />
+    <ClInclude Include="ColliderComponent.hpp" />
+    <ClInclude Include="Component.hpp" />
     <ClInclude Include="Drawable.hpp" />
     <ClInclude Include="DxResource.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="GameEngine.hpp" />
     <ClInclude Include="Fallable.hpp" />
     <ClInclude Include="Game.hpp" />
+    <None Include="Component.inl" />
     <None Include="GameObject.h" />
     <ClInclude Include="Goomba.hpp" />
+    <ClInclude Include="GraphicsComponent.hpp" />
     <ClInclude Include="InputBase.hpp" />
     <ClInclude Include="Keyboard.hpp" />
     <ClInclude Include="KeyEventHandler.hpp" />
@@ -186,6 +191,7 @@
     <ClInclude Include="Portal.hpp" />
     <ClInclude Include="Rect2.hpp" />
     <ClInclude Include="Rect3.hpp" />
+    <ClInclude Include="RectColliderComponent.hpp" />
     <ClInclude Include="RenderTarget.hpp" />
     <ClInclude Include="RenderWindow.hpp" />
     <ClInclude Include="resource.h" />
@@ -195,6 +201,8 @@
     <ClInclude Include="Scalation2.hpp" />
     <ClInclude Include="Scalation3.hpp" />
     <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="ScreenManager.hpp" />
+    <ClInclude Include="ScreenManagerRemoteControl.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Sprites.hpp" />
     <ClInclude Include="tchar.hpp" />
@@ -240,12 +248,14 @@
     <None Include="Portal.cpp" />
     <ClInclude Include="Movable.hpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <None Include="RectColliderComponent.inl" />
     <None Include="RenderTarget.inl">
       <FileType>Document</FileType>
     </None>
     <None Include="RenderWindow.inl" />
     <None Include="SampleKeyEventHandler.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <None Include="ScreenManager.inl" />
     <None Include="Sprites.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utils.cpp" />

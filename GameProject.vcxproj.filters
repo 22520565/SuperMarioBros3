@@ -46,6 +46,27 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{c141383d-476e-438d-96cd-452d232d7f5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{bd4d3eb4-94c5-4d73-acc8-c59d9d6350fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inline Files\Engine">
+      <UniqueIdentifier>{fbcc43ca-20fa-4f93-9740-81a09ec72c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{afc97ffc-4aef-41d8-a861-698cfaf6c054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO">
+      <UniqueIdentifier>{b9e7365e-36c2-4613-8ba8-5505a812275c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens">
+      <UniqueIdentifier>{f652f83b-0d17-4fa2-ae8b-d7f9468ed8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{7e4fdd95-65f6-44e0-88a4-d51c141dd21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inline Files\GameObjects">
+      <UniqueIdentifier>{9ece4e70-5ad5-4f8d-9bdb-9be7c104e5b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -106,9 +127,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animation.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Movable.hpp">
@@ -198,14 +216,35 @@
     <ClInclude Include="Texture.hpp">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="TextureHolder.hpp">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="RenderTarget.hpp">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="RenderWindow.hpp">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHolder.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManagerRemoteControl.hpp">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RectColliderComponent.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.hpp">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,9 +255,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.hpp">
@@ -238,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,9 +326,6 @@
     <None Include="GameObject.inl">
       <Filter>Inline Files</Filter>
     </None>
-    <None Include="GameEngine.inl">
-      <Filter>Inline Files</Filter>
-    </None>
     <None Include="Movable.inl">
       <Filter>Inline Files</Filter>
     </None>
@@ -333,9 +369,6 @@
       <Filter>Inline Files\Graphics</Filter>
     </None>
     <None Include="Transform.inl">
-      <Filter>Inline Files\Graphics</Filter>
-    </None>
-    <None Include="TextureHolder.inl">
       <Filter>Inline Files\Graphics</Filter>
     </None>
     <None Include="Texture.inl">
@@ -385,6 +418,24 @@
     </None>
     <None Include="Keyboard.inl">
       <Filter>Inline Files\Window</Filter>
+    </None>
+    <None Include="GameEngine.inl">
+      <Filter>Inline Files\Engine</Filter>
+    </None>
+    <None Include="ScreenManager.inl">
+      <Filter>Inline Files\Engine</Filter>
+    </None>
+    <None Include="TextureHolder.inl">
+      <Filter>Inline Files\Engine</Filter>
+    </None>
+    <None Include="Component.inl">
+      <Filter>Inline Files\GameObjects</Filter>
+    </None>
+    <None Include="ColliderComponent.inl">
+      <Filter>Inline Files\GameObjects</Filter>
+    </None>
+    <None Include="RectColliderComponent.inl">
+      <Filter>Inline Files\GameObjects</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
