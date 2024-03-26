@@ -171,7 +171,7 @@
     <ClInclude Include="Drawable.hpp" />
     <ClInclude Include="DxResource.hpp" />
     <ClInclude Include="debug.hpp" />
-    <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="GameEngine.hpp" />
     <ClInclude Include="Fallable.hpp" />
     <ClInclude Include="Game.hpp" />
     <None Include="GameObject.h" />
@@ -222,13 +222,13 @@
     <None Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
     <None Include="Collidable.inl" />
-    <None Include="Engine.inl" />
+    <None Include="GameEngine.inl" />
     <None Include="Fallable.inl" />
     <None Include="Game.cpp" />
     <None Include="GameObject.cc" />
     <None Include="GameObject.inl" />
     <None Include="Goomba.cpp" />
-    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="InputBase.inl" />
@@ -271,7 +271,6 @@
     <None Include="Scalation2.inl" />
     <None Include="Scalation3.inl" />
     <None Include="Sprite.inl" />
-    <None Include="StaticSprite.inl" />
     <None Include="stdfloat" />
     <None Include="Texture.inl" />
     <None Include="TextureHolder.inl" />

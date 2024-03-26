@@ -22,12 +22,33 @@
     <Filter Include="Temp FIles">
       <UniqueIdentifier>{be7a2f65-0a61-45db-adf1-b5454a620128}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{006ca097-648d-448c-9529-24d59819c7cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{8260d492-cc2b-435b-90ad-986f6cd54f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{994eb9c2-6109-4110-91a4-56e65669e85d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inline Files\System">
+      <UniqueIdentifier>{f080727a-ea31-4156-ab15-0640cc5fa8d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inline Files\Graphics">
+      <UniqueIdentifier>{97e2f90b-f86e-49f2-b38b-4c9ae5666d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inline Files\Window">
+      <UniqueIdentifier>{52385aa6-589f-47f5-9742-740d5f110f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{820c71d0-f0e4-40cf-89a4-600c8de2855f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{c141383d-476e-438d-96cd-452d232d7f5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.hpp">
@@ -36,13 +57,7 @@
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureHolder.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Sprites.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SampleKeyEventHandler.hpp">
@@ -78,73 +93,13 @@
     <ClInclude Include="AssetIDs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationFrame.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DxResource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rect2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderWindow.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTarget.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transformable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Drawable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="View.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rect3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Angle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Angle2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Angle3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rotation2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rotation3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scalation3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scalation2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Clock.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.hpp">
@@ -153,7 +108,7 @@
     <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.hpp">
+    <ClInclude Include="GameEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Movable.hpp">
@@ -165,30 +120,96 @@
     <ClInclude Include="Collidable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tchar.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Angle.hpp">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="tstream.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Angle2.hpp">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="tstring.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Angle3.hpp">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="InputBase.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Rect3.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect2.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformable.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="View.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Clock.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation3.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation2.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scalation2.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scalation3.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="InputBase.hpp">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hpp">
+      <Filter>Header Files\Window</Filter>
     </ClInclude>
     <ClInclude Include="WindowSettings.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="tstring.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="tchar.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="tstream.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHolder.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWindow.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -197,80 +218,32 @@
     <ClCompile Include="debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Vector3.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\System</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="stdfloat">
       <Filter>Wrapper Files</Filter>
-    </None>
-    <None Include="Angle.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Angle2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Angle3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Transform.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Transformable.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Vector2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Vector3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Rect2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Rect3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Rotation2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="View.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Rotation3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Scalation2.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Scalation3.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="RenderTarget.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Texture.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="TextureHolder.inl">
-      <Filter>Inline Files</Filter>
     </None>
     <None Include="Game.cpp">
       <Filter>Temp FIles</Filter>
@@ -296,9 +269,6 @@
     <None Include="SampleKeyEventHandler.cpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="Time.inl">
-      <Filter>Inline Files</Filter>
-    </None>
     <None Include="Animation.cpp">
       <Filter>Temp FIles</Filter>
     </None>
@@ -311,34 +281,13 @@
     <None Include="Coin.cpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="Sprite.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="StaticSprite.inl">
-      <Filter>Inline Files</Filter>
-    </None>
     <None Include="Sprites.cpp">
       <Filter>Temp FIles</Filter>
-    </None>
-    <None Include="Animation.inl">
-      <Filter>Inline Files</Filter>
     </None>
     <None Include="GameObject.inl">
       <Filter>Inline Files</Filter>
     </None>
-    <None Include="AnimationFrame.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Engine.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="RenderWindow.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Window.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Clock.inl">
+    <None Include="GameEngine.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Movable.inl">
@@ -364,6 +313,78 @@
     </None>
     <None Include="Keyboard.inl">
       <Filter>Inline Files</Filter>
+    </None>
+    <None Include="Angle.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Angle2.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Angle3.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Clock.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Time.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Animation.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="AnimationFrame.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Transformable.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Transform.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="TextureHolder.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Texture.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Sprite.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="RenderWindow.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="RenderTarget.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Window.inl">
+      <Filter>Inline Files\Window</Filter>
+    </None>
+    <None Include="View.inl">
+      <Filter>Inline Files\Graphics</Filter>
+    </None>
+    <None Include="Vector3.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Rect2.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Rect3.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Rotation2.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Rotation3.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Scalation2.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Scalation3.inl">
+      <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="Vector2.inl">
+      <Filter>Inline Files\System</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
