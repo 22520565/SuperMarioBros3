@@ -4,10 +4,8 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-    inline Engine::Engine(const Vector2<int> &windowSize, const TCHAR *const windowTitle,
-                          const TCHAR *const windowIconPath, const TCHAR *const windowClassName,
-                          const HINSTANCE hInstance, const int nCmdShow) noexcept
-        : window(windowSize, windowTitle, windowIconPath, windowClassName, hInstance, nCmdShow) {}
+    inline Engine::Engine(const WindowSettings& windowSettings) noexcept
+        : window(windowSettings) {}
 
     ////////////////////////////////////////////////////////////
     inline void Engine::run() {

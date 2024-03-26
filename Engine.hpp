@@ -8,9 +8,7 @@
 namespace game {
     class Engine final {
       public:
-        explicit Engine(const Vector2<int> &windowSize, const TCHAR *const windowTitle,
-                        const TCHAR *const windowIconPath, const TCHAR *const windowClassName,
-                        const HINSTANCE hInstance, const int nCmdShow) noexcept;
+        explicit Engine(const WindowSettings& windowSettings) noexcept;
         void run();
 
       private:
@@ -19,8 +17,7 @@ namespace game {
 
         Mario mario = Mario();
 
-        RenderWindow window = RenderWindow(Vector2i(800, 600), L"Mario", nullptr,
-                                           L"GameWindow", GetModuleHandle(nullptr), SW_SHOWNORMAL);
+        RenderWindow window = RenderWindow(WindowSettings());
         TextureHolder textureHolder = TextureHolder(window);
         void input();
         void update(const Time deltaTime);

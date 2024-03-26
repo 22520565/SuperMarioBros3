@@ -93,13 +93,10 @@
     <ClInclude Include="Rect2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RenderWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowBase.hpp">
+    <ClInclude Include="Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderTarget.hpp">
@@ -183,6 +180,9 @@
     <ClInclude Include="Keyboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowSettings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -200,7 +200,7 @@
     <ClCompile Include="Vector3.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="WindowBase.cpp">
+    <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -336,9 +336,6 @@
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Window.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="WindowBase.inl">
       <Filter>Inline Files</Filter>
     </None>
     <None Include="Clock.inl">

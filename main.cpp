@@ -168,9 +168,15 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                    _In_ LPSTR lpCmdLine, _In_ int nCmdShow) {
     using game::operator""_deg;
-    game::RenderWindow window =
-        game::RenderWindow(game::Vector2(600, 600), L"Test",
-                         L"mario.ico", L"Hello", hInstance, nCmdShow);
+    const game::WindowSettings windowSetting = game::WindowSettings{
+    .size = game::Vector2i(600,600),
+    .title = L"Test",
+    .iconPath = L"mario.ico",
+    .className = L"Hello",
+    .hInstance = hInstance,
+    .nCmdShow=nCmdShow,
+    };
+    game::RenderWindow window = game::RenderWindow(windowSetting);
     //   game::RenderWindow window = game::RenderWindow(game::Vector2(800, 600), L"Test", SW_SHOWNORMAL,hInstance, L"null");
     game::TextureHolder textureHolder = game::TextureHolder(window);
     auto *texture = textureHolder.getTexture(L"textures/bbox.png");

@@ -2,13 +2,12 @@
 
 namespace game {
     ////////////////////////////////////////////////////////////
-   inline RenderWindow::RenderWindow(const Vector2<int>& size, const tchar* const title, const tchar* const className,
-        const tchar* const iconPath, const HINSTANCE hInstance, const int nCmdShow) noexcept
-    : Window(size, title, className, iconPath, hInstance, nCmdShow),
+   inline RenderWindow::RenderWindow(const WindowSettings& windowSettings) noexcept
+    : Window(windowSettings),
         RenderTarget(DXGI_SWAP_CHAIN_DESC{
             .BufferDesc = DXGI_MODE_DESC{
-                .Width = static_cast<UINT>(size.x),
-                .Height = static_cast<UINT>(size.y),
+                .Width = static_cast<UINT>(windowSettings.size.x),
+                .Height = static_cast<UINT>(windowSettings.size.y),
                 .RefreshRate = DXGI_RATIONAL{
                     .Numerator = 60,
                     .Denominator = 1,
@@ -30,5 +29,5 @@ namespace game {
             }) {}
 
    ////////////////////////////////////////////////////////////
-   inline Vector2<int> RenderWindow::getSize() const noexcept { return WindowBase::getSize(); }
+   inline Vector2<int> RenderWindow::getSize() const noexcept { return Window::getSize(); }
 }

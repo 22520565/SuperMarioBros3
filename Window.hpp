@@ -1,15 +1,49 @@
-#pragma once
-#include "tchar.hpp"
+﻿#pragma once
 #include "Vector2.hpp"
-#include "WindowBase.hpp"
-#include <minwindef.h>
-#include <winnt.h>
+#include <D3DX10.h>
+#include <d3d10.h>
+#include <tuple>
+#include "tchar.hpp"
+#include "WindowSettings.hpp"
 
 namespace game {
-    class Window : public WindowBase {
+    class Window {
       public:
-       explicit Window(const Vector2<int> &size, const tchar *const title, const tchar *const className,
-               const tchar *const iconPath, const HINSTANCE hInstance, const int nCmdShow) noexcept;
+        virtual ~Window() noexcept;
+
+        [[nodiscard]]
+        bool isOpen() const noexcept;
+
+        bool close() const noexcept;
+
+        [[nodiscard]]
+        const MSG *pollMsg() noexcept;
+
+        [[nodiscard]]
+       constexpr const Vector2<int>& getSize() const noexcept;
+
+      protected:
+        constexpr Window() = default;
+
+       explicit Window(const WindowSettings &newSettings) noexcept;
+
+        [[nodiscard]]
+        constexpr const HWND &getWindowHandler() const noexcept { return this->hWnd; }
+
+      private:
+        bool create(const WindowSettings& newSettings) noexcept;
+
+        static LRESULT CALLBACK winProc(const HWND hWnd, const UINT message,
+                                        const WPARAM wParam, const LPARAM lParam) noexcept;
+
+        WindowSettings settings = WindowSettings();
+        HWND hWnd = nullptr;
+        MSG msg = MSG();
+
+        constexpr Window(const Window &) noexcept = delete;
+        constexpr Window(Window &&) noexcept = delete;
+        constexpr Window &operator=(const Window &) noexcept = delete;
+        constexpr Window &operator=(Window &&) noexcept = delete;
     };
 }
 

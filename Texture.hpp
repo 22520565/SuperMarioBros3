@@ -1,9 +1,10 @@
 #pragma once
-#include "DxResource.hpp"
 #include "debug.hpp"
-#include <D3DX10.h>
-#include <cstdint>
+#include "DxResource.hpp"
 #include "tchar.hpp"
+#include "Vector2.hpp"
+#include <cstdint>
+#include <D3DX10.h>
 
 namespace game {
     class RenderTarget;
