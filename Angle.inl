@@ -26,6 +26,10 @@
 
 #pragma once
 #include "Angle.hpp"
+#include <concepts>
+#include <numbers>
+#include <type_traits>
+#include <cmath>
 
 namespace game {
     ////////////////////////////////////////////////////////////

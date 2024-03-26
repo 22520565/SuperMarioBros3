@@ -1,5 +1,9 @@
-#include "Keyboard.hpp"
 #include "debug.hpp"
+#include "InputBase.hpp"
+#include "Keyboard.hpp"
+#include <dinput.h>
+#include <winerror.h>
+#include <windows.h>
 
 namespace game {
     Keyboard::Keyboard(InputBase &inputBase) {

@@ -1,4 +1,13 @@
+#include "RenderTarget.hpp"
 #include "RenderWindow.hpp"
+#include "Vector2.hpp"
+#include "Window.hpp"
+#include "WindowSettings.hpp"
+#include <dxgi.h>
+#include <dxgicommon.h>
+#include <dxgiformat.h>
+#include <dxgitype.h>
+#include <minwindef.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

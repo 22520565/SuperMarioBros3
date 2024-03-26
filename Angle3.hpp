@@ -2,7 +2,9 @@
 #include "Angle.hpp"
 #include "Angle2.hpp"
 #include "stdfloat"
+#include "Vector3.hpp"
 #include <concepts>
+#include <type_traits>
 
 namespace game {
     template <typename T>

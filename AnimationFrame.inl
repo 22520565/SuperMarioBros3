@@ -1,4 +1,6 @@
 #include "AnimationFrame.hpp"
+#include "Rect2.hpp"
+#include "Time.hpp"
 
 namespace game {
     ////////////////////////////////////////////////////////////

@@ -25,13 +25,10 @@
 ////////////////////////////////////////////////////////////
 
 #pragma once
-#include "Vector3.hpp"
-#include <cmath>
-#include <compare>
 #include <concepts>
 #include <numbers>
 #include <type_traits>
-#include <windows.h>
+#include <cmath>
 
 namespace game {
     ////////////////////////////////////////////////////////////

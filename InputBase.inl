@@ -1,5 +1,8 @@
-#include "InputBase.hpp"
 #include "debug.hpp"
+#include "InputBase.hpp"
+#include <dinput.h>
+#include <minwindef.h>
+#include <winerror.h>
 
 namespace game {
    inline InputBase::InputBase(const HINSTANCE hInstance) noexcept {

@@ -308,12 +308,6 @@
     <None Include="Collision.hpp">
       <Filter>Temp FIles</Filter>
     </None>
-    <None Include="InputBase.inl">
-      <Filter>Inline Files</Filter>
-    </None>
-    <None Include="Keyboard.inl">
-      <Filter>Inline Files</Filter>
-    </None>
     <None Include="Angle.inl">
       <Filter>Inline Files\System</Filter>
     </None>
@@ -385,6 +379,12 @@
     </None>
     <None Include="Vector2.inl">
       <Filter>Inline Files\System</Filter>
+    </None>
+    <None Include="InputBase.inl">
+      <Filter>Inline Files\Window</Filter>
+    </None>
+    <None Include="Keyboard.inl">
+      <Filter>Inline Files\Window</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

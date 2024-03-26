@@ -1,6 +1,15 @@
-#include "RenderTarget.hpp"
+#include "D3DX10core.h"
 #include "debug.hpp"
+#include "RenderTarget.hpp"
+#include <atlcomcli.h>
+#include <basetsd.h>
+#include <d3d10.h>
+#include <d3d10misc.h>
+#include <dxgi.h>
 #include <limits>
+#include <minwindef.h>
+#include <winerror.h>
+#include <windows.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

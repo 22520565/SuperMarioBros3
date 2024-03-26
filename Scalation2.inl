@@ -1,4 +1,6 @@
 #include "Scalation2.hpp"
+#include "Vector2.hpp"
+#include <type_traits>
 
 namespace game {
     ////////////////////////////////////////////////////////////

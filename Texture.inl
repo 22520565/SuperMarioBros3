@@ -1,5 +1,10 @@
+#include "DxResource.hpp"
 #include "RenderTarget.hpp"
+#include "tchar.hpp"
 #include "Texture.hpp"
+#include "Vector2.hpp"
+#include <atlcomcli.h>
+#include <d3d10.h>
 #include <tuple>
 
 namespace game {

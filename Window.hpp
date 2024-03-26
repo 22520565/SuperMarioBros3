@@ -1,10 +1,9 @@
 ﻿#pragma once
 #include "Vector2.hpp"
-#include <D3DX10.h>
-#include <d3d10.h>
-#include <tuple>
-#include "tchar.hpp"
 #include "WindowSettings.hpp"
+#include <minwindef.h>
+#include <windef.h>
+#include <WinUser.h>
 
 namespace game {
     class Window {

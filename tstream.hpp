@@ -1,6 +1,13 @@
 #pragma once
 #include "tchar.hpp"
 #include <fstream>
+#include <ios>
+#include <iosfwd>
+#include <istream>
+#include <memory>
+#include <ostream>
+#include <streambuf>
+#include <string>
 
 namespace game {
     using tios = std::basic_ios<tchar, std::char_traits<tchar>>;

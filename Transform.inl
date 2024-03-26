@@ -32,6 +32,9 @@
 #include <minwindef.h>
 #include <type_traits>
 #include <array>
+#include "Rect3.hpp"
+#include "Rotation3.hpp"
+#include "Scalation3.hpp"
 
 namespace game {
 	////////////////////////////////////////////////////////////

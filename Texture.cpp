@@ -1,4 +1,13 @@
+#include "D3DX10tex.h"
+#include "debug.hpp"
+#include "tchar.hpp"
 #include "Texture.hpp"
+#include <atlcomcli.h>
+#include <d3d10.h>
+#include <d3dcommon.h>
+#include <minwindef.h>
+#include <winerror.h>
+#include <windows.h>
 
 namespace game {
     bool Texture::loadFromFile(const tchar *const &fileName) noexcept {

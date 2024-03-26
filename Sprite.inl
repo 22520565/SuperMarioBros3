@@ -1,4 +1,17 @@
+#include "D3DX10core.h"
+#include "D3DX10math.h"
+#include "Rect2.hpp"
+#include "Rect3.hpp"
+#include "RenderTarget.hpp"
 #include "Sprite.hpp"
+#include "Texture.hpp"
+#include "Vector2.hpp"
+#include "Vector3.hpp"
+#include <atlcomcli.h>
+#include <minwindef.h>
+#include <tuple>
+#include <winerror.h>
+#include <winnt.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

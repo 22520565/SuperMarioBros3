@@ -1,6 +1,6 @@
 #pragma once
 #include "Vector2.hpp"
-#include <concepts>
+#include <type_traits>
 
 namespace game {
     template <typename T>

@@ -1,4 +1,12 @@
-﻿#include "RenderTarget.hpp"
+﻿#include "D3DX10core.h"
+#include "D3DX10math.h"
+#include "Drawable.hpp"
+#include "RenderTarget.hpp"
+#include "View.hpp"
+#include <atlcomcli.h>
+#include <d3d10.h>
+#include <dxgi.h>
+#include <winerror.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

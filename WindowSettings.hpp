@@ -1,7 +1,9 @@
 #pragma once
-#include "Vector2.hpp"
 #include "tstring.hpp"
-#include <wtypes.h>
+#include "Vector2.hpp"
+#include <libloaderapi.h>
+#include <minwindef.h>
+#include <WinUser.h>
 
 namespace game {
 	struct WindowSettings {

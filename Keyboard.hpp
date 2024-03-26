@@ -1,5 +1,9 @@
 #pragma once
 #include "InputBase.hpp"
+#include <atlcomcli.h>
+#include <cstdint>
+#include <dinput.h>
+#include <minwindef.h>
 
 namespace game {
     class Keyboard final {

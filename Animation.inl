@@ -1,4 +1,10 @@
 #include "Animation.hpp"
+#include "AnimationFrame.hpp"
+#include "Rect2.hpp"
+#include "Sprite.hpp"
+#include "Texture.hpp"
+#include "Time.hpp"
+#include <vector>
 
 namespace game {
     ////////////////////////////////////////////////////////////

@@ -1,6 +1,7 @@
 #pragma once
-#include <dinput.h>
 #include <atlcomcli.h>
+#include <dinput.h>
+#include <minwindef.h>
 
 namespace game {
     class InputBase {

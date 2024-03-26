@@ -1,4 +1,8 @@
+#include "Angle.hpp"
+#include "Angle2.hpp"
 #include "Rotation2.hpp"
+#include "Vector2.hpp"
+#include <concepts>
 
 namespace game {
     ////////////////////////////////////////////////////////////

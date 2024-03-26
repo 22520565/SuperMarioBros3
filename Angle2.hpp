@@ -1,7 +1,9 @@
 #pragma once
 #include "Angle.hpp"
 #include "stdfloat"
+#include "Vector2.hpp"
 #include <concepts>
+#include <type_traits>
 
 namespace game {
     template <typename T>

@@ -27,6 +27,7 @@
 #pragma once
 #include <chrono>
 #include <cstdint>
+#include <ratio>
 
 namespace game {
     ////////////////////////////////////////////////////////////

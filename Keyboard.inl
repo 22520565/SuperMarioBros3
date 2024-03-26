@@ -1,6 +1,8 @@
 #include "Keyboard.hpp"
 #include <array>
+#include <cstdint>
 #include <limits>
+#include <winerror.h>
 
 namespace game {
     inline bool Keyboard::isKeyDown(const uint8_t keycode) noexcept {
@@ -14,7 +16,7 @@ namespace game {
                 (SUCCEEDED(pDirectInputDevice->Acquire()) &&
                  SUCCEEDED(pDirectInputDevice->GetDeviceState(
                      sizeof(keyboardState), reinterpret_cast<void **>(keyboardState.data()))))) [[likely]] {
-                result = (keyboardState[keycode] & 0x80) != 0;
+                result = ((keyboardState[keycode] & 0x80) != 0);
             }
         }
 

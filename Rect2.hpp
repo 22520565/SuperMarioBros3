@@ -24,6 +24,9 @@
 #pragma once
 #include "Vector2.hpp"
 #include <optional>
+#include <type_traits>
+#include "stdfloat"
+#include <cstdint>
 
 namespace game {
     ////////////////////////////////////////////////////////////

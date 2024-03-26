@@ -1,5 +1,5 @@
 #pragma once
-#include <winnt.h>
+#include <windows.h>
 
 namespace game {
 	using tchar = TCHAR;

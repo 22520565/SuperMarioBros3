@@ -1,7 +1,10 @@
-#include "Window.hpp"
-#include "Vector2.hpp"
-#include <tuple>
 #include "debug.hpp"
+#include "Vector2.hpp"
+#include "Window.hpp"
+#include "WindowSettings.hpp"
+#include <tuple>
+#include <windef.h>
+#include <WinUser.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

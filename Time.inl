@@ -27,6 +27,8 @@
 #include "Time.hpp"
 #include <cassert>
 #include <ratio>
+#include <chrono>
+#include <cstdint>
 
 namespace game {
     ////////////////////////////////////////////////////////////

@@ -28,6 +28,7 @@
 #include "Time.hpp"
 #include <chrono>
 #include <type_traits>
+#include <ratio>
 
 namespace game {
     namespace priv {

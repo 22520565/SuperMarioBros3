@@ -1,6 +1,7 @@
+#include "RenderTarget.hpp"
+#include "tchar.hpp"
 #include "Texture.hpp"
 #include "TextureHolder.hpp"
-#include <windows.h>
 
 namespace game {
     ////////////////////////////////////////////////////////////

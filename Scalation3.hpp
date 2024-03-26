@@ -1,7 +1,7 @@
 #pragma once
 #include "Scalation2.hpp"
 #include "Vector3.hpp"
-#include <concepts>
+#include <type_traits>
 
 namespace game {
     template <typename T>

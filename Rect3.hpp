@@ -1,6 +1,10 @@
 #pragma once
 #include "Rect2.hpp"
+#include "stdfloat"
 #include "Vector3.hpp"
+#include <cstdint>
+#include <optional>
+#include <type_traits>
 
 namespace game {
     ////////////////////////////////////////////////////////////
